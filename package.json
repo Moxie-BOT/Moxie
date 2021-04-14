@@ -1,0 +1,40 @@
+{
+  "name": "moxie",
+  "version": "0.0.1",
+  "description": "Uma bot incrível, personalizável, otimizada, fácil de usar, focado no seu servidor e muito especial 🌟",
+  "main": "./moxie-discord/index.js",
+  "scripts": {
+    "start": "node .;",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Munverly/Moxie.git"
+  },
+  "keywords": [
+    "discord-bot",
+    "eris",
+    "eris-discord"
+  ],
+  "author": "Munverly",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Munverly/Moxie/issues"
+  },
+  "homepage": "https://github.com/Munverly/Moxie#readme",
+  "dependencies": {
+    "@prisma/client": "^2.21.0",
+    "chalk": "^4.1.0",
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "eris": "github:abalabahaha/eris#dev",
+    "humanize-duration": "^3.25.1",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "prisma": "^2.21.0"
+  },
+  "prisma": {
+    "schema": "moxie-discord/src/prisma/schema.prisma"
+  }
+}

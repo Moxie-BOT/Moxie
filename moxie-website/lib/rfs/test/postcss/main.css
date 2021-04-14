@@ -1,0 +1,115 @@
+.selector-1 {
+  background-color: #f00;
+  width: 300px;
+  font-size: rfs(32px);
+}
+
+.selector-2 {
+  font-size: rfs(2rem);
+}
+
+.selector-3 {
+  font-size: rfs(2rem) !important;
+}
+
+.selector-4 {
+  font-size: rfs(2rem);
+}
+
+.selector-5 {
+  font-size: rfs(2em);
+}
+
+.selector-6 {
+  font-size: rfs(inherit);
+}
+
+@supports (display: flex) {
+  .selector-7 {
+    font-size: rfs(28px);
+  }
+}
+
+.selector-8 {
+  flex: rfs(0 999 32rem);
+}
+
+.selector-9 {
+  padding: rfs(2rem);
+}
+
+.selector-10 {
+  padding: rfs(2rem);
+}
+
+.selector-11 {
+  padding-top: rfs(2rem);
+}
+
+.selector-12 {
+  padding-right: rfs(2rem);
+}
+
+.selector-13 {
+  padding-bottom: rfs(2rem);
+}
+
+.selector-14 {
+  padding-left: rfs(2rem);
+}
+
+.selector-15 {
+  margin: rfs(2rem);
+}
+
+.selector-16 {
+  margin-top: rfs(2rem);
+}
+
+.selector-17 {
+  margin-right: rfs(2rem);
+}
+
+.selector-18 {
+  margin-bottom: rfs(2rem);
+}
+
+.selector-19 {
+  margin-left: rfs(2rem);
+}
+
+.selector-20 {
+  margin: rfs(2rem 3rem);
+}
+
+.selector-21 {
+  margin: rfs(2rem 3rem) !important;
+}
+
+.selector-22 {
+  font-size: rfs(0);
+}
+
+.selector-23 {
+  margin: rfs(0 3rem);
+}
+
+.selector-24 {
+  box-shadow: rfs(0 0 2rem #f00, 0 0 3rem #0f0);
+}
+
+.selector-25 {
+  --value: rfs(3rem);
+}
+
+.selector-26 {
+  font-size: rfs(10px);
+}
+
+.selector-27 {
+  margin: rfs(-3rem);
+}
+
+.selector-28 {
+  margin: rfs(-.5rem);
+}

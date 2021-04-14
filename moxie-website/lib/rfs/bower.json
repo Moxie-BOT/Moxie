@@ -1,0 +1,29 @@
+{
+  "name": "rfs",
+  "description": "Powerful & easy-to-use responsive resizing engine.",
+  "main": "postcss.js",
+  "authors": [
+    "Martijn Cuppens <martijn.cuppens@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "rfs",
+    "fluid",
+    "responsive",
+    "font-size",
+    "typography",
+    "mixin",
+    "scss",
+    "sass",
+    "less",
+    "stylus",
+    "postcss"
+  ],
+  "homepage": "https://github.com/twbs/rfs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}
