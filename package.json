@@ -29,7 +29,8 @@
     "dotenv": "^8.2.0",
     "eris": "github:abalabahaha/eris#dev",
     "humanize-duration": "^3.25.1",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "prisma": "^2.21.0"
