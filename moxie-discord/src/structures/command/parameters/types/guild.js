@@ -22,6 +22,7 @@ module.exports = class Guild {
         let guild
 
         if (options.acceptLocal && !arg) return ctx.client.guilds.get(ctx.guild.id);
+        else if (!arg) return null
 
         try {
             guild = !/^\d+$/.test(arg) ? ctx.client.guilds.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.client.guilds.get(arg)

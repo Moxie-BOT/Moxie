@@ -23,11 +23,12 @@ module.exports = class User {
 
         let user;
         if (options.acceptAuthor && !arg) return ctx.guild.members.get(ctx.author.id).user;
+        else if (!arg) return null;
 
         arg = arg.replace(/<|>|!|@/g, "");
         try {
             user = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase())).user
-                : ctx.guild.members.get(arg).user || ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
+                : ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
         } catch { };
 
         if (!user) throw new Error(options.errors.invalidUser);

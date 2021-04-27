@@ -28,6 +28,7 @@
     "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "eris": "github:abalabahaha/eris#dev",
+    "http-server": "^0.12.3",
     "humanize-duration": "^3.25.1",
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1"

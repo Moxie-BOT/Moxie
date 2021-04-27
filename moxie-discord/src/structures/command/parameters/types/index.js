@@ -1,5 +1,8 @@
 module.exports = {
     user: require("./user"),
     number: require("./number"),
-    string: require("./string")
+    string: require("./string"),
+    channel: require("./channel"),
+    guild: require("./guild"),
+    role: require("./role")
 }

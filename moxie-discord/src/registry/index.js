@@ -1,4 +1,5 @@
 module.exports = {
     ListenerLoader: require("./ListenerRegistry"),
-    DatabaseLoader: require("./DatabaseRegistry")
+    databaseTools: require("./DatabaseRegistry"),
+    commandTools: require("./CommandRegistry"),
 }

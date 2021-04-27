@@ -41,8 +41,7 @@ module.exports = class CommandHandler {
         try {
             await this.execute(ctx, [...parameters]);
         } catch (err) {
-            Logger.error(err.stack);
-            ctx.reply("erro")
+            ctx.reply(`<:error:821900333289570304> Algo que não era pra ter acontecido, aconteceu. O provável erro foi capaz de impedir que eu executasse o comando por inteiro. Esse é o causador do problema:\n\`${err}\``)
         }
     }
     /**

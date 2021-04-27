@@ -10,7 +10,8 @@ module.exports = class CommandRegistry {
      */
     constructor(client) {
         this.client = client;
-        
+        this.client.commands = new Map();
+
         this.load();
     }
 

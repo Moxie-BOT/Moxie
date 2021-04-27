@@ -27,20 +27,28 @@ module.exports = class MessageListener {
             }
         });
 
-        let {prefix} = await this.client.database.guilds.upsert({
-            where: { id: message.channel.guild.id },
-            update: {},
-            create: { id: message.channel.guild.id },
-        });
+        const { prefix } = await this.client.databaseTools.getGuildCache(message.channel.guild.id);
 
         if (message.content.startsWith(prefix)) {
             let args = message.content.trim().replace(prefix, "").split(" ");
             let commandName = args.shift().toLowerCase();
-            let cmd = this.client.CommandRegistry.getCommand(commandName);
+            let cmd = this.client.commandTools.getCommand(commandName);
 
             if (cmd != null) {
                 let ctx = new CommandContext(this.client, message, args);
-                cmd._execute(ctx);
+                try {
+                    cmd._execute(ctx);
+                } finally {
+                    if (this.client.vanilla.get("dataCommans")) {
+                        const { executed } = this.client.vanilla.get("dataCommans");
+                        this.client.vanilla.set("dataCommans", {
+                            executed: executed + 1
+                        })
+                    } else 
+                    this.client.vanilla.set("dataCommans", {
+                        executed: 1
+                    })
+                }
             };
         };
     };

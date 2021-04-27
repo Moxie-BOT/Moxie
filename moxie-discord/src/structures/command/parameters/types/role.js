@@ -2,7 +2,7 @@ const CommandContext = require("../../CommandContext");
 const util = require("../../../../utils/Utilities");
 
 let defVar = (o, b, c) => (typeof o[b] === "undefined" ? c : o[b]);
-module.exports = class NumberParameter {
+module.exports = class Role {
     static parseOptions(options = {}) {
         return {
             ...options,
@@ -23,12 +23,12 @@ module.exports = class NumberParameter {
         let role;
 
         function getHighestRole() {
-            member = ctx.member;
-            const filteredRoles = ctx.guild.roles.filter(r => member.roles.includes(r.id));
+            const filteredRoles = ctx.guild.roles.filter(r => ctx.member.roles.includes(r.id));
             return filteredRoles.sort((a, b) => b.position - a.position)[0];
         }
         
-        if (options.highestRole && !arg) return ctx.guild.roles.get(getHighestRole)
+        if (options.highestRole && !arg) return ctx.guild.roles.get(getHighestRole().id)
+        else if (!arg) return null
         arg = arg.replace(/<|>|@|&/g, "");
 
         try {

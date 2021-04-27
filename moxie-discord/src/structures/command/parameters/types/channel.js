@@ -22,6 +22,7 @@ module.exports = class Channel {
         let channel
 
         if (options.acceptLocal && !arg) return ctx.guild.channels.get(ctx.channel.id);
+        else if (!arg) return null
 
         try {
             channel = !/^\d+$/.test(arg) ? ctx.guild.channels.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.channels.get(arg)

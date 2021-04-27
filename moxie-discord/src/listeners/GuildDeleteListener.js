@@ -27,5 +27,6 @@ module.exports = class GuildCreateListener {
                 collector.stop('Guild Delete');
             }
         })
+        this.client.databaseTools.deleteGuildCache(guild.id);
     }
 };
