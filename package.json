@@ -4,7 +4,7 @@
   "description": "Uma bot incrível, personalizável, otimizada, fácil de usar, focado no seu servidor e muito especial 🌟",
   "main": "./moxie-discord/index.js",
   "scripts": {
-    "start": "node .;",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "eris": "github:abalabahaha/eris#dev",
     "humanize-duration": "^3.25.1",
     "moment": "^2.29.1",
+    "mongoose": "^5.12.12",
     "node-fetch": "^2.6.1"
   }
 }
