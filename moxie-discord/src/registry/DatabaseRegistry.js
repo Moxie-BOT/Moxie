@@ -1,54 +1,31 @@
 const Logger = require("../utils/Logger");
-const { PrismaClient } = require('@prisma/client');
+const MongoDB = require('../database/MongoDB')
 
 module.exports = class DatabaseRegistry {
     constructor(client) {
         this.client = client;
-        try {
-            this.client.database = new PrismaClient();
-            this.client.tempCache = new Map();
+        this.database = null
 
-            Logger.info("Connected with PostgreSQL")
-        } catch (error) {
-            Logger.error("Database returned an " + error.stack)
-        }
+        this.load();
     }
 
-    /**
-     * 
-     * @param {String} query Guild ID
-     * @returns
-     */
-    async getGuildCache(query) {
-        if (!await this.client.tempCache.has(query)) {
-            let guild = await this.client.database.guilds.upsert({
-                where: { id: query },
-                update: {},
-                create: { id: query },
-            });
-            await this.client.tempCache.set(query, { prefix: guild.prefix, lang: guild.lang });
+    load() {
+        if (process.env.PRODUCTION !== "true") return Logger.warning("Database has not been initialized, as PRODUCTION mode is disabled");
+        this.initializeDatabase({
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false
+        });
+    }
 
-            return await this.client.tempCache.get(query);
-        }
-        else return await this.client.tempCache.get(query);
+    initializeDatabase(options = {}) {
+        this.database = new MongoDB(options);
+        this.database
+            .connect()
+            .then(() => Logger.info("Database connections established!"), this.client.database = this.database)
+            .catch((err) => {
+                Logger.error("Database connection failed " + err);
+                this.database = null;
+            })
     }
-    async deleteGuildCache(query) {
-        if (await this.client.tempCache.get(query)) {
-            await this.client.tempCache.delete(query);
-            return true;
-        }
-        else return false;
-    }
-    async createGuildCache(query) {
-        if (await this.client.tempCache.has(query)) return true;
-        else {
-            let guild = await this.client.database.guilds.upsert({
-                where: { id: query },
-                update: {},
-                create: { id: query },
-            });
-            await this.client.tempCache.set(query, { prefix: guild.prefix, lang: guild.lang });
-            return true;
-        }
-    }
-};
+}

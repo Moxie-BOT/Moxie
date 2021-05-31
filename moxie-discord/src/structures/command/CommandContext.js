@@ -10,10 +10,6 @@ module.exports = class CommandContext {
      */
     constructor(client, msg, args) {
         this.client = client;
-
-        /**
-         * @type {Eris.Guild}
-         */
         this.guild = msg.channel.guild;
         this.author = msg.author;
         this.author.tag = `${msg.author.username}#${msg.author.discriminator}`
@@ -24,6 +20,13 @@ module.exports = class CommandContext {
         this.messageID = msg.id;
         this.message = msg;
     }
+
+    /**
+     *
+     * @param content
+     * @param file
+     * @returns {Promise<*>}
+     */
     async reply(content, file) {
         if (typeof content !== "object") content = { content };
         const msg = await this.channel.getMessage(this.messageID).catch(() => { });

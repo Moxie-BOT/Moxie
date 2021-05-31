@@ -45,7 +45,7 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
         embed.addField("💻 ID do canal", channel.id, true)
         embed.addField("💈 Tipo", channelType[channel.type], true)
         embed.addField("👀 Canal de", channel.guild.name, true)
-        embed.setColor("RANDOM");
+        embed.setColor("DEFAULT");
 
         switch (channel.type) {
             case 0:
@@ -60,8 +60,8 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
                 embed.addField("📷 Qualidade de vídeo", channel.videoQualityMode == 1 ? "auto" : "720p", true)
                 embed.addField("🗣️ Membros no canal", channel.voiceMembers ? channel.voiceMembers.map(lk => lk.user.mention).slice(0, 10).join(", ") : booleans[null]);
                 break;
-        };
+        }
         embed.addField("📆 Criado há", humanizeDuration(Date.now() - channel.createdAt, timeConfig), true);
-        ctx.reply({ embed })
+        await ctx.reply({embed})
     }
 };

@@ -27,6 +27,7 @@ module.exports = class EvalCommand extends (
     /**
      *
      * @param {CommandContext} ctx
+     * @param {String} code
      */
     async execute(ctx, [code]) {
         try {
@@ -44,9 +45,9 @@ module.exports = class EvalCommand extends (
             )}`;
             if (str.length > 1800) str = str.substr(0, 1800) + "...";
 
-            ctx.channel.createMessage(`\`\`\`xl\n${str}\`\`\``);
+            await ctx.reply(`\`\`\`xl\n${str}\`\`\``);
         } catch (err) {
-            ctx.channel.createMessage(`\`\`\`xl\n${err.stack}\`\`\``);
+            await ctx.reply(`\`\`\`xl\n${err.stack}\`\`\``);
         }
     }
     clean(text) {

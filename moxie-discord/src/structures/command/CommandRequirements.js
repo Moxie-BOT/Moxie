@@ -14,6 +14,7 @@ function parseOptions(options) {
 /**
  *
  * @param {CommandContext} ctx
+ * @param {Object} opt
  */
 async function handle(ctx, opt) {
     let options = parseOptions(opt);

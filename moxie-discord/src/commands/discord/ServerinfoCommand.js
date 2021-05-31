@@ -46,7 +46,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
 
         const embed = new EmbedBuilder()
         embed.setTitle(`Informações de ${guild.name} ${guild.premiumTier ? "<:boost:825875610425360494>" : ""}`)
-        embed.setColor("RANDOM")
+        embed.setColor("DEFAULT")
         embed.setDescription(guild.description)
         embed.setThumbnail(guild.iconURL)
         embed.setImage(guild.splashURL || guild.bannerURL)

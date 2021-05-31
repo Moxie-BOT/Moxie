@@ -15,8 +15,10 @@ module.exports = class User {
         };
     }
     /**
-     * 
-     * @param {CommandContext} ctx 
+     *
+     * @param arg
+     * @param {CommandContext} ctx
+     * @param opt
      */
     static async parse(arg, ctx, opt) {
         const options = this.parseOptions(opt);
@@ -25,11 +27,11 @@ module.exports = class User {
         if (options.acceptAuthor && !arg) return ctx.guild.members.get(ctx.author.id).user;
         else if (!arg) return null;
 
-        arg = arg.replace(/<|>|!|@/g, "");
+        arg = arg.replace(/[<>!@]/g, "");
         try {
             user = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase())).user
                 : ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
-        } catch { };
+        } catch { }
 
         if (!user) throw new Error(options.errors.invalidUser);
         else user.tag = `${user.username}#${user.discriminator}`;

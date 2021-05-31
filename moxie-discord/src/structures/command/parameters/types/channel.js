@@ -14,8 +14,10 @@ module.exports = class Channel {
         };
     }
     /**
-     * 
-     * @param {CommandContext} ctx 
+     *
+     * @param arg
+     * @param {CommandContext} ctx
+     * @param opt
      */
     static async parse(arg, ctx, opt) {
         const options = this.parseOptions(opt);

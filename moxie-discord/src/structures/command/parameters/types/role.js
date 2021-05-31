@@ -29,7 +29,7 @@ module.exports = class Role {
         
         if (options.highestRole && !arg) return ctx.guild.roles.get(getHighestRole().id)
         else if (!arg) return null
-        arg = arg.replace(/<|>|@|&/g, "");
+        arg = arg.replace(/[<>@&]/g, "");
 
         try {
             role = !/^\d+$/.test(arg) ? ctx.guild.roles.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.roles.get(arg)

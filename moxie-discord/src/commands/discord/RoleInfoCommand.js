@@ -38,7 +38,7 @@ module.exports = class RoleInfoCommand extends CommandHandler {
         for (const v in permsRole) realPerms.push(v);
         const embed = new EmbedBuilder()
         embed.setTitle(`Informações de ${role.name}`)
-        embed.setColor("RANDOM")
+        embed.setColor("DEFAULT")
         embed.addField("💻 ID do cargo", role.id, true)
         embed.addField("👀 Cargo de", role.guild.name, true)
         embed.addField("🎨 Cor", role.color == 0 ? role.color = "#000000" : "#" + ((role.color) >>> 0).toString(16).toUpperCase(), true)

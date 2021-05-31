@@ -1,6 +1,15 @@
 const Events = require('events');
+const Client = require("../Client");
+const Eris = require("eris");
 
 class ReactionCollector extends Events {
+    /**
+     *
+     * @param {Client} client
+     * @param {Eris.Message} message
+     * @param filter
+     * @param {Object} options
+     */
     constructor(client, message, filter, options = {}) {
         super();
         this.client = client;

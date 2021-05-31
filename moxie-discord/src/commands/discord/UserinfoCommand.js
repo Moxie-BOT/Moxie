@@ -57,7 +57,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
 
         embed.setTitle(title)
         embed.setThumbnail(user.dynamicAvatarURL())
-        embed.setColor("RANDOM")
+        embed.setColor("DEFAULT")
         embed.addField("📚 Tag", `\`${user.tag}\``, true)
         embed.addField("💻 ID do usuário", `\`${user.id}\``, true)
         embed.addField("📆 Criado há", humanizeDuration(Date.now() - user.createdAt, timeConfig), true)

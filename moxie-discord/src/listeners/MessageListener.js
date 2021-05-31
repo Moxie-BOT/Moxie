@@ -22,12 +22,10 @@ module.exports = class MessageListener {
         if (message.author.discriminator === '0000') return;
 
         this.client.messageCollectors.forEach(collector => {
-            if (collector.channel.id === message.channel.id) {
-                collector.collect(message);
-            }
+            if (collector.channel.id === message.channel.id) collector.collect(message);
         });
 
-        const { prefix } = await this.client.databaseTools.getGuildCache(message.channel.guild.id);
+        const {prefix} = await this.client.database.guilds.get(message.guildID);
 
         if (message.content.startsWith(prefix)) {
             let args = message.content.trim().replace(prefix, "").split(" ");
@@ -36,20 +34,8 @@ module.exports = class MessageListener {
 
             if (cmd != null) {
                 let ctx = new CommandContext(this.client, message, args);
-                try {
-                    cmd._execute(ctx);
-                } finally {
-                    if (this.client.vanilla.get("dataCommans")) {
-                        const { executed } = this.client.vanilla.get("dataCommans");
-                        this.client.vanilla.set("dataCommans", {
-                            executed: executed + 1
-                        })
-                    } else 
-                    this.client.vanilla.set("dataCommans", {
-                        executed: 1
-                    })
-                }
-            };
-        };
-    };
+                await cmd._execute(ctx);
+            }
+        }
+    }
 };

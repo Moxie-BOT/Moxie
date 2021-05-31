@@ -1,6 +1,7 @@
 const CommandContext = require("../../structures/command/CommandContext");
 const CommandHandler = require("../../structures/command/CommandHandler");
 const EmbedBuilder = require("../../utils/EmbedBuilder");
+const Eris = require("eris")
 
 module.exports = class AvatarCommand extends CommandHandler {
     constructor(client) {
@@ -19,14 +20,15 @@ module.exports = class AvatarCommand extends CommandHandler {
     /**
      *
      * @param {CommandContext} ctx
+     * @param {Eris.user} user
      */
     async execute(ctx, [user]) {
         let embed = new EmbedBuilder()
-            .setColor("RANDOM")
+            .setColor("DEFAULT")
             .setTitle(`Avatar de ${user.tag}`)
             .setDescription(`**Baixe clicando [aqui](${user.dynamicAvatarURL()})**`)
             .setImage(user.dynamicAvatarURL())
             .setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL());
-        ctx.reply({ embed });
+        await ctx.reply({embed});
     }
 };

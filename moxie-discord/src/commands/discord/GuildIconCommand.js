@@ -24,7 +24,7 @@ module.exports = class GuildIconCommand extends CommandHandler {
         if (!guild.dynamicIconURL()) return ctx.reply("<:error:821900333289570304> Este servidor não possui um icon para ser mostrado")
 
         let embed = new EmbedBuilder()
-            .setColor("RANDOM")
+            .setColor("DEFAULT")
             .setTitle(`Icon de ${guild.name}`)
             .setDescription(`**Baixe clicando [aqui](${guild.dynamicIconURL()})**`)
             .setImage(guild.dynamicIconURL())

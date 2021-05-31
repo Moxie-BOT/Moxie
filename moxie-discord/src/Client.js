@@ -1,5 +1,5 @@
 const Eris = require("eris");
-const { commandTools, databaseTools, ListenerLoader } = require("./registry");
+const Loaders = require("./registry");
 
 module.exports = class Client extends Eris.Client {
     /**
@@ -12,10 +12,8 @@ module.exports = class Client extends Eris.Client {
 
         this.reactionCollectors = [];
         this.messageCollectors = [];
+        this.commandTools = new (require("./registry/CommandRegistry"))(this)
 
-        this.commandTools = new commandTools(this);
-        this.databaseTools = new databaseTools(this);
-        this.vanilla = new Map();
-        new ListenerLoader(this)
+        for (const Loader of Object.values(Loaders)) new Loader(this);
     }
 }
