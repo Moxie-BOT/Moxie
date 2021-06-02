@@ -19,9 +19,10 @@ module.exports = class PingCommand extends CommandHandler {
     /**
      *
      * @param {CommandContext} ctx
+     * @param {String[]} content
      */
     async execute(ctx, [content]) {
         if (content) await ctx.reply("Nada por enquanto")
-        else await ctx.reply(`🏓 Pong! Seu servidor está na shard \`(${ctx.guild.shard.id}/${this.client.shards.size})\`\n📡 Latência da shard - **${ctx.guild.shard.latency}ms**\n💻 Latência - **${ctx.message.timestamp - new Date}ms**`)
+        else await ctx.reply(`🏓 Pong! Seu servidor está na shard \`(${ctx.guild.shard.id}/${this.client.shards.size})\`\n📡 Latência da shard - **${ctx.guild.shard.latency}ms**\n💻 Latência - **${new Date - ctx.message.timestamp}ms**`)
     }
 };

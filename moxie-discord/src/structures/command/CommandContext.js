@@ -28,12 +28,11 @@ module.exports = class CommandContext {
      * @returns {Promise<*>}
      */
     async reply(content, file) {
-        if (typeof content !== "object") content = { content };
-        const msg = await this.channel.getMessage(this.messageID).catch(() => { });
-        if (msg) {
-            content.messageReferenceID = msg.id;
-            content.allowedMentions = { repliedUser: true }
-        }
+        if (typeof content !== "object") content = {content};
+        const msg = await this.channel.getMessage(this.messageID).catch(() => {});
+        if (!msg) return
+        content.messageReferenceID = msg.id;
+        content.allowedMentions = {repliedUser: true}
 
         return this.channel.createMessage(content, file)
     }

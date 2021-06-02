@@ -2,6 +2,7 @@ const CommandContext = require("../../structures/command/CommandContext");
 const CommandHandler = require("../../structures/command/CommandHandler");
 const EmbedBuilder = require("../../utils/EmbedBuilder");
 const humanizeDuration = require("humanize-duration");
+const Eris = require("eris")
 
 module.exports = class ServerinfoCommand extends CommandHandler {
     constructor(client) {
@@ -20,6 +21,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     /**
      *
      * @param {CommandContext} ctx
+     * @param {Eris.Guild} guild
      */
     async execute(ctx, [guild]) {
         let owner = this.client.users.get(guild.ownerID),
@@ -35,9 +37,9 @@ module.exports = class ServerinfoCommand extends CommandHandler {
             };
 
         guild.channels.forEach(ch => {
-            if (ch.type == 0) text++;
-            if (ch.type == 2) voice++;
-            if (ch.type == 4) category++
+            if (ch.type === 0) text++;
+            if (ch.type === 2) voice++;
+            if (ch.type === 4) category++
         });
         guild.members.forEach(u => {
             if (!u.bot) users++;
@@ -57,6 +59,6 @@ module.exports = class ServerinfoCommand extends CommandHandler {
         embed.addField(`👥 Total de membros ${allMembers}`, `Usuários: ${users}\nBots: ${bots}`, true)
         embed.addField("📆 Criado há", humanizeDuration(Date.now() - guild.createdAt, timeConfig), true)
         embed.setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL());
-        ctx.reply({ embed });
+        await ctx.reply({embed});
     }
 };

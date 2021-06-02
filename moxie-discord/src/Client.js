@@ -12,6 +12,8 @@ module.exports = class Client extends Eris.Client {
 
         this.reactionCollectors = [];
         this.messageCollectors = [];
+        this.commands = new Map();
+        this.database = null;
         this.commandTools = new (require("./registry/CommandRegistry"))(this)
 
         for (const Loader of Object.values(Loaders)) new Loader(this);

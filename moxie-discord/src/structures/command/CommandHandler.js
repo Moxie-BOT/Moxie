@@ -27,6 +27,7 @@ module.exports = class CommandHandler {
         try {
             await CommandRequirements.handle(ctx, this.requirements);
         } catch (err) {
+            console.log(err.stack)
             return ctx.reply(err.message);
         }
         try {
@@ -42,8 +43,7 @@ module.exports = class CommandHandler {
         try {
             await this.execute(ctx, [...parameters]);
         } catch (err) {
-            console.log(err.stack)
-            await ctx.reply(`<:error:821900333289570304> Algo que não era pra ter acontecido, aconteceu. O provável erro foi capaz de impedir que eu executasse o comando por inteiro. Esse é o causador do problema:\n\`${err}\``)
+            await ctx.reply(`<:error:849430452624162816> Algo que não era pra ter acontecido, aconteceu. O provável erro foi capaz de impedir que eu executasse o comando por inteiro. Esse é o causador do problema:\n\`${err}\``)
         }
     }
     /**

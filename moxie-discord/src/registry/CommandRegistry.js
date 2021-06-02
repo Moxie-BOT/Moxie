@@ -10,7 +10,6 @@ module.exports = class CommandRegistry {
      */
     constructor(client) {
         this.client = client;
-        this.client.commands = new Map();
 
         this.load();
     }
@@ -34,8 +33,8 @@ module.exports = class CommandRegistry {
         }
     }
     /**
-     * 
-     * @param {String} name 
+     *
+     * @param {String} name
      * @returns {Boolean}
      */
     reloadCommand(name) {
@@ -51,7 +50,7 @@ module.exports = class CommandRegistry {
             this.client.commands.delete(command.name);
             delete require.cache[require.resolve("../commands/" + dir)];
             const cm = require(`../commands/${dir}`);
-            
+
             let command2 = new cm(this.client);
             command2.dir = dir;
             this.client.commands.set(command2.labels[0], command2);
@@ -60,9 +59,9 @@ module.exports = class CommandRegistry {
         }
     }
     /**
-     * 
-     * @param {String} label 
-     * @returns 
+     *
+     * @param {String} label
+     * @returns
      */
     getCommand(label) {
         let final;
@@ -72,8 +71,8 @@ module.exports = class CommandRegistry {
         return final;
     }
     /**
-     * 
-     * @param {String} categoryName 
+     *
+     * @param {String} categoryName
      * @returns {Array}
      */
     getCommandsFromCategory(categoryName) {
@@ -84,5 +83,10 @@ module.exports = class CommandRegistry {
             }
         })
         return a;
+    }
+    async getAllCategories() {
+        const a = []
+        await this.client.commands.forEach(o => a.push(o.category))
+        return a.filter((v, i) => a.indexOf(v) === i);
     }
 };

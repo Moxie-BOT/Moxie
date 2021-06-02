@@ -18,7 +18,6 @@ module.exports = class MessageListener {
      */
     async execute(message) {
         if (message.author.bot) return;
-        if (message.channel.type === 1) return;
         if (message.author.discriminator === '0000') return;
 
         this.client.messageCollectors.forEach(collector => {

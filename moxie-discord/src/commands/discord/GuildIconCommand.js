@@ -1,6 +1,7 @@
 const CommandContext = require("../../structures/command/CommandContext");
 const CommandHandler = require("../../structures/command/CommandHandler");
 const EmbedBuilder = require("../../utils/EmbedBuilder");
+const Eris = require("eris")
 
 module.exports = class GuildIconCommand extends CommandHandler {
     constructor(client) {
@@ -19,9 +20,10 @@ module.exports = class GuildIconCommand extends CommandHandler {
     /**
      *
      * @param {CommandContext} ctx
+     * @param {Eris.Guild} guild
      */
     async execute(ctx, [guild]) {
-        if (!guild.dynamicIconURL()) return ctx.reply("<:error:821900333289570304> Este servidor não possui um icon para ser mostrado")
+        if (!guild.dynamicIconURL()) return ctx.reply("<:error:849430452624162816> Este servidor não possui um icon para ser mostrado")
 
         let embed = new EmbedBuilder()
             .setColor("DEFAULT")
@@ -29,6 +31,6 @@ module.exports = class GuildIconCommand extends CommandHandler {
             .setDescription(`**Baixe clicando [aqui](${guild.dynamicIconURL()})**`)
             .setImage(guild.dynamicIconURL())
             .setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL());
-        ctx.reply({ embed });
+        await ctx.reply({embed});
     }
 };

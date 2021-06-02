@@ -21,13 +21,8 @@ module.exports = class Role {
         const options = this.parseOptions(opt);
 
         let role;
-
-        function getHighestRole() {
-            const filteredRoles = ctx.guild.roles.filter(r => ctx.member.roles.includes(r.id));
-            return filteredRoles.sort((a, b) => b.position - a.position)[0];
-        }
         
-        if (options.highestRole && !arg) return ctx.guild.roles.get(getHighestRole().id)
+        if (options.highestRole && !arg && ctx.member.roles.length > 0) return ctx.guild.roles.get(ctx.member.roles[0])
         else if (!arg) return null
         arg = arg.replace(/[<>@&]/g, "");
 

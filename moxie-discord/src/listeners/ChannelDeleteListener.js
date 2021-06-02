@@ -1,4 +1,5 @@
 const Client = require("../Client");
+const Eris = require("eris")
 
 module.exports = class channelDeleteListener {
     /**
@@ -9,6 +10,12 @@ module.exports = class channelDeleteListener {
         this.client = client;
         this.name = "channelDelete";
     }
+
+    /**
+     *
+     * @param {Eris.Channel} channel
+     * @returns {Promise<void>}
+     */
     async execute(channel) {
         this.client.reactionCollectors.forEach(collector => {
             if (collector.message.channel.id === channel.id) {

@@ -29,5 +29,7 @@
     "manageNicknames": "Gerenciar apelidos",
     "manageRoles": "Gerenciar cargos",
     "manageWebhooks": "Gerenciar webhooks",
-    "manageEmojis": "Gerenciar emojis"
+    "manageEmojis": "Gerenciar emojis",
+    "useSlashCommands": "Usar comandos slash",
+    "voiceRequestToSpeak": "Pedir para falar"
 }

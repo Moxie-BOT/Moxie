@@ -3,6 +3,7 @@ const CommandHandler = require("../../structures/command/CommandHandler");
 const EmbedBuilder = require("../../utils/EmbedBuilder");
 const humanizeDuration = require("humanize-duration");
 const PermissionsJSON = require("../../utils/ErisPermissions.json");
+const Eris = require("eris");
 
 module.exports = class RoleInfoCommand extends CommandHandler {
     constructor(client) {
@@ -21,6 +22,7 @@ module.exports = class RoleInfoCommand extends CommandHandler {
     /**
      *
      * @param {CommandContext} ctx
+     * @param {Eris.Role} role
      */
     async execute(ctx, [role]) {
 
@@ -33,15 +35,14 @@ module.exports = class RoleInfoCommand extends CommandHandler {
                 largest: 3, units: ['y', 'mo', 'd', 'h', 'm', 's'], language: "pt", round: true, conjunction: " e ", serialComma: false
             }
         let permsRole = role.permissions.json;
-        let realPerms = [];
+        let realPerms = Object.keys(permsRole).filter(field => permsRole[field]);
 
-        for (const v in permsRole) realPerms.push(v);
         const embed = new EmbedBuilder()
         embed.setTitle(`Informações de ${role.name}`)
         embed.setColor("DEFAULT")
         embed.addField("💻 ID do cargo", role.id, true)
         embed.addField("👀 Cargo de", role.guild.name, true)
-        embed.addField("🎨 Cor", role.color == 0 ? role.color = "#000000" : "#" + ((role.color) >>> 0).toString(16).toUpperCase(), true)
+        embed.addField("🎨 Cor", role.color === 0 ? role.color = "#000000" : "#" + ((role.color) >>> 0).toString(16).toUpperCase(), true)
         embed.addField("❓ Mencionável", booleans[role.mentionable], true)
         embed.addField("Menção", `\`${role.mention}\``, true)
         embed.addField("❓ Exibir separadamente", booleans[role.hoist], true)
@@ -50,6 +51,6 @@ module.exports = class RoleInfoCommand extends CommandHandler {
         embed.addField("📆 Criado há", humanizeDuration(Date.now() - role.createdAt, timeConfig), true)
         embed.addField("📛 Permissões", realPerms.length > 0 ? realPerms.map(p => `\`${PermissionsJSON[p]}\``).join(", ") : booleans[null]);
 
-        ctx.reply({ embed });
+        await ctx.reply({embed});
     }
 };

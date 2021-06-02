@@ -17,16 +17,8 @@ function init() {
         intents: [
             "guilds",
             "guildMembers",
-            "guildBans",
-            "guildEmojis",
-            "guildIntegrations",
-            "guildWebhooks",
-            "guildInvites",
-            "guildVoiceStates",
             "guildMessages",
             "guildMessageReactions",
-            "directMessages",
-            "directMessageReactions",
         ],
         disableEvents: {
             CHANNEL_CREATE: true,
@@ -40,10 +32,10 @@ function init() {
             GUILD_ROLE_DELETE: true,
             GUILD_ROLE_UPDATE: true,
             GUILD_UPDATE: true,
-            MESSAGE_DELETE_BULK: true,
             PRESENCE_UPDATE: true,
             TYPING_START: true,
             USER_UPDATE: true,
+            VOICE_STATE_UPDATE: true,
         },
     });
     client.connect();

@@ -2,7 +2,7 @@ const CommandContext = require("../../structures/command/CommandContext");
 const CommandHandler = require("../../structures/command/CommandHandler");
 const EmbedBuilder = require("../../utils/EmbedBuilder");
 const humanizeDuration = require("humanize-duration");
-const { Constants } = require("eris");
+const { Constants, User } = require("eris");
 
 module.exports = class UserinfoCommand extends CommandHandler {
     constructor(client) {
@@ -21,13 +21,14 @@ module.exports = class UserinfoCommand extends CommandHandler {
     /**
      *
      * @param {CommandContext} ctx
+     * @param {User} user
      */
     async execute(ctx, [user]) {
         const timeConfig = {
             largest: 3, units: ['y', 'mo', 'd', 'h', 'm', 's'], language: "pt", round: true, conjunction: " e ", serialComma: false
         }
 
-        const emojis = {
+        /*const emojis = {
             VERIFIED_BOT_DEVELOPER: '<:Developer:782710118985760828>',
             HYPESQUAD_EVENTS: '<:HypeEvent:782710122206986300>',
             DISCORD_EMPLOYEE: '<:Funcionario:782710118085165116>',
@@ -41,21 +42,21 @@ module.exports = class UserinfoCommand extends CommandHandler {
             VERIFIED_BOT: '<:BotVerificado:789853284680073226>',
             TEAM_USER: '',
             SYSTEM: '',
-        }
+        }*/
 
         const flags = user.publicFlags;
         const embed = new EmbedBuilder();
-        let title
+        /*let title
         if (flags) {
-            const filterFlags = Object.entries(Constants.UserFlags).filter(([, bit]) => (flags & bit) == bit).map(([field,]) => field).map(f => emojis[f]);
+            const filterFlags = Object.entries(Constants.UserFlags).filter(([, bit]) => (flags & bit) === bit).map(([field,]) => field).map(f => emojis[f]);
             title = `Informações de ${user.tag} ${filterFlags.join(" ")}`
             if (title.length > 256) {
                 title = user.tag
                 embed.addField("🚩 Emblemas", badges.join(' '), true)
             }
-        } else title = `Informações de ${user.tag}`
+        } else title = `Informações de ${user.tag}`*/
 
-        embed.setTitle(title)
+        embed.setTitle(`Informações de ${user.tag}`)
         embed.setThumbnail(user.dynamicAvatarURL())
         embed.setColor("DEFAULT")
         embed.addField("📚 Tag", `\`${user.tag}\``, true)
@@ -64,6 +65,6 @@ module.exports = class UserinfoCommand extends CommandHandler {
         embed.setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL());
 
         if (ctx.guild.members.has(user.id)) embed.addField("📆 Entrou há", humanizeDuration(Date.now() - ctx.guild.members.get(user.id).joinedAt, timeConfig), true);
-        ctx.reply({ embed })
+        await ctx.reply({embed})
     }
 };
