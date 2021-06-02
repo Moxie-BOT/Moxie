@@ -21,7 +21,8 @@ module.exports = class Repository {
         return this.model.findById(entity, projection)
     }
 
-    update(id, entity, options = {upsert: true}) {
+    async update(id, entity, options = {upsert: true}) {
+        await this.get(id)
         return this.model.updateOne({_id: id}, entity, options)
     }
 }

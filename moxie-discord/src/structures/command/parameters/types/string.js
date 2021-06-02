@@ -11,15 +11,17 @@ module.exports = class StringParameter {
             includesThat: options.includesThat,
 
             errors: {
-                manyLetters: "errors:manyLetters",
-                littleLetters: "errors:littleLetters",
-                onlyAlphanumeric: "errors:onlyAlphanumeric"
+                manyLetters: `Muitos caracteres! (O máximo é ${options.maxLength})`,
+                littleLetters: `Poucos caracteres! (O mínimo é ${options.littleLetters}`,
+                onlyAlphanumeric: "Apenas letras e números são aceitos!"
             }
         };
     }
     /**
-     * 
-     * @param {CommandContext} ctx 
+     *
+     * @param arg
+     * @param {CommandContext} ctx
+     * @param opt
      */
     static async parse(arg, ctx, opt) {
         const options = this.parseOptions(opt);

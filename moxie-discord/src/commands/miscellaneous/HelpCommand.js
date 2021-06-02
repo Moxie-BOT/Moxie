@@ -24,7 +24,7 @@ module.exports = class HelpCommand extends CommandHandler {
             const a = []
             commandCategory.forEach(ds => a.push(ds.labels[0]));
 
-            embed.addField(categories[i], `\`${a.join("| ")}\``);
+            embed.addField(categories[i], `\`${a.join(" | ")}\``);
         }
         await ctx.reply({embed});
     }
