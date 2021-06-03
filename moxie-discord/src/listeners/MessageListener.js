@@ -26,8 +26,8 @@ module.exports = class MessageListener {
 
         const {prefix} = await this.client.database.guilds.get(message.guildID);
 
-        if (message.content.startsWith(prefix)) {
-            let args = message.content.trim().replace(prefix, "").split(" ");
+        if (message.content.startsWith(prefix.toLowerCase())) {
+            let args = message.content.trim().replace(prefix.toLowerCase(), "").split(" ");
             let commandName = args.shift().toLowerCase();
             let cmd = this.client.commandTools.getCommand(commandName);
 

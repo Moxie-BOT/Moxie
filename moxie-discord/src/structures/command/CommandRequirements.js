@@ -29,7 +29,7 @@ async function handle(ctx, opt) {
         const perms = Object.keys(json).filter(field => json[field]);
         let includes = false
         for (const item in perms) {
-            if (!options.permissions.includes(perms[item])) {
+            if (options.permissions.includes(perms[item])) {
                 includes = true
                 break
             }
@@ -42,7 +42,7 @@ async function handle(ctx, opt) {
         const perms = Object.keys(json).filter(field => json[field]);
         let includes = false
         for (const item in perms) {
-            if (!options.botPermissions.includes(perms[item])) {
+            if (options.botPermissions.includes(perms[item])) {
                 includes = true
                 break
             }

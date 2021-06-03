@@ -5,7 +5,9 @@ module.exports = class AvatarCommand extends CommandHandler {
     constructor(client) {
         super(client, {
             labels: ["setprefix"],
-            requirements: {},
+            requirements: {
+                permissions: ["manageGuild"]
+            },
             category: "discord",
             parameters: [
                 {
