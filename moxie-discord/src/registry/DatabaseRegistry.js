@@ -4,23 +4,23 @@ const MongoDB = require('../database/MongoDB')
 module.exports = class DatabaseRegistry {
     constructor(client) {
         this.client = client;
-        this.database = null
+        this.database = null;
 
-        this.load();
+        this.load().then(r => {});
     }
 
-    load() {
+    async load() {
         if (process.env.PRODUCTION !== "true") return Logger.warning("Database has not been initialized, as PRODUCTION mode is disabled");
-        this.initializeDatabase({
+        await this.initializeDatabase({
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useFindAndModify: false
         });
     }
 
-    initializeDatabase(options = {}) {
+    async initializeDatabase(options = {}) {
         this.database = new MongoDB(options);
-        this.database
+        await this.database
             .connect()
             .then(() => Logger.info("Database connections established!"), this.client.database = this.database)
             .catch((err) => {

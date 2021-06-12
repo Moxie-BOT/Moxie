@@ -1,5 +1,4 @@
 const chalk = require("chalk");
-const moment = require("moment");
 
 module.exports = class Logger {
     static get processType() {
@@ -8,7 +7,7 @@ module.exports = class Logger {
 
     static generateLog(logType, message) {
         console.log(
-            `[${chalk.yellow(moment(Date.now()).format("HH:mm:ss"))}] ${
+            `[${chalk.yellow(new Date().getHours() + ":" + new Date().getMinutes())}] ${
                 this.processType
             } ${logType} ${message}`
         );

@@ -16,5 +16,6 @@ module.exports = class GuildCreateListener {
      * @param {Eris.Guild} guild
      */
     async execute(guild) {
+        await this.client.guildCache.add(guild.id)
     }
 };

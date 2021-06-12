@@ -27,5 +27,7 @@ module.exports = class GuildCreateListener {
                 collector.stop('Guild Delete');
             }
         })
+
+        await this.client.guildCache.remove(guild.id)
     }
 };

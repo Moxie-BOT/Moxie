@@ -42,7 +42,7 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
                 largest: 3, units: ['y', 'mo', 'd', 'h', 'm', 's'], language: "pt", round: true, conjunction: " e ", serialComma: false
             };
 
-        embed.setTitle(`Informações de ${channel.name}`)
+        embed.setTitle(channel.name)
         embed.setDescription(channel.topic ? `${channel.topic.substr(0, 1024)}` : ":woman_gesturing_no: Nenhum tópico encontrado")
         embed.addField("💻 ID do canal", channel.id, true)
         embed.addField("💈 Tipo", channelType[channel.type], true)

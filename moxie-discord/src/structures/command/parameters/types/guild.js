@@ -10,6 +10,7 @@ module.exports = class Guild {
 
             errors: {
                 invalidGuild: 'errors:invalidGuild',
+                whereArgs: "Cade as args"
             }
         };
     }
@@ -23,8 +24,11 @@ module.exports = class Guild {
         const options = this.parseOptions(opt);
         let guild
 
-        if (options.acceptLocal && !arg) return ctx.client.guilds.get(ctx.guild.id);
-        else if (!arg) return null
+        if (!arg) {
+            if (options.acceptLocal) return ctx.guild;
+            if (options.required) throw new Error(options.errors.whereArgs)
+            else return;
+        }
 
         try {
             guild = !/^\d+$/.test(arg) ? ctx.client.guilds.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.client.guilds.get(arg)

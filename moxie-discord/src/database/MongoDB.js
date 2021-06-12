@@ -1,4 +1,4 @@
-const { GuildSchema } = require('./MongoSchemas')
+const { GuildSchema, UserSchema } = require('./MongoSchemas')
 const mongoose = require('mongoose')
 
 module.exports = class MongoDB {
@@ -9,6 +9,7 @@ module.exports = class MongoDB {
     async connect () {
         return mongoose.connect(process.env.MONGO_URI, this.options).then((m) => {
             this.guilds = new GuildSchema(m)
+            this.users = new UserSchema(m)
         })
     }
 }

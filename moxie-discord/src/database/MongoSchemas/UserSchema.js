@@ -1,16 +1,16 @@
 const MongoRepository = require("../MongoRepository");
 
-module.exports = class GuildRepository extends MongoRepository {
+module.exports = class UserRepository extends MongoRepository {
     constructor(mongoose) {
-        super(mongoose, mongoose.model('Guilds', new mongoose.Schema({
+        super(mongoose, mongoose.model('Users', new mongoose.Schema({
                 _id: {
                     type: String,
                     default: null
                 },
                 settings: {
-                    prefix: {
-                        type: String,
-                        default: process.env.PREFIX
+                    autocheck: {
+                        type: Boolean,
+                        default: false
                     }
                 }
             })

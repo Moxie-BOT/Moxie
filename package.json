@@ -16,7 +16,7 @@
     "eris",
     "eris-discord"
   ],
-  "author": "Munverly",
+  "author": "Luis",
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/Munverly/Moxie/issues"
@@ -28,7 +28,6 @@
     "dotenv": "^10.0.0",
     "eris": "github:abalabahaha/eris#dev",
     "humanize-duration": "^3.25.1",
-    "moment": "^2.29.1",
     "mongoose": "^5.12.12",
     "node-fetch": "^2.6.1"
   }

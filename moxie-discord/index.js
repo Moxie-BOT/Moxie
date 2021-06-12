@@ -1,5 +1,4 @@
-const ClusterManager = require("./src/cluster/ClusterManager");
 require("dotenv").config();
 
-const cluster = new ClusterManager();
+const cluster = new (require("./src/cluster/ClusterManager"))();
 cluster.start();

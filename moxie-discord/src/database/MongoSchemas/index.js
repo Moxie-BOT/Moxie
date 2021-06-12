@@ -1,3 +1,4 @@
 module.exports = {
-    GuildSchema: require("./GuildSchema")
+    GuildSchema: require("./GuildSchema"),
+    UserSchema: require("./UserSchema")
 }

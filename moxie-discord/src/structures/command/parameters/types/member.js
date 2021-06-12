@@ -1,7 +1,7 @@
 const CommandContext = require("../../CommandContext");
 
 let defVar = (o, b, c) => (typeof o[b] === "undefined" ? c : o[b]);
-module.exports = class Channel {
+module.exports = class Member {
     static parseOptions(options = {}) {
         return {
             ...options,
@@ -9,7 +9,7 @@ module.exports = class Channel {
             required: defVar(options, "required", true),
 
             errors: {
-                invalidChannel: 'errors:invalidChannel',
+                invalidMember: 'errors:invalidMember',
                 whereArgs: "Cade as args"
             }
         };
@@ -22,19 +22,20 @@ module.exports = class Channel {
      */
     static async parse(arg, ctx, opt) {
         const options = this.parseOptions(opt);
-        let channel
+        let member
 
         if (!arg) {
-            if (options.acceptLocal) return ctx.channel.id;
+            if (options.acceptLocal) return ctx.member;
             if (options.required) throw new Error(options.errors.whereArgs)
             else return;
         }
 
         try {
-            channel = !/^\d+$/.test(arg) ? ctx.guild.channels.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.channels.get(arg)
+            member = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase()) || s.nick?.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.members.get(arg)
         } catch { }
 
-        if (!channel) throw new Error(options.errors.invalidChannel);
-        return channel;
+        if (!member) throw new Error(options.errors.invalidMember)
+        else member.user.tag = `${member.user.username}#${member.user.discriminator}`;
+        return member;
     }
 };

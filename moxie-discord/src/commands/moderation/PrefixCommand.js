@@ -1,14 +1,14 @@
 const CommandContext = require("../../structures/command/CommandContext");
 const CommandHandler = require("../../structures/command/CommandHandler");
 
-module.exports = class AvatarCommand extends CommandHandler {
+module.exports = class PrefixCommand extends CommandHandler {
     constructor(client) {
         super(client, {
             labels: ["setprefix"],
             requirements: {
                 permissions: ["manageGuild"]
             },
-            category: "discord",
+            category: "moderation",
             parameters: [
                 {
                     type: "string",
@@ -24,7 +24,7 @@ module.exports = class AvatarCommand extends CommandHandler {
      * @param {String} content
      */
     async execute(ctx, [content]) {
-        await this.client.database.guilds.update(ctx.guild.id, {
+        await this.client.guildCache.update(ctx.guild.id, {
             prefix: content
         });
         await ctx.reply(`Prefixo alterado para ${content}`)

@@ -1,5 +1,5 @@
 const CommandContext = require("./CommandContext");
-const PermissionsJSON = require("../../utils/ErisPermissions.json");
+const PermissionsJSON = require("../../utils/others/ErisPermissions.json");
 
 function parseOptions(options) {
     return {

@@ -4,5 +4,6 @@ module.exports = {
     string: require("./string"),
     channel: require("./channel"),
     guild: require("./guild"),
-    role: require("./role")
+    role: require("./role"),
+    member: require("./member")
 }

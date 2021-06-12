@@ -12,6 +12,7 @@ module.exports.handle = async function handle(ctx, a, paramArray) {
         let param = paramArray[i];
         let arg = ctx.args[i];
         if (param.full) arg = ctx.args.slice(i).join(" ");
+        if (param.fullSplited) arg = ctx.args.slice(i);
         let tipo = types[param.type];
 
         let parsed = await tipo.parse(arg, ctx, param);

@@ -47,16 +47,16 @@ module.exports = class ServerinfoCommand extends CommandHandler {
         });
 
         const embed = new EmbedBuilder()
-        embed.setTitle(`Informações de ${guild.name} ${guild.premiumTier ? "<:boost:825875610425360494>" : ""}`)
+        embed.setTitle(`${guild.name} ${guild.premiumTier ? "<:boost:825875610425360494>" : ""}`)
         embed.setColor("DEFAULT")
         embed.setDescription(guild.description)
         embed.setThumbnail(guild.iconURL)
         embed.setImage(guild.splashURL || guild.bannerURL)
         embed.addField("💻 ID do servidor", `\`${guild.id}\``, true)
         embed.addField("👑 Dono", `\`${owner.username}#${owner.discriminator}\``, true)
-        embed.addField("💻 Shard", `\`${Number(ctx.guild.shard.id) + 1}/${this.client.shards.size}\``, true)
-        embed.addField(`🔖 Total de canais ${allChannels}`, `Texto: ${text}\nVoz: ${voice}\nCategorias: ${category}`, true)
-        embed.addField(`👥 Total de membros ${allMembers}`, `Usuários: ${users}\nBots: ${bots}`, true)
+        embed.addField("💻 Shard", `\`${Number(ctx.guild.shard.id)}/${this.client.shards.size}\``, true)
+        embed.addField(`🔖 Canais ${allChannels}`, `Texto: ${text}\nVoz: ${voice}\nCategorias: ${category}`, true)
+        embed.addField(`👥 Membros ${allMembers}`, `Usuários: ${users}\nBots: ${bots}`, true)
         embed.addField("📆 Criado há", humanizeDuration(Date.now() - guild.createdAt, timeConfig), true)
         embed.setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL());
         await ctx.reply({embed});

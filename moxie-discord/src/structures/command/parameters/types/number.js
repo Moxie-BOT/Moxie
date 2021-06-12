@@ -10,6 +10,7 @@ module.exports = class NumberParameter  {
             minInt: Number(options.minInt) || 0,
             allowNegative: !!options.allowNegative,
             denyFloat: !!options.denyFloat || true,
+            required: defVar(options, "required", true),
 
             errors: {
                 missingNumber: "errors:missingNumber",
@@ -31,7 +32,10 @@ module.exports = class NumberParameter  {
 
         arg = arg ? (typeof util.convertAbbreviatedNum(arg) === "number" ? util.convertAbbreviatedNum(arg) : util.convertAbbreviatedNum(arg)) : undefined;
 
-        if (!arg) throw new Error(options.errors.missingNumber);
+        if (!arg) {
+            if (options.required) throw new Error(options.errors.missingNumber)
+            else return;
+        }
         if (!/^[+-]?[0-9]+(?:.[0-9]+)?$/.test(arg) && isNaN(arg)) throw new Error(options.errors.isNotNumber);
         if (options.denyFloat && Number(arg) === arg && arg % 1 !== 0) throw new Error(options.errors.denyFloat);
         if (arg > options.maxInt) throw new Error(options.errors.numberBiggerThen);

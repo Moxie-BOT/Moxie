@@ -2,7 +2,7 @@ const CommandContext = require("../../structures/command/CommandContext");
 const CommandHandler = require("../../structures/command/CommandHandler");
 const EmbedBuilder = require("../../utils/EmbedBuilder");
 const humanizeDuration = require("humanize-duration");
-const { Constants, User } = require("eris");
+const {Constants, User} = require("eris");
 
 module.exports = class UserinfoCommand extends CommandHandler {
     constructor(client) {
@@ -18,6 +18,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
             ]
         });
     }
+
     /**
      *
      * @param {CommandContext} ctx
@@ -25,38 +26,41 @@ module.exports = class UserinfoCommand extends CommandHandler {
      */
     async execute(ctx, [user]) {
         const timeConfig = {
-            largest: 3, units: ['y', 'mo', 'd', 'h', 'm', 's'], language: "pt", round: true, conjunction: " e ", serialComma: false
-        }
-
-        /*const emojis = {
-            VERIFIED_BOT_DEVELOPER: '<:Developer:782710118985760828>',
-            HYPESQUAD_EVENTS: '<:HypeEvent:782710122206986300>',
-            DISCORD_EMPLOYEE: '<:Funcionario:782710118085165116>',
-            BUGHUNTER_LEVEL_2: '<:BugHunterLvl2:782710117266096160>',
-            BUGHUNTER_LEVEL_1: '<:BugHunterLvl1:782710118848266282>',
-            HOUSE_BRILLIANCE: '<:Briliance:782710121532096512>',
-            PARTNERED_SERVER_OWNER: '<:Partner:782710117308694529>',
-            HOUSE_BRAVERY: '<:Bravery:782710118088835094>',
-            HOUSE_BALANCE: '<:Balance:782710120211677194>',
-            EARLY_SUPPORTER: '<:ApoiadorInicial:782710118759923714>',
-            VERIFIED_BOT: '<:BotVerificado:789853284680073226>',
-            TEAM_USER: '',
-            SYSTEM: '',
-        }*/
-
-        const flags = user.publicFlags;
-        const embed = new EmbedBuilder();
-        /*let title
+                largest: 3,
+                units: ['y', 'mo', 'd', 'h', 'm', 's'],
+                language: "pt",
+                round: true,
+                conjunction: " e ",
+                serialComma: false
+            },
+            emojis = {
+                VERIFIED_BOT_DEVELOPER: '<:dev:851108795694448680>',
+                HYPESQUAD_EVENTS: '<:hypeevent:851109159113588766>',
+                DISCORD_EMPLOYEE: '<:teamdisc:851108217337151518>',
+                BUGHUNTER_LEVEL_2: '<:hunterlvl2:851109579601215498>',
+                BUGHUNTER_LEVEL_1: '<:bughunter:851109365149859860>',
+                HOUSE_BRILLIANCE: '<:briliance:851108271376039936>',
+                PARTNERED_SERVER_OWNER: '<:partner:851108691507150918>',
+                HOUSE_BRAVERY: '<:bravery:851108120562630686>',
+                HOUSE_BALANCE: '<:balance:851108061883531285>',
+                EARLY_SUPPORTER: '<:earlywumpus:851108590605172766>',
+                VERIFIED_BOT: '<:vbot1:851109964009439232><:vbot2:851110026873012234>',
+                TEAM_USER: '',
+                SYSTEM: '',
+            },
+            flags = user.publicFlags,
+            embed = new EmbedBuilder();
+        let title
         if (flags) {
             const filterFlags = Object.entries(Constants.UserFlags).filter(([, bit]) => (flags & bit) === bit).map(([field,]) => field).map(f => emojis[f]);
-            title = `Informações de ${user.tag} ${filterFlags.join(" ")}`
+            title = `${user.tag} ${filterFlags.join(" ")}`
             if (title.length > 256) {
                 title = user.tag
                 embed.addField("🚩 Emblemas", badges.join(' '), true)
             }
-        } else title = `Informações de ${user.tag}`*/
+        } else title = user.tag
 
-        embed.setTitle(`Informações de ${user.tag}`)
+        embed.setTitle(title)
         embed.setThumbnail(user.dynamicAvatarURL())
         embed.setColor("DEFAULT")
         embed.addField("📚 Tag", `\`${user.tag}\``, true)

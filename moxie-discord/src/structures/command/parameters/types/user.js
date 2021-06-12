@@ -24,12 +24,16 @@ module.exports = class User {
         const options = this.parseOptions(opt);
 
         let user;
-        if (options.acceptAuthor && !arg) return ctx.guild.members.get(ctx.author.id).user;
-        else if (!arg) return null;
-
         arg = arg.replace(/[<>!@]/g, "");
+
+        if (!arg) {
+            if (options.acceptAuthor) return ctx.guild.members.get(ctx.author.id).user;
+            if (options.required) throw new Error(options.errors.whereArgs)
+            else return;
+        }
+
         try {
-            user = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase())).user
+            user = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase()) || s.nick?.toLowerCase().includes(arg.toLowerCase())).user
                 : ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
         } catch { }
 

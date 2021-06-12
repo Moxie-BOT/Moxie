@@ -24,17 +24,15 @@ module.exports = class MessageListener {
             if (collector.channel.id === message.channel.id) collector.collect(message);
         });
 
-        const {prefix} = await this.client.database.guilds.get(message.guildID);
-
+        const {prefix} = await this.client.guildCache.get(message.guildID)
         if (message.content.startsWith(prefix.toLowerCase())) {
             let args = message.content.trim().replace(prefix.toLowerCase(), "").split(" ");
             let commandName = args.shift().toLowerCase();
             let cmd = this.client.commandTools.getCommand(commandName);
 
-            if (cmd != null) {
-                let ctx = new CommandContext(this.client, message, args);
-                await cmd._execute(ctx);
-            }
+            if (!cmd) return;
+            let ctx = new CommandContext(this.client, message, args);
+            await cmd._execute(ctx);
         }
     }
 };

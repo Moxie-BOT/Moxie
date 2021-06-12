@@ -2,179 +2,151 @@
 <html lang="pt-br">
 
 <head>
-  <!-- TÍTULO DA PÁGINA (pode alterar) -->
-  <title>Moxie - Pão com ovo!</title>
+    <title>Moxie • Simples e funcional!</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#be4bef">
+    <meta name="author" content="KuryKat">
+    <meta property="og:type" content="website">
 
-  <!-- Configurações da Página (não alterar) -->
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#be4bef">
-  <meta name="author" content="KuryKat">
-  <meta property="og:type" content="website">
+    <meta name="description" content="Saudações! Eu me chamo Moxie, a mais nova aqui no discord, com vários comandos e muitos outros que vão te ajudar no seu servidor. Veja mais aqui!">
+    <meta property="og:description" content="Saudações! Eu me chamo Moxie, a mais nova aqui no discord, com vários comandos e muitos outros que vão te ajudar no seu servidor. Veja mais aqui!">
 
+    <meta name="keywords" content="moxie discordbot discord bot">
+    <meta property="og:keywords" content="moxie discordbot discord bot">
 
+    <meta property="og:url" content="<url>">
+    <meta property="og:image" content="/img/Moxie.png">
+    <meta property="og:site_name" content="Moxie • Simples e funcional!">
 
-  <!-- A DESCRIÇÃO VEM AQUI!! (pode alterar) -->
-  <meta name="description" content="Pão com ovo!">
-  <meta property="og:description" content="Descrição Legal sobre a Moxie :D">
-  <!-- AS KEYWORDS VEM AQUI!! (pode alterar)
-	(palavras-chave para auxiliar na busca do google)
-  -->
-  <meta name="keywords" content="moxie bot discord bot javascript animador divertido amiga loritta">
-  <meta property="og:keywords" content="moxie bot discord bot javascript animador divertido amiga loritta">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon" sizes="128x128">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+    <link rel="stylesheet/less" type="text/css" href="/css/style.less">
 
-  <!-- Aqui você coloca o URL do seu domínio -->
-  <meta property="og:url" content="<url>">
-
-  <!-- Aqui é a imagem e o Título da página que fica no banner do site (aquele que vc vê no discord) -->
-  <meta property="og:image" content="/img/Moxie.png">
-  <meta property="og:site_name" content="Moxie">
-
-  <!-- ÍCONE DA PÁGINA (não alterar) -->
-  <link rel="icon" href="/img/favicon.ico" type="image/x-icon" sizes="128x128">
-
-  <!-- CSS LIBS (não alterar) -->
-  <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-  <!-- MAIN CSS (não alterar) -->
-  <link rel="stylesheet/less" type="text/css" href="/css/style.less">
-
-  <!-- JS LIBS (não alterar) -->
-  <script src="/lib/less/dist/less.min.js"></script>
-  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/lib/jquery.min.js"></script>
-  <script src="/lib/font-awesome/js/all.min.js" defer></script>
+    <script src="/lib/less/dist/less.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/jquery.min.js"></script>
+    <script src="/lib/font-awesome/js/all.min.js" defer></script>
 </head>
 
 <body>
-  <!-- NavBar, não alterar a estrutura! -->
-  <nav class="navbar navbar-expand-lg fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-      <div class="navbar-brand">
-        <img src="/img/Moxie.png" alt="Moxie Winking">
-        <h1>Moxie</h1>
-      </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#moxieNavBar"
-        aria-controls="moxieNavBar" aria-expanded="true" aria-label="Toggle navigation">
+        <div class="navbar-brand">
+            <img src="/img/Moxie.png" alt="Moxie Winking">
+            <h1>Moxie</h1>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#moxieNavBar"
+                aria-controls="moxieNavBar" aria-expanded="true" aria-label="Toggle navigation">
         <span class="icon">
           <i class="fas fa-bars"></i>
         </span>
-      </button>
-      <div class="collapse navbar-collapse" id="moxieNavBar">
-        <div class="navbar-nav flex-fill justify-content-right">
-          <div id="navbar-links">
-            <!-- Você apenas pode adicionar mais Links aqui como os exemplos abaixo -->
-            <a class="nav-link" href="/">Início</a>
-            <!-- <a class="nav-link" href="/commands">Comandos</a> -->
-            <!-- <a class="nav-link" href="/terms">Termos de Uso</a> -->
-          </div>
+        </button>
+        <div class="collapse navbar-collapse" id="moxieNavBar">
+            <div class="navbar-nav flex-fill justify-content-right">
+                <div id="navbar-links">
+                    <a class="nav-link" href="/">Início</a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </nav>
+</nav>
 
-  <div class="container">
-    <!-- Banner principal, de preferência não alterar pra não quebrar a estrutura do site -->
+<div class="container">
     <div class="banner">
-      <img class="banner-image" src="/img/Moxie_waist.png" alt="Moxie">
-      <div class="banner-text">
-        <h1>Olá! Me chamo Moxie!</h1>
-        <h1>Vou adorar ser sua amiga!</h1>
-        <a href="https://discord.com/api/oauth2/authorize?client_id=829333211662254120&permissions=8&scope=bot"
-          class="btn btn-primary">Me Adicione</a>
-        <a href="https://discord.gg/CeFxNnBzbb" class="btn btn-primary">Suporte</a>
-      </div>
-    </div>
-    <hr>
-    <!-- Daqui pra frente você pode fazer "control + c" e "control + v" dessas seções (<div class="section">) para colocar mais e mais cards -->
-    <div class="section">
-      <!-- Título do Card -->
-      <h1 class="section-title">
-        Lorem Ipsum
-      </h1>
-      <!-- Imagem do Card (Posicionamento definido pelas classes "left" ou "right" -->
-      <img class="section-image left side" src="/img/Moxie_stylish.png" alt="">
-      <!-- Texto do Card -->
-      <p class="section-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
-        tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
-        congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
-        turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
-        tempus.
-      </p>
-    </div>
-    <!-- HR para dividir os cards, lembre sempre de colocar ele entre um card e outro para separá-los -->
-    <hr>
-    <div class="section">
-      <h1 class="section-title">
-        Lorem Ipsum
-      </h1>
-      <img class="section-image right side" src="/img/Moxie_happy_clean.png" alt="">
-      <p class="section-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
-        tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
-        congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
-        turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
-        tempus.
-      </p>
+        <img class="banner-image" src="/img/Moxie_waist.png" alt="Moxie">
+        <div class="banner-text">
+            <h1>Olá! Me chamo Moxie!</h1>
+            <h1>Simplesmente fácil de usar</h1>
+            <a href="https://discord.com/api/oauth2/authorize?client_id=623235960448221196&permissions=8&scope=bot"
+               class="btn btn-primary">Me Adicione</a>
+            <a href="https://discord.gg/RkAtsxQbFH" class="btn btn-primary">Suporte</a>
+        </div>
     </div>
     <hr>
     <div class="section">
-      <h1 class="section-title">
-        Lorem Ipsum
-      </h1>
-      <img class="section-image left side" src="/img/Moxie_chibi.png" alt="">
-      <p class="section-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
-        tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
-        congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
-        turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
-        tempus.
-      </p>
+        <h1 class="section-title">
+            Lorem Ipsum
+        </h1>
+        <img class="section-image left side" src="/img/Moxie_stylish.png" alt="">
+        <p class="section-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
+            tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
+            congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
+            turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
+            tempus.
+        </p>
     </div>
     <hr>
     <div class="section">
-      <h1 class="section-title">
-        Lorem Ipsum
-      </h1>
-      <img class="section-image right side" src="/img/Moxie_sad.png" alt="">
-      <p class="section-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
-        tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
-        congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
-        turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
-        tempus.
-      </p>
+        <h1 class="section-title">
+            Lorem Ipsum
+        </h1>
+        <img class="section-image right side" src="/img/Moxie_happy_clean.png" alt="">
+        <p class="section-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
+            tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
+            congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
+            turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
+            tempus.
+        </p>
     </div>
     <hr>
     <div class="section">
-      <h1 class="section-title">
-        Lorem Ipsum
-      </h1>
-      <img class="section-image left side" src="/img/MoxieQuestion1.png" alt="">
-      <p class="section-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
-        tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
-        congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
-        turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
-        tempus.
-      </p>
+        <h1 class="section-title">
+            Lorem Ipsum
+        </h1>
+        <img class="section-image left side" src="/img/Moxie_chibi.png" alt="">
+        <p class="section-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
+            tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
+            congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
+            turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
+            tempus.
+        </p>
     </div>
-  </div>
+    <hr>
+    <div class="section">
+        <h1 class="section-title">
+            Lorem Ipsum
+        </h1>
+        <img class="section-image right side" src="/img/Moxie_sad.png" alt="">
+        <p class="section-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
+            tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
+            congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
+            turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
+            tempus.
+        </p>
+    </div>
+    <hr>
+    <div class="section">
+        <h1 class="section-title">
+            Lorem Ipsum
+        </h1>
+        <img class="section-image left side" src="/img/MoxieQuestion1.png" alt="">
+        <p class="section-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est in velit tempor tincidunt. Curabitur
+            tempor suscipit ipsum placerat feugiat. Pellentesque laoreet at est non dictum. Fusce sit amet eros euismod,
+            congue leo sit amet, congue eros. Pellentesque at libero volutpat, finibus sapien sed, venenatis velit. Cras
+            turpis justo, condimentum et venenatis sit amet, blandit quis libero. Pellentesque molestie maximus leo quis
+            tempus.
+        </p>
+    </div>
+</div>
 
-  <!-- Footer da página, de preferência não altere -->
-  <footer class="footer">
+<footer class="footer">
     <div>
-      © 2021 - Copyright Moxie - Todos os Direitos Reservados
+        © 2021 - Copyright Moxie - Todos os Direitos Reservados
     </div>
     <div>
-      <a href="https://github.com/KuryKat" target="_blank">
-        by KuryKat
-      </a>
+        <a href="https://github.com/KuryKat" target="_blank">
+            by KuryKat
+        </a>
     </div>
-  </footer>
+</footer>
 </body>
 
 </html>

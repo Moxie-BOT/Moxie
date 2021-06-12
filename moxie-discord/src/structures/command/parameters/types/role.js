@@ -7,24 +7,30 @@ module.exports = class Role {
         return {
             ...options,
             highestRole: !!options.highestRole || false,
+            required: defVar(options, "required", false),
 
             errors: {
-                invalidRole: "errors:invalidRole"
+                invalidRole: "errors:invalidRole",
+                whereArgs: "Cade as args"
             }
         };
     }
     /**
-     * 
-     * @param {CommandContext} ctx 
+     *
+     * @param arg
+     * @param {CommandContext} ctx
+     * @param opt
      */
     static async parse(arg, ctx, opt) {
         const options = this.parseOptions(opt);
 
         let role;
-        
-        if (options.highestRole && !arg && ctx.member.roles.length > 0) return ctx.guild.roles.get(ctx.member.roles[0])
-        else if (!arg) return null
         arg = arg.replace(/[<>@&]/g, "");
+        if (!arg) {
+            if (options.highestRole && ctx.member.roles.length > 0) return ctx.guild.roles.get(ctx.member.roles[0]);
+            if (options.required) throw new Error(options.errors.whereArgs)
+            else return;
+        }
 
         try {
             role = !/^\d+$/.test(arg) ? ctx.guild.roles.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.roles.get(arg)

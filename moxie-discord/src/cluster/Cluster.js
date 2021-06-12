@@ -2,6 +2,11 @@ const Client = require("../Client");
 init();
 
 function init() {
+    if (process.env.CANARY === "true") {
+        process.env.DISCORD_TOKEN = process.env.CANARY_DISCORD_TOKEN;
+        process.env.MONGO_URI = process.env.CANARY_MONGO_URI;
+        process.env.PREFIX = process.env.CANARY_PREFIX;
+    }
     const client = new Client(process.env.DISCORD_TOKEN, {
         defaultImageFormat: "png",
         restMode: true,
@@ -19,6 +24,7 @@ function init() {
             "guildMembers",
             "guildMessages",
             "guildMessageReactions",
+            "guildInvites"
         ],
         disableEvents: {
             CHANNEL_CREATE: true,

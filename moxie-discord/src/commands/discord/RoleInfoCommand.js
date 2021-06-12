@@ -2,7 +2,7 @@ const CommandContext = require("../../structures/command/CommandContext");
 const CommandHandler = require("../../structures/command/CommandHandler");
 const EmbedBuilder = require("../../utils/EmbedBuilder");
 const humanizeDuration = require("humanize-duration");
-const PermissionsJSON = require("../../utils/ErisPermissions.json");
+const PermissionsJSON = require("../../utils/others/ErisPermissions.json");
 const Eris = require("eris");
 
 module.exports = class RoleInfoCommand extends CommandHandler {
@@ -38,7 +38,7 @@ module.exports = class RoleInfoCommand extends CommandHandler {
         let realPerms = Object.keys(permsRole).filter(field => permsRole[field]);
 
         const embed = new EmbedBuilder()
-        embed.setTitle(`Informações de ${role.name}`)
+        embed.setTitle(role.name)
         embed.setColor("DEFAULT")
         embed.addField("💻 ID do cargo", role.id, true)
         embed.addField("👀 Cargo de", role.guild.name, true)
