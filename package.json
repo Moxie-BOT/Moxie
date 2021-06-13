@@ -5,23 +5,27 @@
   "main": "./moxie-discord/index.js",
   "scripts": {
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ext .js ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Munverly/Moxie.git"
+    "url": "git+https://github.com/MrSannyY/Moxie.git"
   },
   "keywords": [
     "discord-bot",
     "eris",
     "eris-discord"
   ],
-  "author": "Luis",
+  "author": {
+    "name": "Luís",
+    "email": "luisflima2020@outlook.com",
+    "url": "https://github.com/MrSannyY/"
+  },
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/Munverly/Moxie/issues"
+    "url": "https://github.com/MrSannyY/Moxie/issues"
   },
-  "homepage": "https://github.com/Munverly/Moxie#readme",
+  "homepage": "https://github.com/MrSannyY/Moxie#readme",
   "dependencies": {
     "chalk": "^4.1.0",
     "colors": "^1.4.0",
@@ -30,5 +34,12 @@
     "humanize-duration": "^3.25.1",
     "mongoose": "^5.12.12",
     "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.28.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0"
   }
 }

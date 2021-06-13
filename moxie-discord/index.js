@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config()
 
-const cluster = new (require("./src/cluster/ClusterManager"))();
-cluster.start();
+const cluster = new (require('./src/cluster/ClusterManager'))()
+cluster.start()

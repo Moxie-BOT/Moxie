@@ -1,46 +1,47 @@
-const CommandContext = require("../../CommandContext");
-const util = require("../../../../utils/Utilities");
+const CommandContext = require('../../CommandContext')
+const util = require('../../../../utils/Utilities')
 
-let defVar = (o, b, c) => (typeof o[b] === "undefined" ? c : o[b]);
-module.exports = class NumberParameter  {
-    static parseOptions(options = {}) {
-        return {
-            ...options,
-            maxInt: Number(options.maxInt) || Infinity,
-            minInt: Number(options.minInt) || 0,
-            allowNegative: !!options.allowNegative,
-            denyFloat: !!options.denyFloat || true,
-            required: defVar(options, "required", true),
+const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
+module.exports = class NumberParameter {
+  static parseOptions (options = {}) {
+    return {
+      ...options,
+      maxInt: Number(options.maxInt) || Infinity,
+      minInt: Number(options.minInt) || 0,
+      allowNegative: !!options.allowNegative,
+      denyFloat: !!options.denyFloat || true,
+      required: defVar(options, 'required', true),
 
-            errors: {
-                missingNumber: "errors:missingNumber",
-                numberBiggerThen: "errors:numberBiggerThen",
-                numberLessThan: "errors:numberLessThan",
-                isNotNumber: "errors:notNumber",
-                denyFloat: "errors:denyFloat"
-            }
-        };
+      errors: {
+        missingNumber: 'errors:missingNumber',
+        numberBiggerThen: 'errors:numberBiggerThen',
+        numberLessThan: 'errors:numberLessThan',
+        isNotNumber: 'errors:notNumber',
+        denyFloat: 'errors:denyFloat'
+      }
     }
-    /**
+  }
+
+  /**
      *
      * @param arg
      * @param {CommandContext} ctx
      * @param opt
      */
-    static async parse(arg, ctx, opt) {
-        const options = this.parseOptions(opt);
+  static async parse (arg, ctx, opt) {
+    const options = this.parseOptions(opt)
 
-        arg = arg ? (typeof util.convertAbbreviatedNum(arg) === "number" ? util.convertAbbreviatedNum(arg) : util.convertAbbreviatedNum(arg)) : undefined;
+    arg = arg ? (typeof util.convertAbbreviatedNum(arg) === 'number' ? util.convertAbbreviatedNum(arg) : util.convertAbbreviatedNum(arg)) : undefined
 
-        if (!arg) {
-            if (options.required) throw new Error(options.errors.missingNumber)
-            else return;
-        }
-        if (!/^[+-]?[0-9]+(?:.[0-9]+)?$/.test(arg) && isNaN(arg)) throw new Error(options.errors.isNotNumber);
-        if (options.denyFloat && Number(arg) === arg && arg % 1 !== 0) throw new Error(options.errors.denyFloat);
-        if (arg > options.maxInt) throw new Error(options.errors.numberBiggerThen);
-        if (arg < options.minInt) throw new Error(options.errors.numberLessThan);
-
-        return arg;
+    if (!arg) {
+      if (options.required) throw new Error(options.errors.missingNumber)
+      else return
     }
-};
+    if (!/^[+-]?[0-9]+(?:.[0-9]+)?$/.test(arg) && isNaN(arg)) throw new Error(options.errors.isNotNumber)
+    if (options.denyFloat && Number(arg) === arg && arg % 1 !== 0) throw new Error(options.errors.denyFloat)
+    if (arg > options.maxInt) throw new Error(options.errors.numberBiggerThen)
+    if (arg < options.minInt) throw new Error(options.errors.numberLessThan)
+
+    return arg
+  }
+}

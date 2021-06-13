@@ -1,17 +1,17 @@
-const Client = require("../Client");
-const Logger = require("../utils/Logger");
+const Client = require('../Client')
+const Logger = require('../utils/Logger')
 
 module.exports = class ClientErrorListener {
-    /**
+  /**
      *
      * @param {Client} client Eris client
      */
-    constructor(client) {
-        this.client = client;
-        this.name = "error";
-    }
+  constructor (client) {
+    this.client = client
+    this.name = 'error'
+  }
 
-    async execute(err) {
-        Logger.error(err.stack)
-    }
-};
+  async execute (err) {
+    Logger.error(err.stack)
+  }
+}
