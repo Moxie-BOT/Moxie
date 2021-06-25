@@ -1,7 +1,6 @@
-const CommandContext = require('../../CommandContext')
-const util = require('../../../../utils/Utilities')
-
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
+const tr = require('../../../../utils/Utilities')
+
 module.exports = class Role {
   static parseOptions (options = {}) {
     return {
@@ -10,8 +9,7 @@ module.exports = class Role {
       required: defVar(options, 'required', false),
 
       errors: {
-        invalidRole: 'errors:invalidRole',
-        whereArgs: 'Cade as args'
+        invalidRole: 'commands:roleNotFound'
       }
     }
   }
@@ -26,17 +24,18 @@ module.exports = class Role {
     const options = this.parseOptions(opt)
 
     let role
-    arg = arg.replace(/[<>@&]/g, '')
     if (!arg) {
+      if (options.highestRole && ctx.member.roles.length < 0) throw new Error('InsuficientArgs')
       if (options.highestRole && ctx.member.roles.length > 0) return ctx.guild.roles.get(ctx.member.roles[0])
-      if (options.required) throw new Error(options.errors.whereArgs)
-      else return
+      if (options.required) throw new Error('InsuficientArgs')
+      return
     }
+    arg = arg ? (typeof arg === 'string' ? arg : String(arg)) : undefined
 
     try {
       role = !/^\d+$/.test(arg) ? ctx.guild.roles.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.roles.get(arg)
     } catch { }
-    if (!role) throw new Error(options.errors.invalidRole)
+    if (!role) throw new Error(tr.getTranslation(options.errors.invalidRole, { 1: arg.substr(0, 40) }, ctx.guild))
 
     return role
   }

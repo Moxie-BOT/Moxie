@@ -19,7 +19,9 @@ module.exports = class EvalCommand extends (
           type: 'string',
           full: true
         }
-      ]
+      ],
+      description: 'eval:description',
+      usage: ''
     })
   }
 

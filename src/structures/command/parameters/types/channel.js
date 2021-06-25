@@ -1,4 +1,6 @@
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
+const tr = require('../../../../utils/Utilities')
+
 module.exports = class Channel {
   static parseOptions (options = {}) {
     return {
@@ -7,8 +9,7 @@ module.exports = class Channel {
       required: defVar(options, 'required', true),
 
       errors: {
-        invalidChannel: 'errors:invalidChannel',
-        whereArgs: 'Cade as args'
+        invalidChannel: 'commands:channelNotFound'
       }
     }
   }
@@ -24,16 +25,16 @@ module.exports = class Channel {
     let channel
 
     if (!arg) {
-      if (options.acceptLocal) return ctx.channel.id
-      if (options.required) throw new Error(options.errors.whereArgs)
-      else return
+      if (options.acceptLocal) return ctx.guild.channels.get(ctx.channel.id)
+      if (options.required) throw new Error('InsuficientArgs')
+      return
     }
 
     try {
       channel = !/^\d+$/.test(arg) ? ctx.guild.channels.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.channels.get(arg)
     } catch { }
 
-    if (!channel) throw new Error(options.errors.invalidChannel)
+    if (!channel) throw new Error(tr.getTranslation(options.errors.invalidChannel, { 1: arg.substr(0, 40) }, ctx.guild))
     return channel
   }
 }

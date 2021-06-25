@@ -1,40 +1,62 @@
-const chalk = require('chalk')
-
 module.exports = class Logger {
-  static get processType () {
-    return chalk.bgBlue('LOG')
-  }
-
+  /**
+   *
+   * @param {String} logType
+   * @param {String} message
+   */
   static generateLog (logType, message) {
     console.log(
-            `[${chalk.yellow(new Date().getHours() + ':' + new Date().getMinutes())}] ${
-                this.processType
-            } ${logType} ${message}`
+            `${new Date().getHours() + ':' + new Date().getMinutes() + '.' + new Date().getMilliseconds()} ${logType} ${message}`
     )
   }
 
+  /**
+   *
+   * @param {String} message
+   */
   static debug (message) {
-    this.generateLog(chalk.rgb(80, 250, 159)('[DEBUG]'), message)
+    if (process.env.DEBBUG !== 'true') return
+    this.generateLog('[DEBUG]', message)
   }
 
+  /**
+   *
+   * @param {String} message
+   */
   static info (message) {
-    this.generateLog(chalk.blue('[INFO]'), message)
+    this.generateLog('[INFO]', message)
   }
 
+  /**
+   *
+   * @param {String} message
+   */
   static warning (message) {
-    this.generateLog(chalk.yellow('[WARNING]'), message)
+    this.generateLog('[WARNING]', message)
   }
 
+  /**
+   *
+   * @param {String} message
+   */
   static error (message) {
-    this.generateLog(chalk.red('[ERROR]'), message)
+    this.generateLog('[ERROR]', message)
   }
 
+  /**
+   *
+   * @param {String} message
+   */
   static shardMessage (message) {
-    this.generateLog(chalk.rgb(49, 204, 201)('[SHARD MANAGER]'), message)
+    this.generateLog('[SHARD MANAGER]', message)
   }
 
+  /**
+   *
+   * @param {String} message
+   */
   static fatalError (message) {
-    this.generateLog(chalk.bgRed('[FATAL ERROR]'), message)
+    this.generateLog('[FATAL ERROR]', message)
     process.exit()
   }
 }

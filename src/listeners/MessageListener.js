@@ -29,7 +29,7 @@ module.exports = class MessageListener {
       const cmd = this.client.commandTools.getCommand(commandName)
 
       if (!cmd) return
-      const ctx = new CommandContext(this.client, message, args)
+      const ctx = new CommandContext(this.client, message, args, commandName)
       await cmd._execute(ctx)
     }
   }

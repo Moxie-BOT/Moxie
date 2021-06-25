@@ -27,15 +27,14 @@
   },
   "homepage": "https://github.com/MrSannyY/Moxie#readme",
   "dependencies": {
-    "chalk": "^4.1.0",
     "colors": "^1.4.0",
-    "dotenv": "^10.0.0",
     "eris": "github:abalabahaha/eris#dev",
     "humanize-duration": "^3.25.1",
     "mongoose": "^5.12.12",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
+    "dotenv": "^10.0.0",
     "eslint": "^7.28.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",

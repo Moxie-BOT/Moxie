@@ -1,6 +1,6 @@
-const CommandContext = require('../../CommandContext')
-
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
+const tr = require('../../../../utils/Utilities')
+
 module.exports = class User {
   static parseOptions (options = {}) {
     return {
@@ -9,8 +9,7 @@ module.exports = class User {
       required: defVar(options, 'required', true),
 
       errors: {
-        whereArgs: 'errors:insufficientArgs',
-        invalidUser: 'errors:invalidUser'
+        invalidUser: 'commands:userNotFound'
       }
     }
   }
@@ -25,13 +24,13 @@ module.exports = class User {
     const options = this.parseOptions(opt)
 
     let user
-    arg = arg.replace(/[<>!@]/g, '')
 
     if (!arg) {
       if (options.acceptAuthor) return ctx.guild.members.get(ctx.author.id).user
-      if (options.required) throw new Error(options.errors.whereArgs)
-      else return
+      if (options.required) throw new Error('InsuficientArgs')
+      return
     }
+    arg = arg.replace(/[<>!@]/g, '')
 
     try {
       user = !/^\d+$/.test(arg)
@@ -39,7 +38,7 @@ module.exports = class User {
         : ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
     } catch { }
 
-    if (!user) throw new Error(options.errors.invalidUser)
+    if (!user) throw new Error(tr.getTranslation(options.errors.invalidUser, { 1: arg.substr(0, 40) }, ctx.guild))
     else user.tag = `${user.username}#${user.discriminator}`
 
     return user

@@ -35,7 +35,7 @@ module.exports = class RoleInfoCommand extends CommandHandler {
     const permsRole = role.permissions.json
     const realPerms = Object.keys(permsRole).filter(field => permsRole[field])
 
-    const embed = new EmbedBuilder()
+    const embed = new EmbedBuilder(ctx)
     embed.setTitle(role.name)
     embed.setColor('DEFAULT')
     embed.addField('💻 ID do cargo', role.id, true)

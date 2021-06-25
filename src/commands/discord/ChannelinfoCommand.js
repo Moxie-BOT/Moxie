@@ -23,7 +23,7 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
      * @param {Channel} channel
      */
   async execute (ctx, [channel]) {
-    const embed = new EmbedBuilder()
+    const embed = new EmbedBuilder(ctx)
     const channelType = {
       0: 'Canal de texto',
       2: 'Canal de voz',

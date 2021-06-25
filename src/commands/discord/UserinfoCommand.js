@@ -1,4 +1,3 @@
-const CommandContext = require('../../structures/command/CommandContext')
 const CommandHandler = require('../../structures/command/CommandHandler')
 const EmbedBuilder = require('../../utils/EmbedBuilder')
 const humanizeDuration = require('humanize-duration')
@@ -13,6 +12,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
       parameters: [
         {
           type: 'user',
+          required: false,
           acceptAuthor: true
         }
       ]
@@ -49,7 +49,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
       SYSTEM: ''
     }
     const flags = user.publicFlags
-    const embed = new EmbedBuilder()
+    const embed = new EmbedBuilder(ctx)
     let title
     if (flags) {
       const filterFlags = Object.entries(Constants.UserFlags).filter(([, bit]) => (flags & bit) === bit).map(([field]) => field).map(f => emojis[f])
@@ -66,7 +66,6 @@ module.exports = class UserinfoCommand extends CommandHandler {
     embed.addField('📚 Tag', `\`${user.tag}\``, true)
     embed.addField('💻 ID do usuário', `\`${user.id}\``, true)
     embed.addField('📆 Criado há', humanizeDuration(Date.now() - user.createdAt, timeConfig), true)
-    embed.setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL())
 
     if (ctx.guild.members.has(user.id)) embed.addField('📆 Entrou há', humanizeDuration(Date.now() - ctx.guild.members.get(user.id).joinedAt, timeConfig), true)
     await ctx.reply({ embed })

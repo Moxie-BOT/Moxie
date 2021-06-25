@@ -17,6 +17,7 @@ module.exports = class Client extends Eris.Client {
     this.guildCache = new (require('./managers/GuildCacheManager'))(this)
     this.commandTools = new (require('./registry/CommandRegistry'))(this)
 
+    // eslint-disable-next-line no-new
     for (const Loader of Object.values(Loaders)) new Loader(this)
   }
 }

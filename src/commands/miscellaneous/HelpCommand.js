@@ -15,7 +15,7 @@ module.exports = class HelpCommand extends CommandHandler {
      * @param {CommandContext} ctx
      */
   async execute (ctx) {
-    const embed = new EmbedBuilder()
+    const embed = new EmbedBuilder(ctx)
       .setColor('DEFAULT')
     const categories = this.client.commandTools.getAllCategories()
     for (let i = 0; i < categories.length; i++) {

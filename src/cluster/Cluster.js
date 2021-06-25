@@ -10,7 +10,7 @@ function init () {
   const client = new Client(process.env.DISCORD_TOKEN, {
     defaultImageFormat: 'png',
     restMode: true,
-    maxShards: parseInt(process.env.TOTAL_SHARDS),
+    maxShards: 1,
     defaultImageSize: 2048,
     getAllUsers: true,
     allowedMentions: {

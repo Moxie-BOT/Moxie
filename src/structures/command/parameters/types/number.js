@@ -1,4 +1,3 @@
-const CommandContext = require('../../CommandContext')
 const util = require('../../../../utils/Utilities')
 
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
@@ -13,11 +12,10 @@ module.exports = class NumberParameter {
       required: defVar(options, 'required', true),
 
       errors: {
-        missingNumber: 'errors:missingNumber',
-        numberBiggerThen: 'errors:numberBiggerThen',
-        numberLessThan: 'errors:numberLessThan',
-        isNotNumber: 'errors:notNumber',
-        denyFloat: 'errors:denyFloat'
+        numberBiggerThen: 'commands:numberBiggerThen',
+        numberLessThan: 'commands:numberLessThan',
+        isNotNumber: 'commands:notNumber',
+        denyFloat: 'commands:denyFloat'
       }
     }
   }
@@ -31,16 +29,13 @@ module.exports = class NumberParameter {
   static async parse (arg, ctx, opt) {
     const options = this.parseOptions(opt)
 
-    arg = arg ? (typeof util.convertAbbreviatedNum(arg) === 'number' ? util.convertAbbreviatedNum(arg) : util.convertAbbreviatedNum(arg)) : undefined
+    if (!arg && options.required) throw new Error('InsuficientArgs')
 
-    if (!arg) {
-      if (options.required) throw new Error(options.errors.missingNumber)
-      else return
-    }
-    if (!/^[+-]?[0-9]+(?:.[0-9]+)?$/.test(arg) && isNaN(arg)) throw new Error(options.errors.isNotNumber)
-    if (options.denyFloat && Number(arg) === arg && arg % 1 !== 0) throw new Error(options.errors.denyFloat)
-    if (arg > options.maxInt) throw new Error(options.errors.numberBiggerThen)
-    if (arg < options.minInt) throw new Error(options.errors.numberLessThan)
+    arg = arg ? (typeof util.convertAbbreviatedNum(arg) === 'number' ? util.convertAbbreviatedNum(arg) : util.convertAbbreviatedNum(arg)) : undefined
+    if (!/^[+-]?[0-9]+(?:.[0-9]+)?$/.test(arg) && isNaN(arg)) throw new Error(util.getTranslation(options.errors.isNotNumber, { 1: arg.substr(0, 40) }, ctx))
+    if (options.denyFloat && Number(arg) % 1 !== 0) throw new Error(options.errors.denyFloat)
+    if (arg > options.maxInt) throw new Error(util.getTranslation(options.errors.numberBiggerThen, { 1: options.maxInt }, ctx))
+    if (arg < options.minInt) throw new Error(util.getTranslation(options.errors.numberLessThan, { 1: options.minInt }, ctx))
 
     return arg
   }

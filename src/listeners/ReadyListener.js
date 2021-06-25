@@ -12,5 +12,9 @@ module.exports = class ReadyListener {
 
   execute () {
     Logger.info(`${this.client.user.username} is now online!`)
+    this.client.editStatus('online', {
+      name: 'dogs',
+      type: 3
+    })
   }
 }

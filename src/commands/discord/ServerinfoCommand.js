@@ -11,6 +11,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
       parameters: [
         {
           type: 'guild',
+          required: false,
           acceptLocal: true
         }
       ]
@@ -45,7 +46,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
       if (u.bot) bots++
     })
 
-    const embed = new EmbedBuilder()
+    const embed = new EmbedBuilder(ctx)
     embed.setTitle(`${guild.name} ${guild.premiumTier ? '<:boost:825875610425360494>' : ''}`)
     embed.setColor('DEFAULT')
     embed.setDescription(guild.description)
@@ -57,7 +58,6 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     embed.addField(`🔖 Canais ${allChannels}`, `Texto: ${text}\nVoz: ${voice}\nCategorias: ${category}`, true)
     embed.addField(`👥 Membros ${allMembers}`, `Usuários: ${users}\nBots: ${bots}`, true)
     embed.addField('📆 Criado há', humanizeDuration(Date.now() - guild.createdAt, timeConfig), true)
-    embed.setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL())
     await ctx.reply({ embed })
   }
 }

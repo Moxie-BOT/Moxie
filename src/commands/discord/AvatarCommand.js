@@ -22,12 +22,11 @@ module.exports = class AvatarCommand extends CommandHandler {
      * @param {User} user
      */
   async execute (ctx, [user]) {
-    const embed = new EmbedBuilder()
+    const embed = new EmbedBuilder(ctx)
       .setColor('DEFAULT')
       .setTitle(`🖼️ Avatar de ${user.tag}`)
       .setDescription(`**Baixe clicando [aqui](${user.dynamicAvatarURL()})**`)
       .setImage(user.dynamicAvatarURL())
-      .setFooter(ctx.author.tag, ctx.author.dynamicAvatarURL())
     await ctx.reply({ embed })
   }
 }

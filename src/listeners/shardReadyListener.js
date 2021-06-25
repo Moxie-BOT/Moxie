@@ -1,16 +1,16 @@
 const Logger = require('../utils/Logger')
 
-module.exports = class ClientErrorListener {
+module.exports = class shardReadyListener {
   /**
      *
      * @param {Client} client Eris client
      */
   constructor (client) {
     this.client = client
-    this.name = 'error'
+    this.name = 'shardReady'
   }
 
-  async execute (err) {
-    Logger.error(`Client error! ${err.stack}`)
+  execute (id) {
+    Logger.info(`Shard ${id} is now ready!`)
   }
 }

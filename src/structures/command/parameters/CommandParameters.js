@@ -11,7 +11,6 @@ module.exports.handle = async function handle (ctx, a, paramArray) {
     const param = paramArray[i]
     let arg = ctx.args[i]
     if (param.full) arg = ctx.args.slice(i).join(' ')
-    if (param.fullSplited) arg = ctx.args.slice(i)
     const tipo = types[param.type]
 
     const parsed = await tipo.parse(arg, ctx, param)

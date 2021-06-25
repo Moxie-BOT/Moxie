@@ -11,6 +11,20 @@ module.exports = class GuildRepository extends MongoRepository {
         prefix: {
           type: String,
           default: process.env.PREFIX
+        },
+        eventLog: {
+          channelID: {
+            type: String,
+            default: null
+          },
+          activeListeners: {
+            type: Array,
+            default: []
+          }
+        },
+        language: {
+          type: Number,
+          default: 0
         }
       }
     })

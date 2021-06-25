@@ -1,3 +1,5 @@
+const { readdirSync, readFileSync } = require('fs')
+
 function convertAbbreviatedNum (abbreviation) {
   const abbr = abbreviation.replace(/,/gi, '').replace(/kk/gi, 'M')
   const number = parseFloat(abbr.substr(0, abbr.length - 1))
@@ -19,13 +21,41 @@ function abbreviateNumber (number, precision = 2) {
 
   return number < 1000 ? '' + number : (calc.indexOf('.') === calc.length - 3 ? calc.replace(/\.00/, '') : calc) + suffsFromZeros[divDigits]
 }
-function applyPlaceholders (placeholders, string, delimiters = ['<<', '>>']) {
-  if (!placeholders) return
-  return string.replace(new RegExp(Object.keys(placeholders).map(k => `${delimiters[0]}${k}${delimiters[1]}`).join('|'), 'g'), match => placeholders[match.replace(new RegExp(delimiters.join('|'), 'g'), '')])
+function applyPlaceholders (string, placeholders, delimiters = ['<<', '>>']) {
+  if (!placeholders) return string
+  if (!string) return
+  try {
+    return string.replace(new RegExp(Object.keys(placeholders).map(k => `${delimiters[0]}${k}${delimiters[1]}`).join('|'), 'g'), match => placeholders[match.replace(new RegExp(delimiters.join('|'), 'g'), '')])
+  } catch { return string }
+}
+function getTranslation (topic, placeholders, guild) {
+  if (!topic) return
+  let lang
+  switch (guild.storage.language) {
+    case 0:
+      lang = 'pt-BR'
+      break
+    case 1:
+      lang = 'en-US'
+  }
+  const file = topic.split(':')[0]
+  const bindTo = {}
+  const languages = bindTo?.translation?.languages || readdirSync(`src/locales/${lang}`).map(l => [l.split('.')[0]])
+  if (!languages) return topic
+
+  for (let i = 0; i < languages.length; i++) { languages[i][1] = JSON.parse(readFileSync(`src/locales/${lang}/${languages[i][0]}.json`, { encoding: 'utf8' }).replace(/\s|\r|\n|\t/g, ' ')) }
+
+  bindTo.translation = bindTo?.translation || {}
+  bindTo.translation.languages = languages
+
+  const returnPop = languages[languages.findIndex(l => l[0] === file)]
+  if (!returnPop) return topic
+  return this.applyPlaceholders(topic.split(':')[1].split('.').reduce((obj, curr) => obj?.[curr], returnPop[1]), placeholders)
 }
 
 module.exports = {
   abbreviateNumber,
   convertAbbreviatedNum,
-  applyPlaceholders
+  applyPlaceholders,
+  getTranslation
 }

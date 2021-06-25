@@ -27,7 +27,7 @@ module.exports = class InviteInfoCommand extends CommandHandler {
     } catch (e) {
       return ctx.reply('Não encontrei esse convite')
     }
-    const embed = new EmbedBuilder()
+    const embed = new EmbedBuilder(ctx)
       .setColor('DEFAULT')
       .setThumbnail(invite.guild.dynamicIconURL())
       .setTitle(invite.guild.name)
