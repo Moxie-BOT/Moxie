@@ -1,7 +1,6 @@
 const Logger = require('../utils/Logger')
 const path = require('path')
 const { Worker } = require('worker_threads')
-const FilesIntegrity = require('../utils/FilesIntegrity')
 
 module.exports = class ClusterManager {
   constructor () {
@@ -10,7 +9,6 @@ module.exports = class ClusterManager {
   }
 
   async start () {
-    if (!await FilesIntegrity.checkFiles()) process.exit()
     Logger.info(`Spawning ${this.clusterAmount} clusters`)
     this.spawnClusters()
   }
