@@ -2,14 +2,14 @@
   "name": "moxie",
   "version": "0.0.1",
   "description": "Uma bot incrível, personalizável, otimizada, fácil de usar, focado no seu servidor e muito especial 🌟",
-  "main": "./moxie-discord/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "node .",
     "lint": "eslint --ext .js ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrSannyY/Moxie.git"
+    "url": "git+https://github.com/Moxie-BOT/Moxie.git"
   },
   "keywords": [
     "discord-bot",
@@ -19,22 +19,22 @@
   "author": {
     "name": "Luís",
     "email": "luisflima2020@outlook.com",
-    "url": "https://github.com/MrSannyY/"
+    "url": "https://github.com/Moxie-BOT/"
   },
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/MrSannyY/Moxie/issues"
+    "url": "https://github.com/Moxie-BOT/Moxie/issues"
   },
-  "homepage": "https://github.com/MrSannyY/Moxie#readme",
+  "homepage": "https://github.com/Moxie-BOT/Moxie#readme",
   "dependencies": {
     "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
     "eris": "github:abalabahaha/eris#dev",
     "humanize-duration": "^3.25.1",
     "mongoose": "^5.12.12",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
     "eslint": "^7.28.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
