@@ -7,13 +7,16 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
     super(client, {
       labels: ['channelinfo', 'categoryinfo', 'voiceinfo'],
       requirements: {},
-      category: 'discord',
+      category: 'Discord',
       parameters: [
         {
           type: 'channel',
           acceptLocal: true
         }
-      ]
+      ],
+      description: 'channelinfo:description',
+      usage: 'channelinfo:usage',
+      example: 'channelinfo:example'
     })
   }
 

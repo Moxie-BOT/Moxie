@@ -8,7 +8,7 @@ module.exports = class RoleInfoCommand extends CommandHandler {
     super(client, {
       labels: ['roleinfo'],
       requirements: {},
-      category: 'discord',
+      category: 'Discord',
       parameters: [
         {
           type: 'role',

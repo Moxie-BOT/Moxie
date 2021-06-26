@@ -6,13 +6,16 @@ module.exports = class AvatarCommand extends CommandHandler {
     super(client, {
       labels: ['avatar', 'user-icon'],
       requirements: {},
-      category: 'discord',
+      category: 'Discord',
       parameters: [
         {
           type: 'user',
           acceptAuthor: true
         }
-      ]
+      ],
+      description: 'avatar:description',
+      usage: 'avatar:usage',
+      example: 'avatar:example'
     })
   }
 
@@ -24,8 +27,8 @@ module.exports = class AvatarCommand extends CommandHandler {
   async execute (ctx, [user]) {
     const embed = new EmbedBuilder(ctx)
       .setColor('DEFAULT')
-      .setTitle(`🖼️ Avatar de ${user.tag}`)
-      .setDescription(`**Baixe clicando [aqui](${user.dynamicAvatarURL()})**`)
+      .setTitle('avatar:avatarFrom', { 1: user.tag })
+      .setDescription('avatar:download', { 1: user.dynamicAvatarURL()})
       .setImage(user.dynamicAvatarURL())
     await ctx.reply({ embed })
   }

@@ -6,7 +6,7 @@ module.exports = class GuildIconCommand extends CommandHandler {
     super(client, {
       labels: ['guildicon', 'servericon'],
       requirements: {},
-      category: 'discord',
+      category: 'Discord',
       parameters: [
         {
           type: 'guild',

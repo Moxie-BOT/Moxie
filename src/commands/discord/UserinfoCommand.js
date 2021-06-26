@@ -8,7 +8,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
     super(client, {
       labels: ['userinfo'],
       requirements: {},
-      category: 'discord',
+      category: 'Discord',
       parameters: [
         {
           type: 'user',

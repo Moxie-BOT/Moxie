@@ -7,7 +7,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     super(client, {
       labels: ['serverinfo', 'guildinfo'],
       requirements: {},
-      category: 'discord',
+      category: 'Discord',
       parameters: [
         {
           type: 'guild',

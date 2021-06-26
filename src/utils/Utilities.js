@@ -29,6 +29,7 @@ function applyPlaceholders (string, placeholders, delimiters = ['<<', '>>']) {
   } catch { return string }
 }
 function getTranslation (topic, placeholders, guild) {
+  const file = topic.split(':')[0]
   if (!topic) return
   let lang
   switch (guild.storage.language) {
@@ -38,15 +39,10 @@ function getTranslation (topic, placeholders, guild) {
     case 1:
       lang = 'en-US'
   }
-  const file = topic.split(':')[0]
-  const bindTo = {}
-  const languages = bindTo?.translation?.languages || readdirSync(`src/locales/${lang}`).map(l => [l.split('.')[0]])
+  const languages = readdirSync(`src/locales/${lang}`).map(l => [l.split('.')[0]])
   if (!languages) return topic
 
   for (let i = 0; i < languages.length; i++) { languages[i][1] = JSON.parse(readFileSync(`src/locales/${lang}/${languages[i][0]}.json`, { encoding: 'utf8' }).replace(/\s|\r|\n|\t/g, ' ')) }
-
-  bindTo.translation = bindTo?.translation || {}
-  bindTo.translation.languages = languages
 
   const returnPop = languages[languages.findIndex(l => l[0] === file)]
   if (!returnPop) return topic

@@ -13,7 +13,7 @@ module.exports = class EvalCommand extends (
       requirements: {
         onlyDevs: true
       },
-      category: 'developers',
+      category: 'commands:commonOptCommands.category.devloper',
       parameters: [
         {
           type: 'string',
@@ -21,7 +21,8 @@ module.exports = class EvalCommand extends (
         }
       ],
       description: 'eval:description',
-      usage: ''
+      usage: 'eval:usage',
+      example: 'eval:example'
     })
   }
 

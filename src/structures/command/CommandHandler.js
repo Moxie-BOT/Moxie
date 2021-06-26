@@ -16,8 +16,9 @@ module.exports = class CommandHandler {
     this.category = options.category || 'miscellaneous'
     this.requirements = options.requirements || {}
     this.parameters = options.parameters || []
-    this.description = options.description || 'Nenhuma descrição'
-    this.usage = options.usage || 'Nenhum exemplo'
+    this.description = options.description || 'commands:commonOptCommands.description'
+    this.usage = options.usage || 'commands:commonOptCommands.usage'
+    this.example = options.example || 'commands:commonOptCommands.examples'
   }
 
   /**
@@ -41,8 +42,9 @@ module.exports = class CommandHandler {
       if (err.message.includes('InsuficientArgs')) {
         const embed = new EmbedBuilder(ctx)
           .setColor('DEFAULT')
-          .setAuthor('commands:helpMe.howToUse', null, null, { 1: ctx.guild.storage.prefix, 2: this.labels[0] })
-          .setDescription(tr.getTranslation(this.description, null, ctx.guild))
+          .setTitle('commands:commonNoArgs.howToUse', { 1: ctx.guild.storage.prefix, 2: this.labels[0] })
+          .setDescription(`${tr.getTranslation(this.description, null, ctx.guild)}\n\n**${tr.getTranslation('commands:commonNoArgs.use', null, ctx.guild)}: ${tr.getTranslation(this.usage, { 1: ctx.guild.storage.prefix }, ctx.guild)}**\n**${tr.getTranslation('commands:commonNoArgs.examples', null, ctx.guild)}**\n${tr.getTranslation(this.example, { 1: ctx.guild.storage.prefix }, ctx.guild)}\n**${tr.getTranslation('commands:commonNoArgs.aliases', null, ctx.guild)}**\n${this.labels.join(' | ')}`)
+          .setFooter(`${ctx.author.tag} | ${tr.getTranslation(this.category, null, ctx.guild)}`, ctx.author.dynamicAvatarURL())
         await ctx.reply({ embed })
         return
       }

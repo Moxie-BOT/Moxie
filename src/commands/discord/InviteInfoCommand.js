@@ -6,7 +6,7 @@ module.exports = class InviteInfoCommand extends CommandHandler {
     super(client, {
       labels: ['inviteinfo'],
       requirements: {},
-      category: 'discord',
+      category: 'Discord',
       parameters: [
         {
           type: 'string'
