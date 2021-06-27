@@ -14,9 +14,9 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
           acceptLocal: true
         }
       ],
-      description: 'channelinfo:description',
-      usage: 'channelinfo:usage',
-      example: 'channelinfo:example'
+      description: 'Mostra informações de canais, categorias e tudo mais, desde que eu esteja no servidor em que o canal está',
+      usage: '`<<1>>channelinfo (canal)`',
+      example: '\uD83D\uDCCC Mostra informções do canal onde foi executado\n`<<1>>channelinfo`\n\uD83D\uDCCC Mostrando informações de canais pelo ID\n`<<1>>channelinfo 849000250739523627`\n\uD83D\uDCCC Buscando canal por nome\n`<<1>>channelinfo geral`'
     })
   }
 
@@ -26,14 +26,19 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
      * @param {Channel} channel
      */
   async execute (ctx, [channel]) {
-    const embed = new EmbedBuilder(ctx)
+    const embed = new EmbedBuilder()
     const channelType = {
       0: 'Canal de texto',
+      1: 'Mensagem direta',
       2: 'Canal de voz',
+      3: 'Grupo de mensagens diretas',
       4: 'Categoria',
       5: 'Canal de anúncios',
       6: 'Canal de vendas',
-      13: 'Canal stage'
+      10: 'Subcanal de vendas temporário',
+      11: 'Subcanal público temporário',
+      12: 'Subcanal privado temporário',
+      13: 'Canal estágio'
     }
     const booleans = {
       null: 'Nenhum',
@@ -45,10 +50,10 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
     }
 
     embed.setTitle(channel.name)
-    embed.setDescription(channel.topic ? `${channel.topic.substr(0, 1024)}` : ':woman_gesturing_no: Nenhum tópico encontrado')
-    embed.addField('💻 ID do canal', channel.id, true)
-    embed.addField('💈 Tipo', channelType[channel.type], true)
-    embed.addField('👀 Canal de', channel.guild.name, true)
+    embed.setDescription(channel.topic ? `${channel.topic.substr(0, 1024)}` : '\uD83E\uDD37 Nenhum tópico encontrado')
+    embed.addField('\uD83D\uDCBB ID do canal', channel.id, true)
+    embed.addField('\uD83D\uDC88 Tipo de canal', channelType[channel.type], true)
+    embed.addField('\uD83D\uDC40 Canal de', channel.guild.name, true)
     embed.setColor('DEFAULT')
 
     switch (channel.type) {
@@ -56,16 +61,16 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
       case 5:
       case 6:
         // embed.addField("🔞 NSFW", booleans[channel.nsfw], true)
-        embed.addField('🐌 Modo lento', channel.rateLimitPerUser > 0 ? `${channel.rateLimitPerUser} segundos` : booleans.null, true)
+        embed.addField('\uD83D\uDC0C Modo lento', channel.rateLimitPerUser > 0 ? `${channel.rateLimitPerUser} segundos` : booleans.null, true)
         break
       case 2:
-        embed.addField('🎙️ Taxa de bits', channel.bitrate ? channel.bitrate : booleans.null, true)
-        embed.addField('👥 Limite de membros', channel.userLimit ? channel.userLimit : booleans.null, true)
-        embed.addField('📷 Qualidade de vídeo', channel.videoQualityMode === 1 ? 'auto' : '720p', true)
+        embed.addField('\uD83C\uDF99 Taxa de bits', channel.bitrate ? channel.bitrate : booleans.null, true)
+        embed.addField('\uD83D\uDC65 Limite de membros', channel.userLimit ? channel.userLimit : booleans.null, true)
+        embed.addField('\uD83D\uDCF7 Qualidade de vídeo', channel.videoQualityMode === 1 ? 'auto' : '720p', true)
         // embed.addField("🗣️ Membros no canal", channel.voiceMembers ? channel.voiceMembers.map(lk => lk.user.mention).slice(0, 10).join(", ") : booleans[null]);
         break
     }
-    embed.addField('📆 Criado há', humanizeDuration(Date.now() - channel.createdAt, timeConfig), true)
+    embed.addField('\uD83D\uDCC6 Criado há', humanizeDuration(Date.now() - channel.createdAt, timeConfig), true)
     await ctx.reply({ embed })
   }
 }

@@ -2,7 +2,7 @@ const CommandRequirements = require('./CommandRequirements')
 const CommandParameters = require('./parameters/CommandParameters')
 const Logger = require('../../utils/Logger')
 const EmbedBuilder = require('../../utils/EmbedBuilder')
-const tr = require('../../utils/Utilities')
+const utils = require('../../utils/Utilities')
 
 module.exports = class CommandHandler {
   /**
@@ -13,12 +13,12 @@ module.exports = class CommandHandler {
   constructor (client, options) {
     this.client = client
     this.labels = options.labels
-    this.category = options.category || 'miscellaneous'
+    this.category = options.category || 'Miscellaneous'
     this.requirements = options.requirements || {}
     this.parameters = options.parameters || []
-    this.description = options.description || 'commands:commonOptCommands.description'
-    this.usage = options.usage || 'commands:commonOptCommands.usage'
-    this.example = options.example || 'commands:commonOptCommands.examples'
+    this.description = options.description || 'Por algum motivo, ninguém colocou uma descrição nesse comando! Desculpe pela inconveniência'
+    this.usage = options.usage || 'Nenhuma forma de usar encontrada'
+    this.example = options.example || 'Infelizmente ninguém quis me dar exemplos de como executar isso'
   }
 
   /**
@@ -40,11 +40,11 @@ module.exports = class CommandHandler {
       )
     } catch (err) {
       if (err.message.includes('InsuficientArgs')) {
-        const embed = new EmbedBuilder(ctx)
+        const embed = new EmbedBuilder()
           .setColor('DEFAULT')
-          .setTitle('commands:commonNoArgs.howToUse', { 1: ctx.guild.storage.prefix, 2: this.labels[0] })
-          .setDescription(`${tr.getTranslation(this.description, null, ctx.guild)}\n\n**${tr.getTranslation('commands:commonNoArgs.use', null, ctx.guild)}: ${tr.getTranslation(this.usage, { 1: ctx.guild.storage.prefix }, ctx.guild)}**\n**${tr.getTranslation('commands:commonNoArgs.examples', null, ctx.guild)}**\n${tr.getTranslation(this.example, { 1: ctx.guild.storage.prefix }, ctx.guild)}\n**${tr.getTranslation('commands:commonNoArgs.aliases', null, ctx.guild)}**\n${this.labels.join(' | ')}`)
-          .setFooter(`${ctx.author.tag} | ${tr.getTranslation(this.category, null, ctx.guild)}`, ctx.author.dynamicAvatarURL())
+          .setTitle(`Como usar o ${ctx.guild.storage.prefix}${this.labels[0]}`)
+          .setDescription(utils.applyPlaceholders(`${this.description}\n\n**\uD83D\uDCA1 Uso: ${this.usage}**\n**\uD83D\uDCD6 Exemplos**\n${this.example}\n**\uD83D\uDD00 Sinônimos**\n${this.labels.join(' | ')}`, { 1: ctx.guild.storage.prefix }))
+          .setFooter(`${ctx.author.tag} | ${this.category}`, ctx.author.dynamicAvatarURL())
         await ctx.reply({ embed })
         return
       }

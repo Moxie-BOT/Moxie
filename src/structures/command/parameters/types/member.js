@@ -1,16 +1,11 @@
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
-const tr = require('../../../../utils/Utilities')
 
 module.exports = class Member {
   static parseOptions (options = {}) {
     return {
       ...options,
       acceptLocal: !!options.acceptLocal,
-      required: defVar(options, 'required', true),
-
-      errors: {
-        invalidMember: 'command:invalidMember'
-      }
+      required: defVar(options, 'required', true)
     }
   }
 
@@ -35,7 +30,7 @@ module.exports = class Member {
       member = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase()) || s.nick?.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.members.get(arg)
     } catch { }
 
-    if (!member) throw new Error(tr.getTranslation(options.errors.invalidMember, { 1: arg.substr(0, 40) }, ctx.guild))
+    if (!member) throw new Error(`<:close:858094081304166433> Não encontrei nenhum membro parecido com \`${arg.replace(/`/g, '').substr(0, 40)}\`, talvez ele exista, mas não esteja no servidor! Eu procuro por nomes, IDs, menções e apelidos`)
     else member.user.tag = `${member.user.username}#${member.user.discriminator}`
     return member
   }

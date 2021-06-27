@@ -1,16 +1,11 @@
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
-const tr = require('../../../../utils/Utilities')
 
 module.exports = class Role {
   static parseOptions (options = {}) {
     return {
       ...options,
       highestRole: !!options.highestRole || false,
-      required: defVar(options, 'required', false),
-
-      errors: {
-        invalidRole: 'commands:roleNotFound'
-      }
+      required: defVar(options, 'required', false)
     }
   }
 
@@ -35,7 +30,7 @@ module.exports = class Role {
     try {
       role = !/^\d+$/.test(arg) ? ctx.guild.roles.find(s => s.name.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.roles.get(arg)
     } catch { }
-    if (!role) throw new Error(tr.getTranslation(options.errors.invalidRole, { 1: arg.substr(0, 40) }, ctx.guild))
+    if (!role) throw new Error(`<:close:858094081304166433> Não encontrei nenhum cargo parecido com \`${arg.replace(/`/g, '').substr(0, 40)}\`! Eu procuro por nomes, IDs e menções`)
 
     return role
   }

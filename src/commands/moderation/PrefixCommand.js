@@ -7,7 +7,7 @@ module.exports = class PrefixCommand extends CommandHandler {
       requirements: {
         permissions: ['manageGuild']
       },
-      category: 'moderation',
+      category: 'Moderação',
       parameters: [
         {
           type: 'string',

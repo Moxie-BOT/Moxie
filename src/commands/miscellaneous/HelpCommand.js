@@ -6,7 +6,7 @@ module.exports = class HelpCommand extends CommandHandler {
     super(client, {
       labels: ['help', 'ajuda', 'comandos', 'commands'],
       requirements: {},
-      category: 'miscellaneous'
+      category: 'Miscellaneous'
     })
   }
 
@@ -15,7 +15,7 @@ module.exports = class HelpCommand extends CommandHandler {
      * @param {CommandContext} ctx
      */
   async execute (ctx) {
-    const embed = new EmbedBuilder(ctx)
+    const embed = new EmbedBuilder()
       .setColor('DEFAULT')
     const categories = this.client.commandTools.getAllCategories()
     for (let i = 0; i < categories.length; i++) {

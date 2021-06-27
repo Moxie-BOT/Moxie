@@ -1,5 +1,4 @@
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
-const tr = require('../../../../utils/Utilities')
 
 module.exports = class StringParameter {
   static parseOptions (options = {}) {
@@ -8,13 +7,7 @@ module.exports = class StringParameter {
       required: defVar(options, 'required', true),
       maxLength: Number(options.maxLength) || Infinity,
       minLength: Number(options.minLength) || 0,
-      onlyAlphanumeric: !!options.onlyAlphanumeric,
-
-      errors: {
-        manyLetters: 'commands:manyLetters',
-        littleLetters: 'commands:littleLetters',
-        onlyAlphanumeric: 'commands:manyLetters'
-      }
+      onlyAlphanumeric: !!options.onlyAlphanumeric
     }
   }
 
@@ -29,9 +22,9 @@ module.exports = class StringParameter {
     if (!arg && options.required) throw new Error('InsuficientArgs')
     if (!arg && !options.required) return null
     arg = arg ? (typeof arg === 'string' ? arg : String(arg)) : undefined
-    if (arg.length > options.maxLength) throw new Error(tr.getTranslation(options.errors.manyLetters, { 1: options.maxLength }, ctx.guild))
-    if (arg.length < options.minLength) throw new Error(tr.getTranslation(options.errors.littleLetters, { 1: options.minLength }, ctx.guild))
-    if (options.onlyAlphanumeric && !/^\w+$/.test(arg)) throw new Error(options.errors.onlyAlphanumeric)
+    if (arg.length > options.maxLength) throw new Error(`<:close:858094081304166433> Essa frase é tãão grande que superou minhas expectativas. O máximo de caracteres é de \`${options.maxLength}\``)
+    if (arg.length < options.minLength) throw new Error(`<:close:858094081304166433> Essa frase é tãão pequena que ficou difícil trabalhar só com esses dados. O número mínimo de caracteres é de \`${options.minLength}\``)
+    if (options.onlyAlphanumeric && !/^\w+$/.test(arg)) throw new Error('')
 
     return arg
   }

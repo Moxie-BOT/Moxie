@@ -1,5 +1,4 @@
 const defVar = (o, b, c) => (typeof o[b] === 'undefined' ? c : o[b])
-const tr = require('../../../../utils/Utilities')
 
 module.exports = class User {
   static parseOptions (options = {}) {
@@ -7,10 +6,6 @@ module.exports = class User {
       ...options,
       acceptAuthor: !!options.acceptAuthor,
       required: defVar(options, 'required', true),
-
-      errors: {
-        invalidUser: 'commands:userNotFound'
-      }
     }
   }
 
@@ -38,7 +33,7 @@ module.exports = class User {
         : ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
     } catch { }
 
-    if (!user) throw new Error(tr.getTranslation(options.errors.invalidUser, { 1: arg.substr(0, 40) }, ctx.guild))
+    if (!user) throw new Error(`<:close:858094081304166433> Não encontrei nenhum usuário parecido com \`${arg.replace(/`/g, '').substr(0, 40)}\`! Eu procuro por IDs e menções, caso ele esteja no servidor, por apelidos e nomes`)
     else user.tag = `${user.username}#${user.discriminator}`
 
     return user

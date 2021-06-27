@@ -1,9 +1,7 @@
 const ColorUtils = require('./ColorUtils')
-const TranslatorSystem = require('./Utilities')
 
 module.exports = class EmbedBuilder {
-  constructor (ctx, data = {}) {
-    this.ctx = ctx
+  constructor (data = {}) {
     this.type = data.type || 'rich'
     this.title = 'title' in data ? data.title : null
     this.description = 'description' in data ? data.description : null
@@ -67,14 +65,11 @@ module.exports = class EmbedBuilder {
     this.files = data.files || []
   }
 
-  addField (name, value, inline, placeholders) {
-    name = TranslatorSystem.getTranslation(name, placeholders, this.ctx.guild)
-    value = TranslatorSystem.getTranslation(value.toString(), placeholders, this.ctx.guild)
+  addField (name, value, inline) {
     return this.fields.push({ name, value, inline })
   }
 
-  setAuthor (name, iconURL, url, placeholders) {
-    name = TranslatorSystem.getTranslation(name, placeholders, this.ctx.guild)
+  setAuthor (name, iconURL, url) {
     this.author = { name, iconURL, url }
     return this
   }
@@ -84,14 +79,12 @@ module.exports = class EmbedBuilder {
     return this
   }
 
-  setDescription (description, placeholders) {
-    description = TranslatorSystem.getTranslation(description, placeholders, this.ctx.guild)
+  setDescription (description) {
     this.description = description
     return this
   }
 
-  setFooter (text, iconURL, placeholders) {
-    text = TranslatorSystem.getTranslation(text, placeholders, this.ctx.guild)
+  setFooter (text, iconURL) {
     this.footer = { text, iconURL }
     return this
   }
@@ -112,8 +105,7 @@ module.exports = class EmbedBuilder {
     return this
   }
 
-  setTitle (title, placeholders) {
-    title = TranslatorSystem.getTranslation(title, placeholders, this.ctx.guild)
+  setTitle (title) {
     this.title = title
     return this
   }

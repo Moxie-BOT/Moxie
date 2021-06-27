@@ -5,7 +5,7 @@ module.exports = class PingCommand extends CommandHandler {
     super(client, {
       labels: ['ping', 'lag'],
       requirements: {},
-      category: 'miscellaneous',
+      category: 'Miscellaneous',
       parameters: []
     })
   }

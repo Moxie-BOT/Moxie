@@ -20,17 +20,16 @@ module.exports = class CommandContext {
     this.member = msg.member
     this.messageID = msg.id
     this.message = msg
+    this.messages = msg.channel.messages
   }
 
   /**
    *
    * @param content
    * @param file
-   * @param {Object} placeholders
    * @returns {Promise<*>}
    */
-  async reply (content, file, placeholders) {
-    if (typeof content === 'string') content = Translator.getTranslation(content, placeholders, this.guild)
+  async reply (content, file) {
     if (typeof content !== 'object') content = { content }
     const msg = await this.channel.getMessage(this.messageID).catch(() => {})
     if (!msg) return

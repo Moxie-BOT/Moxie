@@ -13,16 +13,16 @@ module.exports = class EvalCommand extends (
       requirements: {
         onlyDevs: true
       },
-      category: 'commands:commonOptCommands.category.devloper',
+      category: 'Desenvolvedor',
       parameters: [
         {
           type: 'string',
           full: true
         }
       ],
-      description: 'eval:description',
-      usage: 'eval:usage',
-      example: 'eval:example'
+      description: 'Executa pedaços de códigos usando javascript com implementação node.js',
+      usage: '<<1>>eval [código]',
+      example: '\uD83D\uDCCC Mostra detalhes da instância do cliente\n`<<1>>eval this.client`\n\uD83D\uDCCC Mostra propriedades do CommandContext\n`<<1>>eval ctx`'
     })
   }
 

@@ -9,7 +9,7 @@ module.exports = class BanCommand extends CommandHandler {
         permissions: ['banMembers'],
         botPermissions: ['banMembers']
       },
-      category: 'moderation',
+      category: 'Moderação',
       parameters: [
         {
           type: 'user',

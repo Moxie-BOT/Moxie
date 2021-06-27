@@ -14,7 +14,9 @@ module.exports = class RoleInfoCommand extends CommandHandler {
           type: 'role',
           highestRole: true
         }
-      ]
+      ],
+      description: 'Mostra informações de cargos no discord',
+      usage: '`<<1>>roleinfo (cargo)`'
     })
   }
 
@@ -35,7 +37,7 @@ module.exports = class RoleInfoCommand extends CommandHandler {
     const permsRole = role.permissions.json
     const realPerms = Object.keys(permsRole).filter(field => permsRole[field])
 
-    const embed = new EmbedBuilder(ctx)
+    const embed = new EmbedBuilder()
     embed.setTitle(role.name)
     embed.setColor('DEFAULT')
     embed.addField('💻 ID do cargo', role.id, true)

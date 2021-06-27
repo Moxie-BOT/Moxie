@@ -14,7 +14,9 @@ module.exports = class ServerinfoCommand extends CommandHandler {
           required: false,
           acceptLocal: true
         }
-      ]
+      ],
+      description: 'Mostra informações de algum servidor que estou',
+      usage: '`<<1>>serverinfo (servidor)`'
     })
   }
 
@@ -46,7 +48,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
       if (u.bot) bots++
     })
 
-    const embed = new EmbedBuilder(ctx)
+    const embed = new EmbedBuilder()
     embed.setTitle(`${guild.name} ${guild.premiumTier ? '<:boost:825875610425360494>' : ''}`)
     embed.setColor('DEFAULT')
     embed.setDescription(guild.description)

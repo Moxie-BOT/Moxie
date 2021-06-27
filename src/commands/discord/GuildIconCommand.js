@@ -12,7 +12,10 @@ module.exports = class GuildIconCommand extends CommandHandler {
           type: 'guild',
           acceptLocal: true
         }
-      ]
+      ],
+      description: 'Mostra o icon atual do servidor',
+      usage: '`<<1>>guildicon (canal)`',
+      example: '\uD83D\uDCCC Mostra o icon do sevidor onde foi executado o comando\n`<<1>>guildicon`\n\uD83D\uDCCC Ícone do servidor pelo nome\n`<<1>>guildicon Doce lar da Moxie`\n\uD83D\uDCCC E também pelo ID\n`<<1>>guildicon 849000250168442901`'
     })
   }
 
@@ -22,12 +25,12 @@ module.exports = class GuildIconCommand extends CommandHandler {
      * @param {Guild} guild
      */
   async execute (ctx, [guild]) {
-    if (!guild.dynamicIconURL()) return ctx.reply('<:error:849430452624162816> Este servidor não possui um icon para ser mostrado')
+    if (!guild.dynamicIconURL()) return ctx.reply('<:close:858094081304166433> Este servidor não possui um icon para ser mostrado')
 
-    const embed = new EmbedBuilder(ctx)
+    const embed = new EmbedBuilder()
       .setColor('DEFAULT')
-      .setTitle(`Icon de ${guild.name}`)
-      .setDescription(`**Baixe clicando [aqui](${guild.dynamicIconURL()})**`)
+      .setTitle(`Ícone de ${guild.name}`)
+      .setDescription(`Baixe clicando [aqui](${guild.dynamicIconURL()})`)
       .setImage(guild.dynamicIconURL())
     await ctx.reply({ embed })
   }

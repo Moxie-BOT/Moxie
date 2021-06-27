@@ -28,7 +28,6 @@ function init () {
     ],
     disableEvents: {
       CHANNEL_CREATE: true,
-      CHANNEL_UPDATE: true,
       GUILD_BAN_ADD: true,
       GUILD_BAN_REMOVE: true,
       GUILD_MEMBER_ADD: true,
@@ -37,10 +36,8 @@ function init () {
       GUILD_ROLE_CREATE: true,
       GUILD_ROLE_DELETE: true,
       GUILD_ROLE_UPDATE: true,
-      GUILD_UPDATE: true,
       PRESENCE_UPDATE: true,
       TYPING_START: true,
-      USER_UPDATE: true,
       VOICE_STATE_UPDATE: true
     }
   })

@@ -15,7 +15,9 @@ module.exports = class UserinfoCommand extends CommandHandler {
           required: false,
           acceptAuthor: true
         }
-      ]
+      ],
+      description: 'Veja informações de qualquer usuário no discord',
+      usage: '`<<1>>userinfo (usuário)`'
     })
   }
 
@@ -49,7 +51,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
       SYSTEM: ''
     }
     const flags = user.publicFlags
-    const embed = new EmbedBuilder(ctx)
+    const embed = new EmbedBuilder()
     let title
     if (flags) {
       const filterFlags = Object.entries(Constants.UserFlags).filter(([, bit]) => (flags & bit) === bit).map(([field]) => field).map(f => emojis[f])

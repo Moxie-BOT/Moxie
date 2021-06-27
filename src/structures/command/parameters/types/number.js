@@ -9,14 +9,7 @@ module.exports = class NumberParameter {
       minInt: Number(options.minInt) || 0,
       allowNegative: !!options.allowNegative,
       denyFloat: !!options.denyFloat || true,
-      required: defVar(options, 'required', true),
-
-      errors: {
-        numberBiggerThen: 'commands:numberBiggerThen',
-        numberLessThan: 'commands:numberLessThan',
-        isNotNumber: 'commands:notNumber',
-        denyFloat: 'commands:denyFloat'
-      }
+      required: defVar(options, 'required', true)
     }
   }
 
@@ -32,10 +25,10 @@ module.exports = class NumberParameter {
     if (!arg && options.required) throw new Error('InsuficientArgs')
 
     arg = arg ? (typeof util.convertAbbreviatedNum(arg) === 'number' ? util.convertAbbreviatedNum(arg) : util.convertAbbreviatedNum(arg)) : undefined
-    if (!/^[+-]?[0-9]+(?:.[0-9]+)?$/.test(arg) && isNaN(arg)) throw new Error(util.getTranslation(options.errors.isNotNumber, { 1: arg.substr(0, 40) }, ctx))
-    if (options.denyFloat && Number(arg) % 1 !== 0) throw new Error(options.errors.denyFloat)
-    if (arg > options.maxInt) throw new Error(util.getTranslation(options.errors.numberBiggerThen, { 1: options.maxInt }, ctx))
-    if (arg < options.minInt) throw new Error(util.getTranslation(options.errors.numberLessThan, { 1: options.minInt }, ctx))
+    if (!/^[+-]?[0-9]+(?:.[0-9]+)?$/.test(arg) && isNaN(arg)) throw new Error(`<:close:858094081304166433> Talvez \`${arg.replace(/`/g, '').substr(0, 40)}\` seja um número, mesmo assim não consegui reconhecê-lo como um número`)
+    if (options.denyFloat && Number(arg) % 1 !== 0) throw new Error('<:close:858094081304166433> Apenas números inteiros por aqui')
+    if (arg > options.maxInt) throw new Error(`<:close:858094081304166433> Esse número é tãão grande que passou da quantidade máxima aceita por mim neste comando. Tente usar números menores que \`${options.maxInt}\``)
+    if (arg < options.minInt) throw new Error(`<:close:858094081304166433> Esse número é tãão pequeno que não foi aceito por mim nesse comando. Tente usar números maiores que \`${options.minInt}\``)
 
     return arg
   }
