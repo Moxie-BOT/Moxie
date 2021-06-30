@@ -43,7 +43,7 @@ module.exports = class KickCommand extends CommandHandler {
       try {
         await ds.guild.kickMember(member.id, reason)
       } catch (err) {
-        return ctx.channel.send('<:close:858094081304166433> Eu não consegui expulsar o usuário por um desses motivos:\n- O cargo dele é maior que o meu;\n- Ele é o dono do servidor.')
+        return ctx.channel.createMessage('<:close:858094081304166433> Eu não consegui expulsar o usuário por um desses motivos:\n- O cargo dele é maior que o meu;\n- Ele é o dono do servidor.')
       }
     }
     await funCheck.CheckMsg(ctx, action, {
