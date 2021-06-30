@@ -23,14 +23,13 @@ module.exports = class MessageListener {
     })
 
     const { prefix } = await this.client.guildCache.get(message.guildID)
-    if (message.content.startsWith(prefix.toLowerCase())) {
-      const args = message.content.trim().replace(prefix.toLowerCase(), '').split(' ')
-      const commandName = args.shift().toLowerCase()
-      const cmd = this.client.commandTools.getCommand(commandName)
+    if (!message.content.startsWith(prefix.toLowerCase())) return
+    const args = message.content.trim().replace(prefix.toLowerCase(), '').split(' ')
+    const commandName = args.shift().toLowerCase()
+    const cmd = this.client.commandTools.getCommand(commandName)
 
-      if (!cmd) return
-      const ctx = new CommandContext(this.client, message, args, commandName)
-      await cmd._execute(ctx)
-    }
+    if (!cmd) return
+    const ctx = new CommandContext(this.client, message, args, commandName)
+    await cmd._execute(ctx)
   }
 }

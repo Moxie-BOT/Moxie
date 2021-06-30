@@ -14,6 +14,8 @@ module.exports = class ColorUtils {
           return 9456380
         case 'RED':
           return 0xDA3131
+        case 'GREEN':
+          return 0x7CEE27
       }
       color = Colors[color] || parseInt(color.replace('#', ''), 16)
     } else if (Array.isArray(color)) color = (color[0] << 16) + (color[1] << 8) + color[2]

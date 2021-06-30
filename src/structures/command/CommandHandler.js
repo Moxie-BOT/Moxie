@@ -17,7 +17,6 @@ module.exports = class CommandHandler {
     this.requirements = options.requirements || {}
     this.parameters = options.parameters || []
     this.description = options.description || 'Por algum motivo, ninguém colocou uma descrição nesse comando! Desculpe pela inconveniência'
-    this.usage = options.usage || 'Nenhuma forma de usar encontrada'
     this.example = options.example || 'Infelizmente ninguém quis me dar exemplos de como executar isso'
   }
 
@@ -42,8 +41,8 @@ module.exports = class CommandHandler {
       if (err.message.includes('InsuficientArgs')) {
         const embed = new EmbedBuilder()
           .setColor('DEFAULT')
-          .setTitle(`Como usar o ${ctx.guild.storage.prefix}${this.labels[0]}`)
-          .setDescription(utils.applyPlaceholders(`${this.description}\n\n**\uD83D\uDCA1 Uso: ${this.usage}**\n**\uD83D\uDCD6 Exemplos**\n${this.example}\n**\uD83D\uDD00 Sinônimos**\n${this.labels.join(' | ')}`, { 1: ctx.guild.storage.prefix }))
+          .setTitle(`⁉ Como usar o ${ctx.guild.storage.prefix}${ctx.labelUsed}`)
+          .setDescription(utils.applyPlaceholders(`${this.description}\n\n**\uD83D\uDCD6 Genéricos**\n${this.example}\n\n**\uD83D\uDD00 Sinônimos**\n${this.labels.join(' | ')}`, { 1: ctx.guild.storage.prefix, 2: ctx.labelUsed }))
           .setFooter(`${ctx.author.tag} | ${this.category}`, ctx.author.dynamicAvatarURL())
         await ctx.reply({ embed })
         return
@@ -59,7 +58,7 @@ module.exports = class CommandHandler {
       Logger.debug(`Executed ${ctx.commandName} and took ${Math.round(((stop[0] * 1e9) + stop[1]) / 1e6)}ms to complete ${ctx.guild.name} -> ${ctx.channel.name} (${ctx.author.tag})`)
     } catch (err) {
       Logger.error(`Attempt to execute ${ctx.message.content} in ${ctx.guild.name} -> ${ctx.channel.name} failed! ${err.stack}`)
-      return ctx.reply(`<:error:849430452624162816> Algo que não era pra ter acontecido, aconteceu. O provável erro foi capaz de impedir que eu executasse o comando por inteiro. Esse é o causador do problema:\n\`${err}\``)
+      return ctx.reply(`<:close:858094081304166433> Algo que não era pra ter acontecido, aconteceu. O provável erro foi capaz de impedir que eu executasse o comando por inteiro. Esse é o causador do problema:\n\`${err}\``)
     }
   }
 

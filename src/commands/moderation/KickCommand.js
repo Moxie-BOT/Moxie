@@ -20,7 +20,9 @@ module.exports = class KickCommand extends CommandHandler {
           full: true,
           required: false
         }
-      ]
+      ],
+      description: 'Expulsa membros do seu servidor. Eles poderão voltar se quiserem',
+      example: '**🔹 Você pode usar menções e IDs, nomes e apelidos\n🔹 Os argumentos são obrigatórios nesse comando, ou seja, você precisa especificar alguém para que eu possa expulsar!\n🔹 Você também pode especificar o motivo, dessa forma, ficará mais fácil de saber por que o membro foi expulso**\n\n**🔸 Possíveis usos**\n`<<1>><<2>> @Luís`\n`<<1>><<2>> Luís Fazer spam`\n`<<1>><<2>> 730425354870587473 Ser arrogante`'
     })
   }
 
@@ -37,10 +39,16 @@ module.exports = class KickCommand extends CommandHandler {
       })
       return
     }
-    const action = async (ds) => await ds.guild.kickMember(member.id, reason)
+    const action = async (ds) => {
+      try {
+        await ds.guild.kickMember(member.id, reason)
+      } catch (err) {
+        return ctx.channel.send('<:close:858094081304166433> Eu não consegui expulsar o usuário por um desses motivos:\n- O cargo dele é maior que o meu;\n- Ele é o dono do servidor.')
+      }
+    }
     await funCheck.CheckMsg(ctx, action, {
       punishmentTxt: true,
-      stringQuestion: `⚠ Você quer mesmo expulsar ${member.user.mention} (\`${member.user.tag}\`/\`${member.id}\`)? Para confirmar o banimento, clique em ✅`
+      stringQuestion: `⚠ Você quer mesmo expulsar ${member.user.mention} (\`${member.user.tag}\`/\`${member.id}\`)? Para confirmar a punição, clique em ✅`
     })
   }
 }

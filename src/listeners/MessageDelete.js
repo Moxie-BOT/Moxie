@@ -1,3 +1,5 @@
+const EmbedBuilder = require('../utils/EmbedBuilder')
+
 module.exports = class MessageDeleteListener {
   /**
      *
@@ -19,5 +21,20 @@ module.exports = class MessageDeleteListener {
         collector.stop('Message Delete')
       }
     })
+
+    if (message.author.bot) return
+    const cachedGuild = await this.client.guildCache.get(message.guildID)
+    if (!cachedGuild.logEventID && !cachedGuild.activedLogs?.includes(this.name)) return
+
+    const channelLog = message.channel.guild.channels.get(cachedGuild.logEventID)
+    if (!channelLog) return
+
+    const embed = new EmbedBuilder()
+      .setTitle('🗑 Mensagem deletada')
+      .setColor('RED')
+    embed.addField('Conteúdo', `${message.content.substr(0, 1015)}`, true)
+    embed.addField('Canal', `${message.channel.mention}`, true)
+    embed.setFooter(`${message.author.username}#${message.author.discriminator}`, message.author.dynamicAvatarURL())
+    channelLog.createMessage({ embed })
   }
 }

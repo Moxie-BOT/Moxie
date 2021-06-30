@@ -16,7 +16,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
         }
       ],
       description: 'Mostra informações de algum servidor que estou',
-      usage: '`<<1>>serverinfo (servidor)`'
+      example: '**🔹 Você pode usar nomes e IDs\n🔹 Os argumentos são opcionais, ou seja, você não precisa forncer um servidor.**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`\n`<<1>><<2>> 849000250168442901`\n`<<1>><<2>> Doce lar da Moxie`'
     })
   }
 
@@ -30,6 +30,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     let text = 0
     let voice = 0
     let category = 0
+    let news = 0
     const allChannels = guild.channels.size
     let users = 0
     let bots = 0
@@ -42,6 +43,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
       if (ch.type === 0) text++
       if (ch.type === 2) voice++
       if (ch.type === 4) category++
+      if (ch.type === 5) news++
     })
     guild.members.forEach(u => {
       if (!u.bot) users++
@@ -55,11 +57,12 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     embed.setThumbnail(guild.iconURL)
     embed.setImage(guild.splashURL || guild.bannerURL)
     embed.addField('💻 ID do servidor', `\`${guild.id}\``, true)
-    embed.addField('👑 Dono', `\`${owner.username}#${owner.discriminator}\``, true)
-    embed.addField('💻 Shard', `\`${Number(ctx.guild.shard.id)}/${this.client.shards.size}\``, true)
-    embed.addField(`🔖 Canais ${allChannels}`, `Texto: ${text}\nVoz: ${voice}\nCategorias: ${category}`, true)
+    embed.addField('👑 Dono', `${owner.username}#${owner.discriminator} \`(${owner.id})\``, true)
+    embed.addField('💻 Shard', `\`${ctx.guild.shard.id + 1}/${this.client.shards.size}\``, true)
+    embed.addField(`🔖 Canais ${allChannels}`, `Texto: ${text}\nVoz: ${voice}\nCategorias: ${category}${news > 0 ? `\n Anúncios: ${news}` : ''}`, true)
     embed.addField(`👥 Membros ${allMembers}`, `Usuários: ${users}\nBots: ${bots}`, true)
-    embed.addField('📆 Criado há', humanizeDuration(Date.now() - guild.createdAt, timeConfig), true)
+    embed.addField('📆 Criado há', humanizeDuration(Date.now() - guild.createdAt, timeConfig) + ` (${new Date(guild.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    embed.addField('🔞 Servidor NSFW', guild.nsfw ? 'Sim' : 'Não', true)
     await ctx.reply({ embed })
   }
 }

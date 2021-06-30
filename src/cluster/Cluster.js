@@ -24,12 +24,10 @@ function init () {
       'guildMembers',
       'guildMessages',
       'guildMessageReactions',
-      'guildInvites'
+      'guildInvites',
+      'guildBans'
     ],
     disableEvents: {
-      CHANNEL_CREATE: true,
-      GUILD_BAN_ADD: true,
-      GUILD_BAN_REMOVE: true,
       GUILD_MEMBER_ADD: true,
       GUILD_MEMBER_REMOVE: true,
       GUILD_MEMBER_UPDATE: true,

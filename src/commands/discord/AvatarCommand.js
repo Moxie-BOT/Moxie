@@ -10,12 +10,11 @@ module.exports = class AvatarCommand extends CommandHandler {
       parameters: [
         {
           type: 'user',
-          acceptAuthor: true
+          acceptAuthor: false
         }
       ],
-      description: 'Mostra o avatar atual de qualquer usuário do discord',
-      usage: '`<<1>>avatar (usuário)`',
-      example: '\uD83D\uDCCC Se você não por nenhum usuário, irá mostrar seu avatar\n`<<1>>avatar`\n\uD83D\uDCCC Avatar do usuário por ID\n`<<1>>avatar 730425354870587473`\n\uD83D\uDCCC Buscando usuário por nome\n`<<1>>avatar Luís`'
+      description: 'Mostra o avatar atual de qualquer usuário',
+      example: '**🔹 Você pode usar menções e IDs, caso o usuário esteja no servidor, nomes e apelidos\n🔹 Os argumentos são opcionais nesse comando, ou seja, se você não escolher nenhum usuário eu irei mostrar seu próprio avatar!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`\n`<<1>><<2>> @Luís`\n`<<1>><<2>> 730425354870587473`\n`<<1>><<2>> Luís`'
     })
   }
 

@@ -18,5 +18,21 @@ module.exports = class messageDeleteBulkListener {
       }
     })
     collectors.forEach(c => c.stop('Message Delete'))
+
+    // eslint-disable-next-line array-callback-return
+    const log = await message.map(m => {
+      if (m.author) return `${m.author.username}#${m.author.discriminator}: ${m?.content}`
+    }).filter(e => e)
+
+    const cachedGuild = await this.client.guildCache.get(message[0].guildID)
+    if (!cachedGuild.logEventID && !cachedGuild.activedLogs?.includes(this.name)) return
+
+    const channelLog = message[0].channel.guild.channels.get(cachedGuild.logEventID)
+    if (!channelLog) return
+
+    channelLog.createMessage('Mensagens apagadas', {
+      name: 'log.txt',
+      file: log.join(' \n')
+    })
   }
 }

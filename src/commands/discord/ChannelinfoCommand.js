@@ -15,8 +15,7 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
         }
       ],
       description: 'Mostra informações de canais, categorias e tudo mais, desde que eu esteja no servidor em que o canal está',
-      usage: '`<<1>>channelinfo (canal)`',
-      example: '\uD83D\uDCCC Mostra informções do canal onde foi executado\n`<<1>>channelinfo`\n\uD83D\uDCCC Mostrando informações de canais pelo ID\n`<<1>>channelinfo 849000250739523627`\n\uD83D\uDCCC Buscando canal por nome\n`<<1>>channelinfo geral`'
+      example: '**🔹 Você pode usar menções e IDs, caso o canal esteja no servidor onde foi executado o comando, nomes\n🔹 Os argumentos são opcionais, ou seja, se você não escolher nenhum canal, irei mostrar informações do canal onde foi executado o comando!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`\n`<<1>><<2>> 849000250739523627`\n`<<1>><<2>> bate-papo`\n`<<1>><<2>> #bate-papo`'
     })
   }
 
@@ -70,7 +69,7 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
         // embed.addField("🗣️ Membros no canal", channel.voiceMembers ? channel.voiceMembers.map(lk => lk.user.mention).slice(0, 10).join(", ") : booleans[null]);
         break
     }
-    embed.addField('\uD83D\uDCC6 Criado há', humanizeDuration(Date.now() - channel.createdAt, timeConfig), true)
+    embed.addField('\uD83D\uDCC6 Criado há', humanizeDuration(Date.now() - channel.createdAt, timeConfig) + ` (${new Date(channel.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
     await ctx.reply({ embed })
   }
 }

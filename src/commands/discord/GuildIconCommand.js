@@ -13,9 +13,8 @@ module.exports = class GuildIconCommand extends CommandHandler {
           acceptLocal: true
         }
       ],
-      description: 'Mostra o icon atual do servidor',
-      usage: '`<<1>>guildicon (canal)`',
-      example: '\uD83D\uDCCC Mostra o icon do sevidor onde foi executado o comando\n`<<1>>guildicon`\n\uD83D\uDCCC Ícone do servidor pelo nome\n`<<1>>guildicon Doce lar da Moxie`\n\uD83D\uDCCC E também pelo ID\n`<<1>>guildicon 849000250168442901`'
+      description: 'Mostra o ícone de algum servidor servidor',
+      example: '**🔹 Você pode usar IDs ou nomes\n🔹 Os argumentos são opcionais, ou seja, se você não escolher nenhum servidor, irei mostrar o ícone do servidor onde foi executado o comando!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`\n`<<1>><<2>> 849000250168442901`\n`<<1>><<2>> Doce lar da Moxie`'
     })
   }
 

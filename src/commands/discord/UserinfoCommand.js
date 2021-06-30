@@ -2,12 +2,16 @@ const CommandHandler = require('../../structures/command/CommandHandler')
 const EmbedBuilder = require('../../utils/EmbedBuilder')
 const humanizeDuration = require('humanize-duration')
 const { Constants } = require('eris')
+const { ReactionCollector } = require('../../utils/Collector')
+const PermissionsJSON = require('../../utils/others/ErisPermissions.json')
 
 module.exports = class UserinfoCommand extends CommandHandler {
   constructor (client) {
     super(client, {
       labels: ['userinfo'],
-      requirements: {},
+      requirements: {
+        botPermissions: ['addReactions']
+      },
       category: 'Discord',
       parameters: [
         {
@@ -17,7 +21,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
         }
       ],
       description: 'Veja informações de qualquer usuário no discord',
-      usage: '`<<1>>userinfo (usuário)`'
+      example: '**🔹 Você pode usar menções e IDs, caso o usuário esteja no servidor, nomes e apelidos\n🔹 Os argumentos são opcionais nesse comando, ou seja, se você não escolher nenhum usuário eu irei mostrar suas próprias informações!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`\n`<<1>><<2>> @Luís`\n`<<1>><<2>> 730425354870587473`\n`<<1>><<2>> Luís`'
     })
   }
 
@@ -67,9 +71,33 @@ module.exports = class UserinfoCommand extends CommandHandler {
     embed.setColor('DEFAULT')
     embed.addField('📚 Tag', `\`${user.tag}\``, true)
     embed.addField('💻 ID do usuário', `\`${user.id}\``, true)
-    embed.addField('📆 Criado há', humanizeDuration(Date.now() - user.createdAt, timeConfig), true)
+    embed.addField('📆 Criado há', humanizeDuration(Date.now() - user.createdAt, timeConfig) + ` (${new Date(user.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
 
-    if (ctx.guild.members.has(user.id)) embed.addField('📆 Entrou há', humanizeDuration(Date.now() - ctx.guild.members.get(user.id).joinedAt, timeConfig), true)
-    await ctx.reply({ embed })
+    const member = ctx.guild.members.get(user.id)
+
+    if (!member) return ctx.reply({ embed })
+    embed.addField('📆 Entrou há', humanizeDuration(Date.now() - member.joinedAt, timeConfig) + ` (${new Date(member.joinedAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    const msg = await ctx.reply({ embed })
+    await msg.addReaction('➡')
+
+    const filter = (r, user) => (r.name === '➡' || r.name === '⬅') && user === ctx.author
+    const collector = new ReactionCollector(this.client, msg, filter, { time: 120000 })
+
+    const embed2 = new EmbedBuilder()
+    const permsRole = member.permissions.json
+    const realPerms = Object.keys(permsRole).filter(field => permsRole[field])
+    embed2.addField('📛 Permissões', realPerms.length > 0 ? realPerms.map(p => `\`${PermissionsJSON[p]}\``).join(', ') : 'Nenhuma')
+    embed2.setColor('DEFAULT')
+
+    collector.on('collect', (r) => {
+      switch (r.name) {
+        case '➡':
+          msg.edit({ embed: embed2 }).then(ds => ds.addReaction('⬅'))
+          break
+        case '⬅':
+          msg.edit({ embed }).then(ds => ds.addReaction('➡'))
+          break
+      }
+    })
   }
 }

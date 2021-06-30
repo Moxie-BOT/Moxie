@@ -21,8 +21,7 @@ module.exports = class EvalCommand extends (
         }
       ],
       description: 'Executa pedaços de códigos usando javascript com implementação node.js',
-      usage: '<<1>>eval [código]',
-      example: '\uD83D\uDCCC Mostra detalhes da instância do cliente\n`<<1>>eval this.client`\n\uD83D\uDCCC Mostra propriedades do CommandContext\n`<<1>>eval ctx`'
+      example: '**🔹 Os argumentos são obrigatórios, ou seja, você precisa fornecer as informações que eu preciso para executar o comando!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>> ctx`\n`<<1>><<2>> this`'
     })
   }
 

@@ -12,9 +12,8 @@ module.exports = class InviteInfoCommand extends CommandHandler {
           type: 'string'
         }
       ],
-      description: 'Mostra informações de um convite de servidor',
-      usage: '`<<1>>inviteinfo [convite]`',
-      example: '\uD83D\uDCCC Mostra o icon do sevidor onde foi executado o comando\n`<<1>>inviteinfo` RkAtsxQbFH'
+      description: 'Mostra informações de qualquer convite de servidor',
+      example: '**🔹 Os argumentos são obrigatórios, ou seja, você precisa fornecer um convite!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>> RkAtsxQbFH`\n`<<1>><<2>> discord.gg/RkAtsxQbFH`\n`<<1>><<2>> https://discord.com/invite/lori`'
     })
   }
 
