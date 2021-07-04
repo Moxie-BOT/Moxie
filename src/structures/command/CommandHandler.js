@@ -55,7 +55,7 @@ module.exports = class CommandHandler {
       await this.execute(ctx, [...parameters])
       const stop = process.hrtime(start)
 
-      Logger.debug(`Executed ${ctx.commandName} and took ${Math.round(((stop[0] * 1e9) + stop[1]) / 1e6)}ms to complete ${ctx.guild.name} -> ${ctx.channel.name} (${ctx.author.tag})`)
+      Logger.debug(`Executed ${ctx.labelUsed} and took ${Math.round(((stop[0] * 1e9) + stop[1]) / 1e6)}ms to complete ${ctx.guild.name} -> ${ctx.channel.name} (${ctx.author.tag})`)
     } catch (err) {
       Logger.error(`Attempt to execute ${ctx.message.content} in ${ctx.guild.name} -> ${ctx.channel.name} failed! ${err.stack}`)
       return ctx.reply(`<:close:858094081304166433> Algo que não era pra ter acontecido, aconteceu. O provável erro foi capaz de impedir que eu executasse o comando por inteiro. Esse é o causador do problema:\n\`${err}\``)

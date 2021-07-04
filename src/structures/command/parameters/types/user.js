@@ -5,7 +5,7 @@ module.exports = class User {
     return {
       ...options,
       acceptAuthor: !!options.acceptAuthor,
-      required: defVar(options, 'required', true),
+      required: defVar(options, 'required', true)
     }
   }
 
@@ -21,7 +21,7 @@ module.exports = class User {
     let user
 
     if (!arg) {
-      if (options.acceptAuthor) return ctx.guild.members.get(ctx.author.id).user
+      if (options.acceptAuthor) return ctx.author
       if (options.required) throw new Error('InsuficientArgs')
       return
     }
@@ -30,7 +30,7 @@ module.exports = class User {
     try {
       user = !/^\d+$/.test(arg)
         ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase()) || s.nick?.toLowerCase().includes(arg.toLowerCase())).user
-        : ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
+        : ctx.guild.members.get(arg) || ctx.client.users.get(arg) || await ctx.client.getRESTUser(arg)
     } catch { }
 
     if (!user) throw new Error(`<:close:858094081304166433> Não encontrei nenhum usuário parecido com \`${arg.replace(/`/g, '').substr(0, 40)}\`! Eu procuro por IDs e menções, caso ele esteja no servidor, por apelidos e nomes`)

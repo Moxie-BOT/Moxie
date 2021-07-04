@@ -13,7 +13,7 @@ module.exports = class UserRepository extends MongoRepository {
           default: false
         }
       }
-    })
+    }, { versionKey: false })
     ))
   }
 }

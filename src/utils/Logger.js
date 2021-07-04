@@ -15,7 +15,7 @@ module.exports = class Logger {
    * @param {String} message
    */
   static debug (message) {
-    if (process.env.DEBBUG !== 'true') return
+    if (process.env.DEBUG !== 'true') return
     this.generateLog('[DEBUG]', message)
   }
 

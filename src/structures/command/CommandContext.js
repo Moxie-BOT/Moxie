@@ -1,4 +1,3 @@
-const Translator = require("../../utils/Utilities")
 
 module.exports = class CommandContext {
   /**

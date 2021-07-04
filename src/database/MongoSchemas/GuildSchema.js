@@ -19,15 +19,19 @@ module.exports = class GuildRepository extends MongoRepository {
           },
           activeListeners: {
             type: Array,
-            default: []
+            default: null
           }
+        },
+        commandsChannels: {
+          type: Array,
+          default: null
         },
         language: {
           type: Number,
           default: 0
         }
       }
-    })
+    }, { versionKey: false })
     ))
   }
 }

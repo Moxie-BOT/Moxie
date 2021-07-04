@@ -10,7 +10,6 @@ module.exports = class DatabaseRegistry {
   }
 
   async load () {
-    if (process.env.PRODUCTION !== 'true') return Logger.warning('Database has not been initialized, as PRODUCTION mode is disabled')
     await this.initializeDatabase({
       useNewUrlParser: true,
       useUnifiedTopology: true,

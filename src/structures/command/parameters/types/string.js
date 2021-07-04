@@ -19,12 +19,14 @@ module.exports = class StringParameter {
      */
   static async parse (arg, ctx, opt) {
     const options = this.parseOptions(opt)
-    if (!arg && options.required) throw new Error('InsuficientArgs')
-    if (!arg && !options.required) return null
+    if (!arg) {
+      if (options.required) throw new Error('InsuficientArgs')
+      if (!options.required) return
+    }
     arg = arg ? (typeof arg === 'string' ? arg : String(arg)) : undefined
     if (arg.length > options.maxLength) throw new Error(`<:close:858094081304166433> Essa frase é tãão grande que superou minhas expectativas. O máximo de caracteres é de \`${options.maxLength}\``)
     if (arg.length < options.minLength) throw new Error(`<:close:858094081304166433> Essa frase é tãão pequena que ficou difícil trabalhar só com esses dados. O número mínimo de caracteres é de \`${options.minLength}\``)
-    if (options.onlyAlphanumeric && !/^\w+$/.test(arg)) throw new Error('')
+    if (options.onlyAlphanumeric && !/^\w+$/.test(arg)) throw new Error('<:close:858094081304166433> Apenas letras e números são aceitos')
 
     return arg
   }

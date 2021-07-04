@@ -14,7 +14,7 @@ function parseOptions (options) {
  * @param {CommandContext} ctx
  * @param {Object} opt
  */
-async function handle (ctx, opt) {
+module.exports.handle = async function handle (ctx, opt) {
   const options = parseOptions(opt)
   const developers = JSON.parse(process.env.BOT_OWNERS)
 
@@ -45,8 +45,9 @@ async function handle (ctx, opt) {
         break
       }
     }
-    if (!includes) throw new Error(`<:close:858094081304166433> Eu não tenho permissão de ${options.permissions.map(p => PermissionsJSON[p]).join(', ')}`)
+    if (!includes) throw new Error(`<:close:858094081304166433> Eu não tenho permissão de ${options.botPermissions.map(p => PermissionsJSON[p]).join(', ')}`)
   }
-}
 
-module.exports.handle = handle
+  const { commandsChannels } = await ctx.client.guildCache.get(ctx.guild.id)
+  if (commandsChannels.length > 0 && !commandsChannels.some(ds => ds.includes(ctx.channel.id)) /**&& !ctx.member.permissions.has('banMembers')**/) throw new Error(`<:close:858094081304166433> Eu sinto muito, mas me disseram que eu não posso executar comandos no ${ctx.channel.mention}!`)
+}

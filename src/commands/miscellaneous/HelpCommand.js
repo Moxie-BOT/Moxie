@@ -6,7 +6,7 @@ module.exports = class HelpCommand extends CommandHandler {
     super(client, {
       labels: ['help', 'ajuda', 'comandos', 'commands'],
       requirements: {},
-      category: 'Miscellaneous'
+      category: 'Outros'
     })
   }
 
@@ -23,7 +23,7 @@ module.exports = class HelpCommand extends CommandHandler {
       const a = []
       commandCategory.forEach(ds => a.push(ds.labels[0]))
 
-      embed.addField(categories[i], `\`${a.join(' | ')}\``)
+      embed.addField(`> ${categories[i]}`, `\`${a.join(' | ')}\``)
     }
     await ctx.reply({ embed })
   }

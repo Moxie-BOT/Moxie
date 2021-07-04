@@ -1,5 +1,3 @@
-const { readdirSync, readFileSync, existsSync } = require('fs')
-
 function convertAbbreviatedNum (abbreviation) {
   const abbr = abbreviation.replace(/,/gi, '').replace(/kk/gi, 'M')
   const number = parseFloat(abbr.substr(0, abbr.length - 1))
@@ -23,10 +21,7 @@ function abbreviateNumber (number, precision = 2) {
 }
 function applyPlaceholders (string, placeholders, delimiters = ['<<', '>>']) {
   if (!placeholders) return string
-  if (!string) return
-  try {
-    return string.replace(new RegExp(Object.keys(placeholders).map(k => `${delimiters[0]}${k}${delimiters[1]}`).join('|'), 'g'), match => placeholders[match.replace(new RegExp(delimiters.join('|'), 'g'), '')])
-  } catch { return string }
+  return string.replace(new RegExp(Object.keys(placeholders).map(k => `${delimiters[0]}${k}${delimiters[1]}`).join('|'), 'g'), match => placeholders[match.replace(new RegExp(delimiters.join('|'), 'g'), '')])
 }
 module.exports = {
   abbreviateNumber,

@@ -42,8 +42,10 @@ module.exports = class BanCommand extends CommandHandler {
     const action = async (ds) => {
       try {
         await ds.guild.banMember(user.id, 7, reason)
+        return true
       } catch (err) {
-        return ctx.channel.createMessage('<:close:858094081304166433> Eu não consegui banir o usuário por um desses motivos:\n- O cargo dele é maior que o meu;\n- Ele é o dono do servidor.')
+        ctx.channel.createMessage('<:close:858094081304166433> Eu não consegui banir o usuário por um desses motivos:\n- O cargo dele é maior que o meu;\n- Ele é o dono do servidor.')
+        return false
       }
     }
     await funCheck.CheckMsg(ctx, action, {

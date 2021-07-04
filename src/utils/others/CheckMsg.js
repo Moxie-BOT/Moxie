@@ -26,8 +26,8 @@ module.exports.CheckMsg = async function (ctx, action, options = {}) {
     const collector = new Collector.ReactionCollector(ctx.client, msg, filter, { time: 80000, max: 1 })
     collector.on('collect', async () => {
       msg.delete()
+      if (!await action(ctx)) return
       await ctx.reply(options.stringSucess)
-      return action(ctx)
     })
   }
 }

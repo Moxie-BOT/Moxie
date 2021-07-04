@@ -26,6 +26,10 @@ module.exports = class PrefixCommand extends CommandHandler {
      * @param {String} content
      */
   async execute (ctx, [content]) {
+    const gRes = await this.client.database.guilds.get(ctx.guild.id)
+    gRes.settings.prefix = content
+    await gRes.save()
+
     await this.client.guildCache.update(ctx.guild.id, {
       prefix: content
     })
