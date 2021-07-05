@@ -73,17 +73,17 @@ module.exports = class UserinfoCommand extends CommandHandler {
     embed.addField('💻 ID do usuário', `\`${user.id}\``, true)
     embed.addField('📆 Criado há', humanizeDuration(Date.now() - user.createdAt, timeConfig) + ` (${new Date(user.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
 
-    const member = ctx.guild.members.get(user.id)
+    const member = ctx.guild.members.get(user.id) || await ctx.guild.getRESTMember(user.id)
 
     if (!member) return ctx.reply({ embed })
     embed.addField('📆 Entrou há', humanizeDuration(Date.now() - member.joinedAt, timeConfig) + ` (${new Date(member.joinedAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
     if (member.premiumSince) embed.addField('📆 Booster há', humanizeDuration(Date.now() - member.premiumSince, timeConfig) + ` (${new Date(member.premiumSince).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`)
 
     const msg = await ctx.reply({ embed })
-    await msg.addReaction('⬅')
-    await msg.addReaction('➡')
+    await msg.addReaction('▶')
+    await msg.addReaction('◀')
 
-    const filter = (r, user) => (r.name === '➡' || r.name === '⬅') && user === ctx.author
+    const filter = (r, user) => (r.name === '▶' || r.name === '◀') && user === ctx.author
     const collector = new ReactionCollector(this.client, msg, filter, { time: 120000 })
 
     const embed2 = new EmbedBuilder()
@@ -95,12 +95,12 @@ module.exports = class UserinfoCommand extends CommandHandler {
 
     collector.on('collect', (r) => {
       switch (r.name) {
-        case '➡':
+        case '▶':
           if (page === 2) return
           page++
           msg.edit({ embed: embed2 })
           break
-        case '⬅':
+        case '◀':
           if (page === 1) return
           page--
           msg.edit({ embed })

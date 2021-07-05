@@ -38,13 +38,13 @@ module.exports = class TwitchCommand extends CommandHandler {
     let dataUser
     let dataStream
     const fetched = async () => {
-      dataUser = await request('users', `login=${content}`).then(ds => ds.data[0]) || await request('users', `id=${content}`).then(ds => ds.data[0])
-      if (!dataUser) return false
+      try {
+        dataUser = await request('users', `login=${content}`).then(ds => ds.data[0]) || await request('users', `id=${content}`).then(ds => ds.data[0])
+      } catch (e) { return ctx.reply(`Não encontrei nenhum usuário an twitch parecido com \`${content.replace(/`/, '').substr(0, 40)}\`! Eu procuro por nomes e IDs`) }
       dataStream = await request('streams', `user_login=${content}`).then(ds => ds.data[0]) || await request('streams', `user_id=${content}`).then(ds => ds.data[0])
       return true
     }
 
-    if (!await fetched()) return ctx.reply(`Não encontrei nenhum usuário an twitch parecido com \`${content.replace(/`/, '').substr(0, 40)}\`! Eu procuro por nomes e IDs`)
     if (dataUser.error === 'Unauthorized') {
       await fetch(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`, {
         method: 'POST'

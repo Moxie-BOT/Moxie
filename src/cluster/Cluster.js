@@ -7,8 +7,8 @@ function init () {
     restMode: true,
     maxShards: 1,
     defaultImageSize: 2048,
-    getAllUsers: true,
-    messageLimit: 50,
+    getAllUsers: false,
+    messageLimit: 0,
     allowedMentions: {
       everyone: false,
       roles: false,

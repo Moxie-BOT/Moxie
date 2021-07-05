@@ -34,7 +34,7 @@ module.exports = class User {
     } catch { }
 
     if (!user) throw new Error(`<:close:858094081304166433> Não encontrei nenhum usuário parecido com \`${arg.replace(/`/g, '').substr(0, 40)}\`! Eu procuro por IDs e menções, caso ele esteja no servidor, por apelidos e nomes`)
-    else user.tag = `${user.username}#${user.discriminator}`
+    user.tag = `${user.username}#${user.discriminator}`
 
     return user
   }

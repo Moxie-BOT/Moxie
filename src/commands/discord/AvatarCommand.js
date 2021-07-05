@@ -9,8 +9,7 @@ module.exports = class AvatarCommand extends CommandHandler {
       category: 'Discord',
       parameters: [
         {
-          type: 'user',
-          acceptAuthor: false
+          type: 'user'
         }
       ],
       description: 'Mostra o avatar atual de qualquer usuário',

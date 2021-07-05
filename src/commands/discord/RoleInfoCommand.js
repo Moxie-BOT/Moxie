@@ -16,7 +16,7 @@ module.exports = class RoleInfoCommand extends CommandHandler {
         }
       ],
       description: 'Mostra informações de cargos no discord',
-      example: '**🔹 Você pode usar menções e IDs, caso o cargo esteja no servidor onde foi executado o comando, nomes\n🔹 Os argumentos são obrigatórios, ou seja, você precisa fornecer um cargo. Caso você tenha mais de um cargo, irei mostrá-lo**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`\n`<<1>><<2>> @Administrador\n`<<1>><<2>> 849022129488134154`\n`<<1>><<2>> Administrador``'
+      example: '**🔹 Você pode usar menções e IDs, caso o cargo esteja no servidor onde foi executado o comando, nomes\n🔹 Os argumentos são obrigatórios, ou seja, você precisa fornecer um cargo. Caso você tenha mais de um cargo, irei mostrá-lo**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`\n`<<1>><<2>> @Administrador`\n`<<1>><<2>> 849022129488134154`\n`<<1>><<2>> Administrador`'
     })
   }
 
@@ -47,7 +47,6 @@ module.exports = class RoleInfoCommand extends CommandHandler {
     embed.addField('Menção', `\`${role.mention}\``, true)
     embed.addField('❓ Exibir separadamente', booleans[role.hoist], true)
     embed.addField('🏆 Posição', `#${role.position}`, true)
-    embed.addField('👥 Membros', role.guild.members.filter(a => a.roles.includes(role.id)).length, true)
     embed.addField('📆 Criado há', humanizeDuration(Date.now() - role.createdAt, timeConfig) + ` (${new Date(role.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
     embed.addField('📛 Permissões', realPerms.length > 0 ? realPerms.map(p => `\`${PermissionsJSON[p]}\``).join(', ') : booleans.null)
 

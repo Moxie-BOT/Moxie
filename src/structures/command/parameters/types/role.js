@@ -20,7 +20,7 @@ module.exports = class Role {
 
     let role
     if (!arg) {
-      if (options.highestRole && ctx.member.roles.length < 0) throw new Error('InsuficientArgs')
+      if (options.highestRole && ctx.member.roles.length === 0) throw new Error('InsuficientArgs')
       if (options.highestRole && ctx.member.roles.length > 0) return ctx.guild.roles.get(ctx.member.roles[0])
       if (options.required) throw new Error('InsuficientArgs')
       return

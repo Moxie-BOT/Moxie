@@ -32,8 +32,6 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     let category = 0
     let news = 0
     const allChannels = guild.channels.size
-    let users = 0
-    let bots = 0
     const allMembers = guild.members.size
     const timeConfig = {
       largest: 3, units: ['y', 'mo', 'd', 'h', 'm', 's'], language: 'pt', round: true, conjunction: ' e ', serialComma: false
@@ -44,10 +42,6 @@ module.exports = class ServerinfoCommand extends CommandHandler {
       if (ch.type === 2) voice++
       if (ch.type === 4) category++
       if (ch.type === 5) news++
-    })
-    guild.members.forEach(u => {
-      if (!u.bot) users++
-      if (u.bot) bots++
     })
 
     const embed = new EmbedBuilder()
@@ -60,7 +54,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     embed.addField('👑 Dono', `${owner.username}#${owner.discriminator} \`(${owner.id})\``, true)
     embed.addField('💻 Shard', `\`${ctx.guild.shard.id + 1}/${this.client.shards.size}\``, true)
     embed.addField(`🔖 Canais ${allChannels}`, `Texto: ${text}\nVoz: ${voice}\nCategorias: ${category}${news > 0 ? `\n Anúncios: ${news}` : ''}`, true)
-    embed.addField(`👥 Membros ${allMembers}`, `Usuários: ${users}\nBots: ${bots}`, true)
+    embed.addField(`👥 Membros`, allMembers, true)
     embed.addField('🔞 Servidor NSFW', guild.nsfw ? 'Sim' : 'Não', true)
     embed.addField('📆 Criado há', humanizeDuration(Date.now() - guild.createdAt, timeConfig) + ` (${new Date(guild.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
     await ctx.reply({ embed })
