@@ -44,9 +44,10 @@ module.exports = class RoleInfoCommand extends CommandHandler {
     embed.addField('👀 Cargo de', role.guild.name, true)
     embed.addField('🎨 Cor', role.color === 0 ? role.color = '#000000' : '#' + ((role.color) >>> 0).toString(16).toUpperCase(), true)
     embed.addField('❓ Mencionável', booleans[role.mentionable], true)
-    embed.addField('Menção', `\`${role.mention}\``, true)
+    embed.addField('👀 Menção', `\`${role.mention}\``, true)
     embed.addField('❓ Exibir separadamente', booleans[role.hoist], true)
     embed.addField('🏆 Posição', `#${role.position}`, true)
+    embed.addField('👥 Membros', role.guild.members.filter(a => a.roles.includes(role.id)).length, true)
     embed.addField('📆 Criado há', humanizeDuration(Date.now() - role.createdAt, timeConfig) + ` (${new Date(role.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
     embed.addField('📛 Permissões', realPerms.length > 0 ? realPerms.map(p => `\`${PermissionsJSON[p]}\``).join(', ') : booleans.null)
 

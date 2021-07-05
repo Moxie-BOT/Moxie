@@ -73,7 +73,7 @@ module.exports = class UserinfoCommand extends CommandHandler {
     embed.addField('💻 ID do usuário', `\`${user.id}\``, true)
     embed.addField('📆 Criado há', humanizeDuration(Date.now() - user.createdAt, timeConfig) + ` (${new Date(user.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
 
-    const member = ctx.guild.members.get(user.id) || await ctx.guild.getRESTMember(user.id)
+    const member = ctx.guild.members.get(user.id)
 
     if (!member) return ctx.reply({ embed })
     embed.addField('📆 Entrou há', humanizeDuration(Date.now() - member.joinedAt, timeConfig) + ` (${new Date(member.joinedAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)

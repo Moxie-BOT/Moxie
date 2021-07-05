@@ -27,7 +27,7 @@ module.exports = class Member {
     arg = arg.replace(/[<>!@]/g, '')
 
     try {
-      member = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase()) || s.nick?.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.members.get(arg) || await ctx.guild.getRESTMember(arg)
+      member = !/^\d+$/.test(arg) ? ctx.guild.members.find(s => `${s.user.username}#${s.user.discriminator}`.toLowerCase().includes(arg.toLowerCase()) || s.nick?.toLowerCase().includes(arg.toLowerCase())) : ctx.guild.members.get(arg)
     } catch { }
 
     if (!member) throw new Error(`<:close:858094081304166433> Não encontrei nenhum membro parecido com \`${arg.replace(/`/g, '').substr(0, 40)}\`, talvez ele exista, mas não esteja no servidor! Eu procuro por nomes, IDs, menções e apelidos`)
