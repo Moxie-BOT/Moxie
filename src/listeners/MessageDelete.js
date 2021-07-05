@@ -22,7 +22,6 @@ module.exports = class MessageDeleteListener {
       }
     })
 
-    if (message?.author.bot) return
     const cachedGuild = await this.client.guildCache.get(message.guildID)
     if (!cachedGuild.logEventID && !cachedGuild.activedLogs?.includes(this.name)) return
 
