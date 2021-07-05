@@ -26,7 +26,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
      * @param {Guild} guild
      */
   async execute (ctx, [guild]) {
-    const owner = this.client.users.get(guild.ownerID)
+    const owner = this.client.users.get(guild.ownerID) || await this.client.getRESTUser(guild.ownerID)
     let text = 0
     let voice = 0
     let category = 0
