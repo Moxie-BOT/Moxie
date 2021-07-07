@@ -10,7 +10,8 @@ module.exports = class Repository {
   }
 
   remove (entity) {
-    return this.model.findByIdAndRemove(entity)
+    if (typeof entity === 'string') entity = { _id: entity }
+    return this.model.findOneAndDelete(entity)
   }
 
   get (id, projection) {

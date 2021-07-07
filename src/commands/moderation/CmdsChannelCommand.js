@@ -34,10 +34,10 @@ module.exports = class CmdsChannelCommand extends CommandHandler {
       return ctx.reply('🎉 Sucesso, os canais de comandos permitidos foram removidos')
     }
     if (arrChannels.length > 5) return ctx.reply('<:close:858094081304166433> O máximo de canais que vc pode escolher por comando é de **4**')
+    if (gRes.settings.commandsChannels.length > 5) return ctx.reply(`<:close:858094081304166433> Esse servidor já tem 5 canais escolhidos como de comandos, remova-os usando \`${this.client.guildCache.get(ctx.guild.id).prefix}cmdschannel removeAll\`!`)
     const arr = []
     arrChannels = arrChannels.filter((v, i) => arrChannels.indexOf(v) === i)
 
-    if (gRes.settings.commandsChannels.length > 5) return ctx.reply('<:close:858094081304166433> Esse servidor já tem 5 canais escolhidos como de comandos, remova-os para escolher mais!')
     try {
       arrChannels.forEach(channel => {
         channel = channel.replace(/[<>#]/g, '')

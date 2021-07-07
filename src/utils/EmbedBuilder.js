@@ -66,10 +66,13 @@ module.exports = class EmbedBuilder {
   }
 
   addField (name, value, inline) {
+    if (name) name = name.length > 256 ? name.substr(0, 256) : name
+    if (value) value = value.length > 1024 ? value.substr(0, 1024) : value
     return this.fields.push({ name, value, inline })
   }
 
   setAuthor (name, iconURL, url) {
+    if (name) name = name.length > 256 ? name.substr(0, 256) : name
     this.author = { name, iconURL, url }
     return this
   }
@@ -80,11 +83,13 @@ module.exports = class EmbedBuilder {
   }
 
   setDescription (description) {
+    if (description) description = description.length > 4096 ? description.substr(0, 4096) : description
     this.description = description
     return this
   }
 
   setFooter (text, iconURL) {
+    if (text) text = text.length > 2048 ? text.substr(0, 2048) : text
     this.footer = { text, iconURL }
     return this
   }
@@ -106,6 +111,7 @@ module.exports = class EmbedBuilder {
   }
 
   setTitle (title) {
+    if (title) title = title.length > 256 ? title.substr(0, 256) : title
     this.title = title
     return this
   }

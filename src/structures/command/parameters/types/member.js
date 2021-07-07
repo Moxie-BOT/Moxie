@@ -31,7 +31,6 @@ module.exports = class Member {
     } catch { }
 
     if (!member) throw new Error(`<:close:858094081304166433> Não encontrei nenhum membro parecido com \`${arg.replace(/`/g, '').substr(0, 40)}\`, talvez ele exista, mas não esteja no servidor! Eu procuro por nomes, IDs, menções e apelidos`)
-    member.user.tag = `${member.user.username}#${member.user.discriminator}`
     return member
   }
 }

@@ -41,7 +41,7 @@ module.exports = class CommandHandler {
       if (err.message.includes('InsuficientArgs')) {
         const embed = new EmbedBuilder()
           .setColor('DEFAULT')
-          .setTitle(`⁉ Como usar o ${ctx.guild.storage.prefix}${ctx.labelUsed}`)
+          .setTitle(`❓ Como usar o ${ctx.guild.storage.prefix}${ctx.labelUsed}`)
           .setDescription(`${this.description}\n\n**\uD83D\uDCD6 Genéricos**\n${this.example}\n\n**\uD83D\uDD00 Sinônimos**\n${this.labels.join(' | ')}`.replace(/<<1>>/g, ctx.guild.storage.prefix).replace(/<<2>>/g, ctx.labelUsed))
           .setFooter(`${ctx.author.tag} | ${this.category}`, ctx.author.dynamicAvatarURL())
         await ctx.reply({ embed })

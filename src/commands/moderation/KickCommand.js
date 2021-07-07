@@ -6,8 +6,8 @@ module.exports = class KickCommand extends CommandHandler {
     super(client, {
       labels: ['kick', 'expulsar'],
       requirements: {
-        permissions: ['banMembers'],
-        botPermissions: ['banMembers']
+        permissions: ['kickMembers'],
+        botPermissions: ['kickMembers']
       },
       category: 'Moderação',
       parameters: [

@@ -11,7 +11,6 @@ module.exports = class CommandContext {
     this.client = client
     this.guild = msg.channel.guild
     this.author = msg.author
-    this.author.tag = `${msg.author.username}#${msg.author.discriminator}`
     this.channel = msg.channel
     this.attachments = msg.attachments
     this.labelUsed = commandName
@@ -29,6 +28,7 @@ module.exports = class CommandContext {
    * @returns {Promise<*>}
    */
   async reply (content, file) {
+    if (!this.channel.permissionsOf(this.client.user.id).has('sendMessages')) return
     if (typeof content !== 'object') content = { content }
     const msg = await this.channel.getMessage(this.messageID).catch(() => {})
     if (!msg) return

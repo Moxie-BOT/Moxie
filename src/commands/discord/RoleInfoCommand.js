@@ -35,20 +35,20 @@ module.exports = class RoleInfoCommand extends CommandHandler {
       largest: 3, units: ['y', 'mo', 'd', 'h', 'm', 's'], language: 'pt', round: true, conjunction: ' e ', serialComma: false
     }
     const permsRole = role.permissions.json
-    const realPerms = Object.keys(permsRole).filter(field => permsRole[field])
+    const realPerms = Object.keys(permsRole)
 
     const embed = new EmbedBuilder()
-    embed.setTitle(role.name)
-    embed.setColor('DEFAULT')
+      .setTitle(`<:roles:861767476931854338> ${role.name}`)
+      .setColor('DEFAULT')
     embed.addField('💻 ID do cargo', role.id, true)
     embed.addField('👀 Cargo de', role.guild.name, true)
     embed.addField('🎨 Cor', role.color === 0 ? role.color = '#000000' : '#' + ((role.color) >>> 0).toString(16).toUpperCase(), true)
     embed.addField('❓ Mencionável', booleans[role.mentionable], true)
-    embed.addField('👀 Menção', `\`${role.mention}\``, true)
+    embed.addField('<:mention:861751174134628413> Menção', `\`${role.mention}\``, true)
     embed.addField('❓ Exibir separadamente', booleans[role.hoist], true)
     embed.addField('🏆 Posição', `#${role.position}`, true)
-    embed.addField('👥 Membros', role.guild.members.filter(a => a.roles.includes(role.id)).length, true)
-    embed.addField('📆 Criado há', humanizeDuration(Date.now() - role.createdAt, timeConfig) + ` (${new Date(role.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    embed.addField(`<:members:861751455635079168> Membros [${role.guild.members.filter(a => a.roles.includes(role.id)).length}]`, 'ﾠ', true)
+    embed.addField('📆 Criado há', humanizeDuration(Date.now() - role.createdAt, timeConfig) + ` (<t:${Math.floor(role.createdAt / 1000)}:d>)`, true)
     embed.addField('📛 Permissões', realPerms.length > 0 ? realPerms.map(p => `\`${PermissionsJSON[p]}\``).join(', ') : booleans.null)
 
     await ctx.reply({ embed })

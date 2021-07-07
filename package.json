@@ -34,7 +34,7 @@
     "dotenv": "^10.0.0",
     "eris": "github:abalabahaha/eris#dev",
     "humanize-duration": "^3.27.0",
-    "mongoose": "^5.13.0",
+    "mongoose": "^5.13.2",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {

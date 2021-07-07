@@ -1,4 +1,4 @@
-const EmbedBuilder = require('../utils/EmbedBuilder')
+const EmbedBuilder = require('../../utils/EmbedBuilder')
 
 module.exports = class MessageDeleteListener {
   /**
@@ -22,6 +22,7 @@ module.exports = class MessageDeleteListener {
       }
     })
 
+    if (!message.content && message.attachments.length === 0) return
     const cachedGuild = await this.client.guildCache.get(message.guildID)
     if (!cachedGuild.logEventID && !cachedGuild.activedLogs?.includes(this.name)) return
 
@@ -31,9 +32,13 @@ module.exports = class MessageDeleteListener {
     const embed = new EmbedBuilder()
       .setTitle('🗑 Mensagem deletada')
       .setColor('RED')
-    embed.addField('Conteúdo', `${message.content.substr(0, 1015)}`, true)
+    if (message.content) embed.addField('Mensagem apagada', `\`\`\`${message.content.replace(/`/g, '').substr(0, 1015)}\`\`\``, true)
+    if (message.attachments.length > 0) {
+      embed.setTitle('🗑 Imagem apagada')
+      embed.setImage(message.attachments[0].proxy_url)
+    }
     embed.addField('Canal', `${message.channel.mention}`, true)
-    embed.setFooter(`${message.author.username}#${message.author.discriminator}`, message.author.dynamicAvatarURL())
+    embed.setFooter(`Autor da mensagem - ${message.author.username}#${message.author.discriminator}`, message.author.dynamicAvatarURL())
     channelLog.createMessage({ embed })
   }
 }

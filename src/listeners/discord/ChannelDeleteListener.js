@@ -1,13 +1,13 @@
-const EmbedBuilder = require('../utils/EmbedBuilder')
+const EmbedBuilder = require('../../utils/EmbedBuilder')
 
-module.exports = class channelCreateListener {
+module.exports = class channelDeleteListener {
   /**
      *
      * @param {Client} client Eris client
      */
   constructor (client) {
     this.client = client
-    this.name = 'channelCreate'
+    this.name = 'channelDelete'
   }
 
   /**
@@ -16,6 +16,14 @@ module.exports = class channelCreateListener {
      * @returns {Promise<void>}
      */
   async execute (channel) {
+    this.client.reactionCollectors.forEach(collector => {
+      if (collector.message.channel.id === channel.id) collector.stop('Channel Delete')
+    })
+
+    this.client.messageCollectors.forEach(collector => {
+      if (collector.channel.id === channel.id) collector.stop('Channel Delete')
+    })
+
     const cachedGuild = await this.client.guildCache.get(channel.guild.id)
     if (!cachedGuild.logEventID && !cachedGuild.activedLogs?.includes(this.name)) return
 
@@ -35,10 +43,11 @@ module.exports = class channelCreateListener {
     }
 
     const embed = new EmbedBuilder()
-      .setTitle('📑 Canal criado')
-      .setColor('GREEN')
+      .setTitle('🗑 Canal deletado')
+      .setColor('RED')
     embed.addField('Canal', `${channel.name} (\`${channel.id}\`)`, true)
     embed.addField('Tipo do canal', channelType[channel.type], true)
+    embed.addField('Categoria do canal', channel.guild.channels.get(channel.parentID).name, true)
     channelLog.createMessage({ embed })
   }
 }

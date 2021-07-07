@@ -25,19 +25,43 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
      * @param {Channel} channel
      */
   async execute (ctx, [channel]) {
-    const embed = new EmbedBuilder()
     const channelType = {
-      0: 'Canal de texto',
-      1: 'Mensagem direta',
-      2: 'Canal de voz',
-      3: 'Grupo de mensagens diretas',
-      4: 'Categoria',
-      5: 'Canal de anúncios',
-      6: 'Canal de vendas',
-      10: 'Subcanal de vendas temporário',
-      11: 'Subcanal público temporário',
-      12: 'Subcanal privado temporário',
-      13: 'Canal estágio'
+      0: {
+        name: 'Canal de texto',
+        emoji: '<:txt:861751247467053076>'
+      },
+      2: {
+        name: 'Canal de voz',
+        emoji: '<:voice:861751272755691541>'
+      },
+      4: {
+        name: 'Categoria',
+        emoji: '<:category:861970309966725120>'
+      },
+      5: {
+        name: 'Canal de anúncios',
+        emoji: '<:news:861751303457079296>'
+      },
+      6: {
+        name: 'Canal de vendas',
+        emoji: '<:store:861970839242539018>'
+      },
+      10: {
+        name: 'Subcanal de vendas',
+        emoji: ''
+      },
+      11: {
+        name: 'Subcanal público',
+        emoji: '<:threadtxt:861751217193222144>'
+      },
+      12: {
+        name: 'Subcanal privado',
+        emoji: '<:private_thread:861751433371451422>'
+      },
+      13: {
+        name: 'Canal de palco',
+        emoji: '<:stage:861751587277111326>'
+      }
     }
     const booleans = {
       null: 'Nenhum',
@@ -48,11 +72,12 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
       largest: 3, units: ['y', 'mo', 'd', 'h', 'm', 's'], language: 'pt', round: true, conjunction: ' e ', serialComma: false
     }
 
-    embed.setTitle(channel.name)
-    embed.setDescription(channel.topic ? `${channel.topic.substr(0, 1024)}` : '\uD83E\uDD37 Nenhum tópico encontrado')
-    embed.addField('\uD83D\uDCBB ID do canal', channel.id, true)
-    embed.addField('\uD83D\uDC88 Tipo de canal', channelType[channel.type], true)
-    embed.addField('\uD83D\uDC40 Canal de', channel.guild.name, true)
+    const embed = new EmbedBuilder()
+      .setTitle(`${channelType[channel.type].emoji} ${channel.name}`)
+      .setDescription(channel.topic ? `${channel.topic.substr(0, 1024)}` : '\uD83E\uDD37 Nenhum tópico encontrado')
+    embed.addField('💻 ID do canal', channel.id, true)
+    embed.addField('💈 Tipo de canal', channelType[channel.type].name, true)
+    embed.addField('👀 Canal de', channel.guild.name, true)
     embed.setColor('DEFAULT')
 
     switch (channel.type) {
@@ -63,13 +88,14 @@ module.exports = class ChannelinfoCommand extends CommandHandler {
         embed.addField('\uD83D\uDC0C Modo lento', channel.rateLimitPerUser > 0 ? `${channel.rateLimitPerUser} segundos` : booleans.null, true)
         break
       case 2:
-        embed.addField('\uD83C\uDF99 Taxa de bits', channel.bitrate ? channel.bitrate : booleans.null, true)
-        embed.addField('\uD83D\uDC65 Limite de membros', channel.userLimit ? channel.userLimit : booleans.null, true)
-        embed.addField('\uD83D\uDCF7 Qualidade de vídeo', channel.videoQualityMode === 1 ? 'auto' : '720p', true)
+      case 13:
+        embed.addField('🎙 Taxa de bits', channel.bitrate ? channel.bitrate : booleans.null, true)
+        embed.addField('<:members:861751455635079168> Limite de membros', channel.userLimit ? channel.userLimit : booleans.null, true)
+        embed.addField('🎥 Qualidade de vídeo', channel.videoQualityMode === 1 ? 'auto' : '720p', true)
         // embed.addField("🗣️ Membros no canal", channel.voiceMembers ? channel.voiceMembers.map(lk => lk.user.mention).slice(0, 10).join(", ") : booleans[null]);
         break
     }
-    embed.addField('\uD83D\uDCC6 Criado há', humanizeDuration(Date.now() - channel.createdAt, timeConfig) + ` (${new Date(channel.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    embed.addField('\uD83D\uDCC6 Criado há', humanizeDuration(Date.now() - channel.createdAt, timeConfig) + ` (<t:${Math.floor(channel.createdAt / 1000)}:d>)`, true)
     await ctx.reply({ embed })
   }
 }

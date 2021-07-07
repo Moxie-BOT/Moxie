@@ -14,9 +14,9 @@ module.exports = class ListenerRegistry {
 
   load () {
     Logger.info('Initializing events')
-    const files = readdirSync('src/listeners')
+    const files = readdirSync('src/listeners/discord')
     for (const file of files) {
-      const listener = new (require('../listeners/' + file))(this.client)
+      const listener = new (require('../listeners/discord/' + file))(this.client)
       this.client.on(listener.name, (...args) => listener.execute(...args))
     }
   }

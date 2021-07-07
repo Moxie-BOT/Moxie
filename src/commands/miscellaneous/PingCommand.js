@@ -6,7 +6,9 @@ module.exports = class PingCommand extends CommandHandler {
       labels: ['ping', 'lag'],
       requirements: {},
       category: 'Outros',
-      parameters: []
+      parameters: [],
+      description: 'Mostra a minha latência/ping',
+      example: '**🔹 Os argumentos são opcionais nesse comando!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`'
     })
   }
 

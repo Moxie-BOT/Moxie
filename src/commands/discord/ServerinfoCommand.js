@@ -33,6 +33,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     let news = 0
     let users = 0
     let bots = 0
+    let stage = 0
     const allChannels = guild.channels.size
     const allMembers = guild.members.size
     const timeConfig = {
@@ -44,6 +45,7 @@ module.exports = class ServerinfoCommand extends CommandHandler {
       if (ch.type === 2) voice++
       if (ch.type === 4) category++
       if (ch.type === 5) news++
+      if (ch.type === 13) stage++
     })
     guild.members.forEach(u => {
       if (!u.bot) users++
@@ -51,18 +53,19 @@ module.exports = class ServerinfoCommand extends CommandHandler {
     })
 
     const embed = new EmbedBuilder()
-      .setTitle(`${guild.name} ${guild.premiumTier ? '<:boost:860564288186875936>' : ''}`)
+      .setTitle(`<:DISCORD:861761730190377001> ${guild.name} ${guild.premiumTier ? '<:boost:860564288186875936>' : ''}`)
       .setColor('DEFAULT')
       .setDescription(guild.description)
       .setThumbnail(guild.iconURL)
       .setImage(guild.splashURL || guild.bannerURL)
     embed.addField('💻 ID do servidor', `\`${guild.id}\``, true)
-    embed.addField('👑 Dono', `${owner.username}#${owner.discriminator} \`(${owner.id})\``, true)
     embed.addField('💻 Shard', `\`${ctx.guild.shard.id + 1}/${this.client.shards.size}\``, true)
-    embed.addField(`🔖 Canais ${allChannels}`, `Texto: ${text}\nVoz: ${voice}\nCategorias: ${category}${news > 0 ? `\n Anúncios: ${news}` : ''}`, true)
-    embed.addField(`👥 Membros ${allMembers}`, `Usuários: ${users}\nBots: ${bots}`, true)
+    embed.addField('<:owner:861716252883025961> Dono', `${owner.username}#${owner.discriminator} \`(${owner.id})\``, true)
+    embed.addField(`<:chat:861754863633039391> Canais [${allChannels}]`, (category > 0 ? `┗ <:category:861970309966725120> Categoria ❯ **${category}**\n` : '') + (text > 0 ? `┗ <:txt:861751247467053076> Texto ❯ **${text}**\n` : '') + (voice > 0 ? `┗ <:voice:861751272755691541> Voz ❯ **${voice}**\n` : '') + (news > 0 ? `┗ <:news:861751303457079296> Anúncios ❯ **${news}**\n` : '') + (stage > 0 ? `┗ <:stage:861751587277111326> Palco ❯ **${stage}**` : ''), true)
+    embed.addField(`<:members:861751455635079168> Membros [${allMembers}]`, `┗ <:members:861751455635079168> Usuários ❯ **${users}**\n┗ <:bot:861751502325415946> Bots ❯ **${bots}**`, true)
+    if (guild.roles.size > 0) embed.addField(`<:roles:861767476931854338> Cargos [${guild.roles.size}]`, 'ﾠ', true)
     embed.addField('🔞 Servidor NSFW', guild.nsfw ? 'Sim' : 'Não', true)
-    embed.addField('📆 Criado há', humanizeDuration(Date.now() - guild.createdAt, timeConfig) + ` (${new Date(guild.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    embed.addField('📆 Criado há', humanizeDuration(Date.now() - guild.createdAt, timeConfig) + ` (<t:${Math.floor(guild.createdAt / 1000)}:d>)`, true)
     await ctx.reply({ embed })
   }
 }

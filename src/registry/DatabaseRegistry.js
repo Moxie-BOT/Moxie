@@ -13,7 +13,8 @@ module.exports = class DatabaseRegistry {
     await this.initializeDatabase({
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      connectTimeoutMS: 35000
+      connectTimeoutMS: 35000,
+      useFindAndModify: true
     })
     this.database.mongoose.connection.on('disconnected', () => Logger.warning('Database lost connection!'))
     this.database.mongoose.connection.on('reconnected', () => Logger.info('Database connection reestablished'))

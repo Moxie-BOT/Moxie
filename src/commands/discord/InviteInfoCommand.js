@@ -29,18 +29,17 @@ module.exports = class InviteInfoCommand extends CommandHandler {
     try {
       invite = await this.client.getInvite(content, true)
     } catch (e) {
-      return ctx.reply(`<:close:858094081304166433> Não encontrei nenhum convite parecido com \`${content.substr(0, 40)}\``)
+      return ctx.reply(`<:close:858094081304166433> Não encontrei nenhum convite parecido com \`${content.replace(/`/g, '').substr(0, 40)}\``)
     }
     const embed = new EmbedBuilder()
       .setColor('DEFAULT')
       .setThumbnail(invite.guild.dynamicIconURL())
-      .setTitle(invite.guild.name)
-    embed.addField('\uD83D\uDCBB ID do servidor', invite.guild.id, true)
-    embed.addField('\uD83D\uDCD8 Canal do convite', `${invite.channel.name} \`(${invite.channel.id})\``, true)
-    embed.addField(`\uD83D\uDC65 Membros [${invite.memberCount}]`, `\uD83D\uDD90 Online [${invite.presenceCount}]`, true)
-    embed.addField('\uD83D\uDC4B Convite de', invite.inviter ? `${invite.inviter.username}#${invite.inviter.discriminator}\`(${invite.inviter.id})\`` : 'Vanity URL', true)
-    embed.addField('⏳ Convite temporário', !invite.temporary ? 'Não' : 'Sim', true)
-    embed.setFooter('\uD83E\uDD37 Alguns dos dados não são exatos')
+      .setTitle(`<:DISCORD:861761730190377001> ${invite.guild.name}`)
+    embed.addField('💻 ID do servidor', invite.guild.id, true)
+    embed.addField('<:chat:861754863633039391> Canal do convite', `${invite.channel.name} (\`${invite.channel.id}\`)`, true)
+    embed.addField(`<:members:861751455635079168> Membros [${invite.memberCount}]`, `┗ 🤚 Online ❯ **${invite.presenceCount}**`, true)
+    embed.addField('👋 Convite de', invite.inviter ? `${invite.inviter.username}#${invite.inviter.discriminator} (\`${invite.inviter.id}\`)` : 'Vanity URL', true)
+    embed.setFooter('🤷‍ Alguns dos dados não são exatos')
     await ctx.reply({ embed })
   }
 }

@@ -18,8 +18,7 @@ module.exports = class GuildCacheManager {
   async remove (id) {
     const guild = this.client.guilds.get(id)
     await this.client.database.guilds.remove(id)
-    delete guild.storage
-    return true
+    return guild ? delete guild.storage : false
   }
 
   get (id) {

@@ -1,4 +1,4 @@
-const Logger = require('../utils/Logger')
+const Logger = require('../../utils/Logger')
 
 module.exports = class shardResumeListener {
   /**

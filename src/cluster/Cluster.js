@@ -8,7 +8,7 @@ function init () {
     maxShards: 1,
     defaultImageSize: 2048,
     getAllUsers: true,
-    messageLimit: 0,
+    messageLimit: 100,
     allowedMentions: {
       everyone: false,
       roles: false,
@@ -20,8 +20,7 @@ function init () {
       'guildMembers',
       'guildMessages',
       'guildMessageReactions',
-      'guildInvites',
-      'guildBans'
+      'guildInvites'
     ],
     disableEvents: {
       GUILD_MEMBER_ADD: true,

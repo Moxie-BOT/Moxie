@@ -1,4 +1,4 @@
-const EmbedBuilder = require('../utils/EmbedBuilder')
+const EmbedBuilder = require('../../utils/EmbedBuilder')
 
 module.exports = class MessageUpdateListener {
   /**
@@ -16,9 +16,8 @@ module.exports = class MessageUpdateListener {
    * @param {Message} oldMessage
    */
   async execute (message, oldMessage) {
-    if (!message || !oldMessage) return
     if (message.author.bot) return
-    if (oldMessage.content === message.content) return
+    if (!message.content) return
     const { prefix, logEventID, activedLogs } = await this.client.guildCache.get(message.guildID)
     if (message.content.startsWith(prefix.toLowerCase())) this.client.emit('messageCreate', message)
     if (!logEventID && !activedLogs?.includes(this.name)) return
@@ -27,12 +26,13 @@ module.exports = class MessageUpdateListener {
     if (!channelLog) return
 
     const embed = new EmbedBuilder()
-      .setTitle('✏ Mensagem editada')
+      .setTitle('<:pencil:861965120959676416> Mensagem editada')
       .setColor('RED')
-    embed.addField('Mensagem antiga', `\`\`\`${oldMessage.content.substr(0, 1015)}\`\`\``)
-    embed.addField('Nova mensagem', `\`\`\`${message.content.substr(0, 1015)}\`\`\``)
+      .setDescription(`**[Vá até ela!](https://discord.com/channels/${message.guildID}/${message.channel.id}/${message.id})**`)
+    if (oldMessage) embed.addField('Mensagem antiga', `\`\`\`${oldMessage.content.replace(/`/g, '').substr(0, 1015)}\`\`\``)
+    embed.addField('Nova mensagem', `\`\`\`${message.content.replace(/`/g, '').substr(0, 1015)}\`\`\``)
     embed.addField('Canal', `${message.channel.mention}`, true)
-    embed.setFooter(`${message.author.username}#${message.author.discriminator}`, message.author.dynamicAvatarURL())
+    embed.setFooter(`Autor da mensagem - ${message.author.username}#${message.author.discriminator}`, message.author.dynamicAvatarURL())
     channelLog.createMessage({ embed })
   }
 }

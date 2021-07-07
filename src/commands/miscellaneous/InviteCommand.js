@@ -8,7 +8,8 @@ module.exports = class InviteCommand extends CommandHandler {
       requirements: {},
       category: 'Outros',
       parameters: [],
-      description: 'Envia meu convite para que você possa me adicionar no seu servidor ^-^'
+      description: 'Envia meu convite para que você possa me adicionar no seu servidor ^-^',
+      example: '**🔹 Os argumentos são opcionais nesse comando!**\n\n**🔸 Possíveis usos**\n`<<1>><<2>>`'
     })
   }
 

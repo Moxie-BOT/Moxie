@@ -47,8 +47,8 @@ module.exports = class GithubCommand extends CommandHandler {
     embed.addField('🌎 Localização', user.location || 'Desconhecida', true)
     embed.addField('📂 Repositórios', user.public_repos, true)
     embed.addField('👥 Seguidores', user.followers, true)
-    embed.addField('✏ Ultima atualização há', humanizeDuration(Date.now() - new Date(user.updated_at).getTime(), timeConfig) + ` (${new Date(user.updated_at).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
-    embed.addField('📆 Criado há', humanizeDuration(Date.now() - new Date(user.created_at).getTime(), timeConfig) + ` (${new Date(user.created_at).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    embed.addField('<:pencil:861965120959676416> Ultima atualização há', humanizeDuration(Date.now() - new Date(user.updated_at).getTime(), timeConfig) + ` (<t:${Math.floor((new Date(user.updated_at).getTime()) / 1000)}:d>)`, true)
+    embed.addField('📆 Criado há', humanizeDuration(Date.now() - new Date(user.created_at).getTime(), timeConfig) + ` (<t:${Math.floor((new Date(user.created_at).getTime()) / 1000)}:d>)`, true)
     await ctx.reply({ embed })
   }
 }

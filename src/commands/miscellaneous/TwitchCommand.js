@@ -40,11 +40,14 @@ module.exports = class TwitchCommand extends CommandHandler {
     const fetched = async () => {
       try {
         dataUser = await request('users', `login=${content}`).then(ds => ds.data[0]) || await request('users', `id=${content}`).then(ds => ds.data[0])
-      } catch (e) { return ctx.reply(`Não encontrei nenhum usuário an twitch parecido com \`${content.replace(/`/, '').substr(0, 40)}\`! Eu procuro por nomes e IDs`) }
+      } catch (e) {
+        return
+      }
       dataStream = await request('streams', `user_login=${content}`).then(ds => ds.data[0]) || await request('streams', `user_id=${content}`).then(ds => ds.data[0])
       return true
     }
 
+    if (!await fetched()) return await ctx.reply(`Não encontrei nenhum usuário an twitch parecido com \`${content.replace(/`/, '').substr(0, 40)}\`! Eu procuro por nomes e IDs`)
     if (dataUser.error === 'Unauthorized') {
       await fetch(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`, {
         method: 'POST'
@@ -75,12 +78,12 @@ module.exports = class TwitchCommand extends CommandHandler {
     embed.addField('👤 Nome', `[${dataUser.display_name || dataUser.login}](https://twitch.tv/${dataUser.login})`, true)
     embed.addField('💻 ID', dataUser.id, true)
     embed.addField('👁 Visualizações', dataUser.view_count, true)
-    embed.addField('📆 Criado há', humanizeDuration(Date.now() - new Date(dataUser.created_at).getTime(), timeConfig) + ` (${new Date(dataUser.created_at).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    embed.addField('📆 Criado há', humanizeDuration(Date.now() - new Date(dataUser.created_at).getTime(), timeConfig) + ` (<t:${Math.floor((new Date(dataUser.created_at).getTime()) / 1000)}:d>)`, true)
     if (!dataStream) return ctx.reply({ embed })
 
     embed.addField('🎥 Ao vivo', `Jogando ${dataStream.game_name}`, true)
     embed.addField('👁 Assistindo', `${dataStream.viewer_count} espectadores`, true)
-    embed.addField('📆 Em live há', humanizeDuration(Date.now() - new Date(dataStream.started_at).getTime(), timeConfig) + ` (${new Date(dataStream.started_at).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })})`, true)
+    embed.addField('📆 Em live há', humanizeDuration(Date.now() - new Date(dataStream.started_at).getTime(), timeConfig) + ` (<t:${Math.floor((new Date(dataStream.started_at).getTime()) / 1000)}:d>)`, true)
     await ctx.reply({ embed })
   }
 }
