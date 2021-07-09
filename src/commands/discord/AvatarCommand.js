@@ -24,7 +24,6 @@ module.exports = class AvatarCommand extends CommandHandler {
      * @param {User} user
      */
   async execute (ctx, [user]) {
-    console.log(user)
     const embed = new EmbedBuilder()
       .setColor('DEFAULT')
       .setTitle(`\uD83D\uDDBC Avatar de ${user.tag}`)

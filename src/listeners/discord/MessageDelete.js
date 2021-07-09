@@ -22,7 +22,7 @@ module.exports = class MessageDeleteListener {
       }
     })
 
-    if (!message.content && message.attachments.length === 0) return
+    if (!message.content && message?.attachments?.length === 0) return
     const cachedGuild = await this.client.guildCache.get(message.guildID)
     if (!cachedGuild.logEventID && !cachedGuild.activedLogs?.includes(this.name)) return
 
@@ -33,7 +33,7 @@ module.exports = class MessageDeleteListener {
       .setTitle('🗑 Mensagem deletada')
       .setColor('RED')
     if (message.content) embed.addField('Mensagem apagada', `\`\`\`${message.content.replace(/`/g, '').substr(0, 1015)}\`\`\``, true)
-    if (message.attachments.length > 0) {
+    if (message?.attachments?.length > 0) {
       embed.setTitle('🗑 Imagem apagada')
       embed.setImage(message.attachments[0].proxy_url)
     }

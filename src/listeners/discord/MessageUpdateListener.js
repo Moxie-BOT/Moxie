@@ -16,6 +16,7 @@ module.exports = class MessageUpdateListener {
    * @param {Message} oldMessage
    */
   async execute (message, oldMessage) {
+    if (!message.author) return
     if (message.author.bot) return
     if (!message.content) return
     const { prefix, logEventID, activedLogs } = await this.client.guildCache.get(message.guildID)
