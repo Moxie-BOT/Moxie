@@ -1,6 +1,0 @@
-moxie-website/
-node_modules/
-package-lock.json
-.env
-.idea
-.vscode/
