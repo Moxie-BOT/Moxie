@@ -13,7 +13,7 @@ jobs:
         with:
           java-version: '11'
           distribution: 'adopt'
-      - run: ./gradlew build
+      - run: chmod +x ./gradlew
       - uses: actions/upload-artifact@v2
         with:
           name: Moxie
