@@ -1,4 +1,7 @@
 /.gradle/
 /.idea/
 /build/
-/configuration/common/*
+/configuration/common/*.conf
+/platforms/build
+/platforms/discord/build
+/platforms/web/build

@@ -1,34 +1,33 @@
+@file:Suppress("PropertyName")
+
 plugins {
+    kotlin("plugin.serialization") version "1.5.0"
     kotlin("jvm") version "1.5.21"
-    kotlin("plugin.serialization") version "1.5.21"
 }
 
-repositories {
-    mavenCentral()
-}
-
-val kord_version: String by project
+val coroutines_version: String by project
+val datetime_version: String by project
 val serialization_version: String by project
-val exposed_version: String by project
-val hikaricp_version: String by project
-val postgre_jdbc_version: String by project
+val slf4j_version: String by project
 
-dependencies {
-    implementation("org.slf4j:slf4j-simple:1.7.30")
-    implementation("dev.kord:kord-core:$kord_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:$serialization_version")
-    implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
-    implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
-    implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
-    implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
-    implementation("com.zaxxer:HikariCP:$hikaricp_version")
-    implementation("org.postgresql:postgresql:$postgre_jdbc_version")
-    implementation("pw.forst:exposed-upsert:1.1.0")
-}
+allprojects {
+    apply(plugin = "org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
-tasks.compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    repositories {
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:$serialization_version")
+        implementation("org.slf4j:slf4j-simple:$slf4j_version")
+    }
+
+    tasks.compileKotlin {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        }
     }
 }
