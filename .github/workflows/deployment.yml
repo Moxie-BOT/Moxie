@@ -25,5 +25,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         name: "Upload Moxie Web"
         with:
-          name: Moxie Web (Libs)
+          name: Moxie Web
           path: platforms/web/build/libs/*-fat.jar
