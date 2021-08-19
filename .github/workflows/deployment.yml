@@ -9,13 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
-      - run: chmod +x gradlew
         uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'adopt'
       - name: Build with Gradle
-        run: ./gradlew build
+        run: chmod +x ./gradlew build
       - uses: actions/upload-artifact@v2
         name: "Upload Moxie Discord"
         with:
