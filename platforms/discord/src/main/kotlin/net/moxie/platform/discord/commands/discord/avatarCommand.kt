@@ -1,28 +1,35 @@
-@file:JvmName("AvatarCommand")
-@file:AutoWired
-
 package net.moxie.platform.discord.commands.discord
 
+import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalUser
+import com.kotlindiscord.kord.extensions.commands.parser.Arguments
+import com.kotlindiscord.kord.extensions.commands.slash.AutoAckType
 import dev.kord.common.Color
-import dev.kord.core.entity.User
-import dev.kord.x.commands.annotation.AutoWired
-import dev.kord.x.commands.annotation.ModuleName
-import dev.kord.x.commands.argument.extension.withDefault
-import dev.kord.x.commands.kord.argument.UserArgument
-import dev.kord.x.commands.kord.model.respondEmbed
-import dev.kord.x.commands.kord.module.command
-import dev.kord.x.commands.model.command.invoke
+import dev.kord.rest.builder.message.create.embed
 import dev.kord.x.emoji.Emojis
+import net.moxie.platform.discord.extensions.DiscordCommands
 
-@ModuleName("discord")
-fun avatarCommand() = command("avatar") {
-    invoke(UserArgument.withDefault { message.author as User }) { user ->
-        respondEmbed {
-            val avatarURL = user.avatar.url
-            color = Color(9456380)
-            title = "${Emojis.framePhoto} Avatar de ${user.tag}"
-            description = "**Baixe clicando [aqui]($avatarURL)**"
-            image = "$avatarURL?size=4096"
+suspend fun DiscordCommands.avatarCommand() {
+    slashCommand(::AvatarCommandArgs) {
+        name = "avatar"
+        description = "Mostra o avatar de qualquer usuário do discord"
+        autoAck = AutoAckType.PUBLIC
+
+        action {
+            val userProvided = arguments.user ?: user.asUser()
+
+            publicFollowUp {
+                embed {
+                    color = Color(9456380)
+                    title =
+                        translate("avatarCommand.avatarFrom", arrayOf(Emojis.framePhoto, userProvided.tag))
+                    description = translate("avatarCommand.downloadAvatarHere", arrayOf(userProvided.avatar.url))
+                    image = "${userProvided.avatar.url}?size=4096"
+                }
+            }
         }
     }
+}
+
+class AvatarCommandArgs : Arguments() {
+    val user by optionalUser("user", "Um usuário ou nenhum para que eu possa mostrar o avatar")
 }

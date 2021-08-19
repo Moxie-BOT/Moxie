@@ -9,6 +9,5 @@ class Guild(id: EntityID<Long>) : LongEntity(id) {
     companion object : LongEntityClass<Guild>(GuildTable)
 
     val guildId = this.id.value
-    var prefix by GuildTable.prefix
-    val didYouMean by GuildTable.didYouMean
+    val language by GuildTable.language
 }

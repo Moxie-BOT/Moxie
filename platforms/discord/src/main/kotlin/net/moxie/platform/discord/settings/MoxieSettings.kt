@@ -2,11 +2,12 @@ package net.moxie.platform.discord.settings
 
 import com.typesafe.config.ConfigFactory
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.hocon.Hocon
 import kotlinx.serialization.hocon.decodeFromConfig
-import kotlinx.serialization.Serializable
 import java.io.File
 
+// Properties of configuration files
 @Serializable
 data class DiscordSettings(
     val client: ClientSettings,

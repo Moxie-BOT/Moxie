@@ -15,7 +15,6 @@ allprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
     repositories {
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         mavenCentral()
     }
 
