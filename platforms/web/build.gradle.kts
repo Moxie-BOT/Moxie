@@ -21,7 +21,7 @@ dependencies {
     api(project(":platforms:discord"))
 }
 
-val fatJar = task("fatJar", type = org.gradle.jvm.tasks.Jar::class) {
+/*val fatJar = task("fatJar", type = org.gradle.jvm.tasks.Jar::class) {
     archiveClassifier.set("fat")
     manifest {
         attributes["Implementation-Title"] = "Moxie Web"
@@ -37,4 +37,4 @@ tasks {
     "build" {
         dependsOn(fatJar)
     }
-}
+}*/

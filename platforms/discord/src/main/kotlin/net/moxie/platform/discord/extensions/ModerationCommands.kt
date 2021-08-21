@@ -16,6 +16,6 @@ class ModerationCommands : Extension() {
         banCommand(kord.selfId)
         kickCommand(kord.selfId)
         pruneMembersCommand()
-        // clearCommand()
+        clearCommand()
     }
 }
