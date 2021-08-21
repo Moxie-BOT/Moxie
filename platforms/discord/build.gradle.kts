@@ -33,7 +33,7 @@ application {
     mainClass.set("net.moxie.platform.discord.LauncherKt")
 }
 
-/*val fatJar = task("fatJar", type = Jar::class) {
+val fatJar = task("fatJar", type = Jar::class) {
     archiveClassifier.set("fat")
     manifest {
         attributes["Implementation-Title"] = "Moxie Discord"
@@ -49,4 +49,4 @@ tasks {
     "build" {
         dependsOn(fatJar)
     }
-}*/
+}
