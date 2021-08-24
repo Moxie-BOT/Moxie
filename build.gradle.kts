@@ -9,6 +9,7 @@ val coroutines_version: String by project
 val datetime_version: String by project
 val serialization_version: String by project
 val slf4j_version: String by project
+val caffeine_version: String by project
 
 allprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
@@ -21,6 +22,7 @@ allprojects {
     dependencies {
         implementation("org.jetbrains.kotlinx:kotlinx-serialization-hocon:$serialization_version")
         implementation("org.slf4j:slf4j-simple:$slf4j_version")
+        implementation("com.github.ben-manes.caffeine:caffeine:$caffeine_version")
     }
 
     tasks.compileKotlin {

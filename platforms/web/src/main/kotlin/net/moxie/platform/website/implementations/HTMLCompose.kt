@@ -11,20 +11,27 @@ abstract class HTMLCompose {
             nav("moxie-navbar") {
                 div("nav-links") {
                     a("/", classes = "nav-link") {
-                        i("fa fa-home") {
+                        i("fas fa-home") {
                             attributes["aria-hidden"] = "true"
                             +" Início"
                         }
                     }
                     a("/commands", classes = "nav-link") {
-                        i("fa fa-terminal") {
+                        i("fas fa-terminal") {
                             attributes["aria-hidden"] = "true"
                             +" Comandos"
                         }
                     }
                 }
-                button(type = ButtonType.button, classes = "fa fa-bars") {
-                    id = "button-icon"
+                a("/login", classes = "nav-link-login") {
+                    i("fas fa-sign-in") {
+                        attributes["aria-hidden"] = "true"
+                        +" Login"
+                    }
+                }
+                button(type = ButtonType.button) {
+                    id = "button-navbar"
+                    i("fas fa-bars")
                 }
             }
             div {

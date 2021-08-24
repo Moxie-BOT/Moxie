@@ -1,9 +1,6 @@
 package net.moxie.platform.website.implementations
 
-import kotlinx.html.HEAD
-import kotlinx.html.link
-import kotlinx.html.meta
-import kotlinx.html.title
+import kotlinx.html.*
 
 fun HEAD.moxieHead(title: String = "Moxie", customStyleSheet: String? = null) {
     title(title)
@@ -34,7 +31,7 @@ fun HEAD.moxieHead(title: String = "Moxie", customStyleSheet: String? = null) {
     link("/assets/sparkles.ico", "icon", "image/x-icon") {
         sizes = "128x128"
     }
-    link("https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css", "stylesheet")
+    link("https://pro.fontawesome.com/releases/v5.10.0/css/all.css", "stylesheet")
     link("/static/composeBase.css", "stylesheet")
     if (customStyleSheet != null) link(customStyleSheet, "stylesheet")
 }

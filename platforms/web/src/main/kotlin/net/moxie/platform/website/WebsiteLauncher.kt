@@ -9,10 +9,7 @@ import io.ktor.server.netty.*
 import net.moxie.platform.website.css.commandStyleRoute
 import net.moxie.platform.website.css.homeStyleRoute
 import net.moxie.platform.website.css.navbarAndFooterStyleRoute
-import net.moxie.platform.website.routes.CommandRoute
-import net.moxie.platform.website.routes.HomeRoute
-import net.moxie.platform.website.routes.InviteRoute
-import net.moxie.platform.website.routes.SupportRoute
+import net.moxie.platform.website.routes.*
 import net.moxie.platform.website.routes.errors.error404
 import net.moxie.platform.website.routes.errors.serverError
 
@@ -36,6 +33,7 @@ fun Application.module() {
         CommandRoute(this)
         SupportRoute(this)
         InviteRoute(this)
+        LoginRoute(this)
         //     CSS ROUTES     //
         homeStyleRoute()
         navbarAndFooterStyleRoute()

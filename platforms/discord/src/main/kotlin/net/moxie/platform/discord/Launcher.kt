@@ -7,6 +7,7 @@ import dev.kord.gateway.PrivilegedIntent
 import net.moxie.platform.discord.extensions.DiscordCommands
 import net.moxie.platform.discord.extensions.MiscCommands
 import net.moxie.platform.discord.extensions.ModerationCommands
+import net.moxie.platform.discord.extensions.UtilitiesCommands
 import net.moxie.platform.discord.settings.DiscordSettings
 import net.moxie.platform.discord.settings.getSettings
 import java.io.File
@@ -17,6 +18,7 @@ import kotlin.io.path.Path
 import kotlin.io.path.exists
 import kotlin.system.exitProcess
 import kotlin.time.Duration
+
 
 val configs = try {
     getSettings<DiscordSettings>("configuration/common/discord.conf")
@@ -49,6 +51,7 @@ suspend fun main() {
 
         exitProcess(1)
     }
+
     val bot = ExtensibleBot(configs.client.token) {
         intents {
             + Intents(Intent.Guilds, Intent.GuildMembers, Intent.GuildEmojis)
@@ -74,6 +77,7 @@ suspend fun main() {
             add(::MiscCommands)
             add(::DiscordCommands)
             add(::ModerationCommands)
+            add(::UtilitiesCommands)
         }
     }
     bot.start()
