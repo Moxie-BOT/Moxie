@@ -1,3 +1,0 @@
-files:
-  - source: '/platforms/discord/src/main/resources/translations/commands/strings_pt_BR.properties'
-    translation: '/platforms/discord/src/main/resources/translations/commands/%file_name%_%locale_with_underscore%.%file_extension%'

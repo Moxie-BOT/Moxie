@@ -1,5 +1,8 @@
 rootProject.name = "Moxie"
+
 include(
+    ":platforms:database",
     ":platforms:discord",
-    ":platforms:web"
+    ":website",
+    ":common"
 )

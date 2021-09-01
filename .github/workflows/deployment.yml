@@ -17,13 +17,3 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build
-      - uses: actions/upload-artifact@v2
-        name: "Upload Moxie Discord"
-        with:
-          name: Moxie Discord
-          path: platforms/discord/build/libs/*-fat.jar
-      - uses: actions/upload-artifact@v2
-        name: "Upload Moxie Web"
-        with:
-          name: Moxie Web
-          path: platforms/web/build/libs/*-fat.jar

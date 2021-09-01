@@ -1,7 +1,8 @@
-/.gradle/
-/.idea/
-/build/
-/configuration/common/*.conf
-/platforms/build
-/platforms/discord/build
-/platforms/web/build
+build
+.idea
+common/build
+platforms/build
+platforms/discord/build
+platforms/database/build
+website/build
+moxie.instance.conf
